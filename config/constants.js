@@ -21,6 +21,8 @@ const tReplicate = 3600;
 // the time after which the original publisher must republish a key/value pair
 const tRepublish = 86400;
 
+const ipAddress = "192.168.1.1";
+
 module.exports = {
     'alpha': alpha,
     'B': B,
@@ -28,5 +30,6 @@ module.exports = {
     'tExpire': tExpire,
     'tRefresh': tRefresh,
     'tReplicate': tReplicate,
-    'tRepublish': tRepublish
+    'tRepublish': tRepublish,
+    'ipAddress': ipAddress
 };
