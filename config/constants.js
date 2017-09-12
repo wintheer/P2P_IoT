@@ -23,7 +23,7 @@ const tRepublish = 86400;
 
 module.exports = {
     'alpha': alpha,
-    'B': b,
+    'B': B,
     'k': k,
     'tExpire': tExpire,
     'tRefresh': tRefresh,
