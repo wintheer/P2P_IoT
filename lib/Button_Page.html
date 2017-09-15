@@ -3,7 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Ping</title>
-    <button type="button">Click me!</button>
+    <button onclick="myFunction()">Click me</button>
+
+    <script>
+        function myFunction() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET',"http://localhost:8282/api/node/ping", true)
+            xhr.send();
+        }
+    </script>
 </head>
 <body>
 </body>
