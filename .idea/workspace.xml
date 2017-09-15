@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7347eb3b-3e44-4d7a-954a-c954e1512d5c" name="Default" comment="Problem med at programmet overskriver den samme node og giver dem det samme nodeid">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/Routingtable.js" />
+    <list default="true" id="7347eb3b-3e44-4d7a-954a-c954e1512d5c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/Index.js" afterPath="$PROJECT_DIR$/lib/Index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/Node.js" afterPath="$PROJECT_DIR$/lib/Node.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/kBucket.js" afterPath="$PROJECT_DIR$/lib/kBucket.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -63,8 +60,8 @@
       <file leaf-file-name="kBucket.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/kBucket.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+            <state relative-caret-position="108">
+              <caret line="4" column="22" lean-forward="false" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -258,7 +255,7 @@
       <workItem from="1505203651234" duration="9749000" />
       <workItem from="1505247637478" duration="2128000" />
       <workItem from="1505384614635" duration="5057000" />
-      <workItem from="1505461094149" duration="5104000" />
+      <workItem from="1505461094149" duration="5367000" />
     </task>
     <task id="LOCAL-00001" summary="Arbejdet lidt med konstruktoren">
       <created>1505118640472</created>
@@ -316,11 +313,18 @@
       <option name="project" value="LOCAL" />
       <updated>1505394975039</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="kBucket opdateret, Routingtable lavet og fået implementeret nogle metoder">
+      <created>1505466869656</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1505466869656</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38176000" />
+    <option name="totallyTimeSpent" value="38439000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1920" height="989" extended-state="6" />
@@ -357,7 +361,8 @@
     <MESSAGE value="En ny metode til at lave et random nummer, hvis der er behov for det" />
     <MESSAGE value="Afstands-metoden er sat ind i kbucket klassen" />
     <MESSAGE value="Problem med at programmet overskriver den samme node og giver dem det samme nodeid" />
-    <option name="LAST_COMMIT_MESSAGE" value="Problem med at programmet overskriver den samme node og giver dem det samme nodeid" />
+    <MESSAGE value="kBucket opdateret, Routingtable lavet og fået implementeret nogle metoder" />
+    <option name="LAST_COMMIT_MESSAGE" value="kBucket opdateret, Routingtable lavet og fået implementeret nogle metoder" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -752,8 +757,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/kBucket.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+        <state relative-caret-position="108">
+          <caret line="4" column="22" lean-forward="false" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
           <folding />
         </state>
       </provider>
