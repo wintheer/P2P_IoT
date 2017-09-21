@@ -4,11 +4,17 @@
     <meta charset="UTF-8">
     <title>Ping</title>
     <button onclick="myFunction()">Click me</button>
+    <button onclick="led()">led</button>
 
     <script>
         function myFunction() {
             var xhr = new XMLHttpRequest();
             xhr.open('GET',"http://localhost:8283/api/node/ping", true)
+            xhr.send();
+        }
+        function led() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET',"http://localhost:8283/api/actuators/led", true)
             xhr.send();
         }
     </script>
