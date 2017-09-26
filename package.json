@@ -1,21 +1,23 @@
 {
-  "name": "p2p-iot",
-  "version": "0.0.0",
-  "private": true,
-  "description": "Ahmad Issa, Kasper Svendsen, Frederik Winther and Linoj Ravindran",
-  "repository": "http://www.github.com/wintheer/P2P_IoT",
+  "name": "p2p_iot",
+  "version": "1.0.0",
+  "description": "nej",
+  "main": "index.js",
   "scripts": {
-    "start": "node ./bin/www"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wintheer/P2P_IoT.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wintheer/P2P_IoT/issues"
+  },
+  "homepage": "https://github.com/wintheer/P2P_IoT#readme",
   "dependencies": {
-    "async": "^2.5.0",
-    "body-parser": "~1.17.1",
-    "cookie-parser": "~1.4.3",
-    "debug": "~2.6.3",
-    "express": "~4.15.2",
-    "jade": "~1.11.0",
-    "morgan": "~1.8.1",
-    "request": "2.x.x",
-    "serve-favicon": "~2.4.2"
+    "body-parser": "^1.18.1",
+    "express": "^4.15.4"
   }
 }
