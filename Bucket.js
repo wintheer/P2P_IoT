@@ -1,7 +1,7 @@
 
 var https = require('https');
 
-var constants = require('../../Downloads/P2P_IoT-master/P2P_IoT-master/config/constants');
+var constants = require('config/constants');
 
 var nodeList;
 
