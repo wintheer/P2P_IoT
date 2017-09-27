@@ -62,10 +62,8 @@ function addPeer(otherNode) {
 function findNode(otherNodeID) {
     var neighbourNodes;
     var bucketIndex = utilities.findMostSignificantBit(findDistanceBetweenNodes(index.getNodeID(), otherNodeID));
-    var step = 0;
-    var space_Left;
+    var step = 1;
     neighbourNodes = routingTable[bucketIndex];
-    step++;
     // Bliver ved med at gå til venstre og højre for den nuværende bucket og tilføjer nodes til foundnodes,
     // som er de tætteste naboer, går sålænge der stadig er buckets tilbage
     while(bucketIndex + step < neighbourNodes.length() && bucketIndex - step >= 0){
