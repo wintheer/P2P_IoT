@@ -3,12 +3,22 @@
   <title>Kademlia PoC</title>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="back.js"></script>
-
+    <script src="../config/constants.js"></script>
+    //Importer constant i back.js senere :)
+    <link rel="stylesheet" type="text/css" href="index%20style.css">
 </head>
-
 <html>
    <body>
+        <div id="myInfo"></div>
+        <br>
         <button type="button" onclick="ping()">Ping</button>
-
+        <br>
+        ID:<br>
+        <input type="text" id="ID" placeholder="Enter ID">
+        <br>
+        Port:<br>
+        <input type="text" id="Port" placeholder="Port">
+        <br><br>
+        <button type="button" onclick="ping2()">Ping2</button>
    </body>
 </html>

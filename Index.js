@@ -11,6 +11,11 @@ var nodeID;
 var nodeIDList = [];
 
 
+function initialNode() {
+    //Add specific other node
+    //Add node argument
+
+}
 // We need this to be able to call cross-origin, 
 // which means that to different peers calling eachother 
 // on different ports
@@ -38,19 +43,21 @@ app.post('/api/node/ping', function(req, res, next) {
     // Update Buckets
     
     res.send({'event': 'PONG', 'nodeID': nodeID, 'port': port});
-})
+});
 
 // Able to return information about this peer
 app.get('/api/node/info', function (req, res, next) {
    res.json({'nodeID': node.nodeID, 'port': port});
-})
+});
+
+
 
 var server = app.listen(port, function () {
    //var host = server.address().address;
    var port = server.address().port;
     node = createNode();
     console.log('Server listening on http://localhost:' + port);
-})
+});
 
 function createNode() {
     var nodeItem;
@@ -74,4 +81,4 @@ module.exports ={
     getPort: function() {
         return port;
     }
-}
+};
