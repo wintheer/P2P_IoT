@@ -1,8 +1,11 @@
 var randomNr = require('./Utilities');
 var express = require('express'), bodyParser = require('body-parser');
 var constants = require('./config/constants');
-var routing = require('./Routingtable');
-var routingTable = new routing();
+var http = require('http');
+var axios = require('axios');
+//var routing = require('./RoutingTable');
+//var routingTable = new routing();
+var bucket = require('./bucket');
 var app = express();
 app.use(bodyParser.json());
 var path = require("path");
@@ -10,19 +13,18 @@ var nodeClass = require('./lib/Node');
 var port = process.argv.slice(2)[0];
 var node;
 var nodeID;
+var nodeList = [];
 var nodeIDList = [];
 var buckets = [];
+var routingTable = [];
 
 
-function initialNode() {
-    //Add specific other node
-    //Add node argument
+//------------------------------------------ Server Functions -------------------------------------------------
 
-}
 // We need this to be able to call cross-origin, 
 // which means that to different peers calling eachother 
 // on different ports
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
@@ -33,14 +35,14 @@ app.use(express.static('public'));
 // which then uses inheritance to allow all routes
 // to get information from cross-origin calls
 app.get('/', function (req, res, next) {
-     res.sendFile(path.join(__dirname + '/public/index.html'));
+    res.sendFile(path.join(__dirname + '/public/index.html'));
 })
 
 //Post Request expecting nodeID and port in body
-app.post('/api/node/ping', function(req, res, next) {
+app.post('/api/node/ping', function (req, res, next) {
     var remote_nodeid = req.body['nodeID'];
     var remote_port = req.body['port'];
-    console.log('From noteid', remote_nodeid, 'port', remote_port );
+    console.log('From noteid', remote_nodeid, 'port', remote_port);
     // Update Buckets
     res.send({'event': 'PONG', 'nodeID': node.nodeID, 'port': port});
 
@@ -51,15 +53,19 @@ app.post('/api/node/ping', function(req, res, next) {
 
 // Able to return information about this peer
 app.get('/api/node/info', function (req, res, next) {
-   res.json({'nodeID': node.nodeID, 'port': port});
+    res.json({'nodeID': node.nodeID, 'port': port});
 });
 
-
-
 var server = app.listen(port, function () {
-   //var host = server.address().address;
-   var port = server.address().port;
+    var port = server.address().port;
     node = createNode();
+    nodeID = node.nodeID;
+    addNode(219, 9952);
+    console.log("Added Node", nodeList);
+
+
+
+
     console.log('Server listening on http://localhost:' + port);
 });
 
@@ -68,7 +74,6 @@ function createNode() {
     var generatedNodeID = randomNr.createQuasi(8);
     if (nodeIDList.indexOf(generatedNodeID) === -1) {
         nodeIDList.push(generatedNodeID);
-
         nodeItem = new nodeClass.node(generatedNodeID, constants.ipAddress, port)
     }
     else {
@@ -85,7 +90,96 @@ var getThisNodePort = function () {
     return port;
 };
 
-module.exports ={
+module.exports = {
     getThisNodeID: getThisNodeID(),
     getThisNodePort: getThisNodePort()
 };
+
+//-------------------------------------------- BUCKET FUNCTIONS ---------------------------------------
+/**Adds a node with ID, Port and IP
+ *
+ * @param nodeID
+ * @param Port
+ */
+function addNode(nodeID, Port) {
+    var tempNode;
+    if (nodeList.length >= constants.k) {
+        var deadNode = pingAllIdsInBucket();
+
+        // If a pinged node doesn't respond, this node will be removed.
+        if (deadNode !== null) {
+            deleteNote(deadNode);
+            tempNode = new nodeClass.node(nodeID, constants.ipAddress, Port);
+            nodeList.push(tempNode);
+        }
+        console.log("Bucket is full and all nodes are alive.")
+    }
+    else {
+        tempNode = new nodeClass.node(nodeID, constants.ipAddress, Port);
+        nodeList.push(tempNode);
+    }
+};
+
+/**
+ * Deletes a given node from the bucket
+ * @param node
+ */
+function deleteNote(node) {
+    var index = getNodeIndex(node);
+    //Only removes the node, if it's in the array
+    if (index !== 0) {
+        nodeList.splice(index, 1);
+    }
+}
+
+function getNodeIndex(node) {
+    return nodeList.indexOf(node);
+}
+
+function isBucketFull(){
+    return nodeList.length === constants.k;
+};
+/**
+ This method returns the first dead node it finds
+ */
+/*
+var pingAllIdsInBucket = function() {
+    if (nodeList.length > 0){
+        var counter = 0;
+        var foundDeadNode = false;
+        var deadNode;
+        var currentNode = nodeList[counter];
+        var url = constants.ipAddress + currentNode.port;
+        console.log("URL", url);
+        //This function should ping all the IDs in the list until it finds a dead node
+        if(counter < nodeList.length && foundDeadNode == false) {   //Skal det ikke være en While løkke eller en for-løkke?
+            //The format is https://ipaddress/port/nodeID
+            axios.get(url)
+                .then(function (response) {
+                    console.log("success",response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            /!*
+            http.get(url , function(parameters) {
+                var res = parameters.res;
+
+                if (res == 200) {
+                    counter++
+                }
+
+                else {
+                    foundDeadNode = true;
+                    deadNode = nodeList[counter];
+                }
+            });
+            *!/
+        }
+
+        //Returns the dead node if there has been found one
+        return deadNode;
+    }
+};*/
+
+//---------------------------------------- ROUTING TABLE FUNCTIONS -------------------------------------

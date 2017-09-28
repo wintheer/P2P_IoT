@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/wintheer/P2P_IoT#readme",
   "dependencies": {
+    "axios": "^0.16.2",
     "body-parser": "^1.18.1",
     "express": "^4.15.4"
   }

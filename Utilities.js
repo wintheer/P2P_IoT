@@ -27,7 +27,6 @@ exports.createQuasi = function (nrOfBit) {
  */
 exports.findMostSignificantBit = function (distanceInDecimal) {
     var indexNumber = 0;
-
     while (distanceInDecimal !== 0) {
         indexNumber++;
         distanceInDecimal >>>= 1;

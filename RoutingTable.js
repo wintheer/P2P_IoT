@@ -24,22 +24,23 @@ function createBuckets() {
 }
 
 var findDistanceBetweenNodes =  function(nodeID, otherNodeID) {
-    return distance = nodeID ^ otherNodeID;
+    var distance = nodeID ^ otherNodeID;
+    return distance;
 };
 
 /**
  * Puts the given nodeID with the given distance from this node in the right bucket index
  */
 var putInRightIndexedBucket = function(otherNodeID) {
-    var index = utilities.findMostSignificantBit(findDistanceBetweenNodes(index.getThisNodeID(), otherNodeID));
-    var currentBucket = routingTable[index];
+    var something = utilities.findMostSignificantBit(findDistanceBetweenNodes(index.getThisNodeID(), otherNodeID));
+    var currentBucket = routingTable[something];
 
     // If the bucket is full, it will ping all it's notes to see, if can switch it out with the new node
     if(currentBucket.isBucketFull) {
         currentBucket.pingAllIdsInBucket();
     }
     else {
-        routingTable[index].addNode(otherNodeID);
+        routingTable[something].addNode(otherNodeID);
     }
 };
 

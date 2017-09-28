@@ -1,6 +1,5 @@
-
 var https = require('https');
-var node = require("./lib/Node");
+var nodeClass = require("./lib/Node");
 
 var constants = require('./config/constants');
 
@@ -18,12 +17,14 @@ var addNode = function(nodeID, Port) {
         // If a pinged node doesn't respond, this node will be removed.
         if (deadNode != null) {
             deleteNote(deadNode);
-            nodeList.push(new node.node(nodeID, constants.ipAddress, Port));
+            var tempNode = new nodeClass.node(nodeID, constants.ipAddress, Port)
+            nodeList.push(tempNode);
         }
         console.log("Bucket is full and all nodes are alive.")
     }
     else {
-        nodeList.push(new node.node(nodeID, constants.ipAddress, Port));
+        var tempNode = new nodeClass.node(nodeID, constants.ipAddress, Port)
+        nodeList.push(tempNode);
     }
 };
 
