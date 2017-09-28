@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7347eb3b-3e44-4d7a-954a-c954e1512d5c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Bucket.js" afterPath="$PROJECT_DIR$/Bucket.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Index.js" afterPath="$PROJECT_DIR$/Index.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Routingtable.js" afterPath="$PROJECT_DIR$/Routingtable.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -19,7 +17,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Index.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="238">
@@ -39,11 +37,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Routingtable.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Routingtable.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Routingtable.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="23" lean-forward="false" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
+            <state relative-caret-position="1972">
+              <caret line="116" column="73" lean-forward="false" selection-start-line="116" selection-start-column="73" selection-end-line="116" selection-end-column="73" />
               <folding />
             </state>
           </provider>
@@ -99,6 +97,16 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="Actuators.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/Actuators.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="17" column="2" lean-forward="true" selection-start-line="17" selection-start-column="2" selection-end-line="17" selection-end-column="2" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -125,7 +133,11 @@
       <find>;</find>
       <find>consta</find>
       <find>routing</find>
+      <find>workspace</find>
     </findStrings>
+    <dirStrings>
+      <dir>C:\Users\Ahmad\WebstormProjects\P2P_IoT\node_modules</dir>
+    </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -216,11 +228,6 @@
               <item name="P2P_IoT" type="b2602c69:ProjectViewProjectNode" />
               <item name="P2P_IoT" type="462c0819:PsiDirectoryNode" />
               <item name="config" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="P2P_IoT" type="b2602c69:ProjectViewProjectNode" />
-              <item name="P2P_IoT" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="P2P_IoT" type="b2602c69:ProjectViewProjectNode" />
@@ -419,7 +426,7 @@
       <workItem from="1506442380731" duration="352000" />
       <workItem from="1506500882712" duration="741000" />
       <workItem from="1506519727343" duration="4446000" />
-      <workItem from="1506587396382" duration="1904000" />
+      <workItem from="1506587396382" duration="2266000" />
     </task>
     <task id="LOCAL-00001" summary="Arbejdet lidt med konstruktoren">
       <created>1505118640472</created>
@@ -554,11 +561,18 @@
       <option name="project" value="LOCAL" />
       <updated>1506589084821</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Requirement now work">
+      <created>1506589319832</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1506589319832</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="84583000" />
+    <option name="totallyTimeSpent" value="84945000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
@@ -567,8 +581,9 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12486828" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36774194" sideWeight="0.5126449" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28709677" sideWeight="0.4873551" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28709677" sideWeight="0.4873551" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -579,7 +594,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -606,7 +620,8 @@
     <MESSAGE value="Fixed stupid error" />
     <MESSAGE value="stuff" />
     <MESSAGE value="Made Manual Ping" />
-    <option name="LAST_COMMIT_MESSAGE" value="Made Manual Ping" />
+    <MESSAGE value="Requirement now work" />
+    <option name="LAST_COMMIT_MESSAGE" value="Requirement now work" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -707,6 +722,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="15" column="62" lean-forward="false" selection-start-line="15" selection-start-column="62" selection-end-line="15" selection-end-column="62" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -726,26 +742,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/Node.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/constants.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
           <caret line="23" column="19" lean-forward="false" selection-start-line="23" selection-start-column="18" selection-end-line="23" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/Actuators.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="18" lean-forward="true" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
           <folding />
         </state>
       </provider>
@@ -774,18 +774,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Routingtable.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="23" lean-forward="false" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="14" column="24" lean-forward="true" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/Node.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/Actuators.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="2" lean-forward="true" selection-start-line="17" selection-start-column="2" selection-end-line="17" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Routingtable.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1972">
+          <caret line="116" column="73" lean-forward="false" selection-start-line="116" selection-start-column="73" selection-end-line="116" selection-end-column="73" />
           <folding />
         </state>
       </provider>

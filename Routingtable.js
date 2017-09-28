@@ -12,7 +12,7 @@ var utilities = require('./Utilities');
 var routingTable = [];
 
 function RoutingTable() {
-    createBuckets();
+    this.createBuckets();
 }
 
 
@@ -23,15 +23,15 @@ RoutingTable.prototype.createBuckets = function() {
     }
 };
 
-function findDistanceBetweenNodes(nodeID, otherNodeID) {
+RoutingTable.prototype.findDistanceBetweenNodes = function(nodeID, otherNodeID) {
     return distance = nodeID ^ otherNodeID;
-}
+};
 
 /**
  * Puts the given nodeID with the given distance from this node in the right bucket index
  */
-function putInRightIndexedBucket(otherNodeID) {
-    var index = utilities.findMostSignificantBit(findDistanceBetweenNodes(index.getNodeID(), otherNodeID));
+RoutingTable.prototype.putInRightIndexedBucket = function(otherNodeID) {
+    var index = utilities.findMostSignificantBit(RoutingTable.findDistanceBetweenNodes(index.getNodeID(), otherNodeID));
     var currentBucket = routingTable[index];
 
     // If the bucket is full, it will ping all it's notes to see, if can switch it out with the new node
@@ -41,10 +41,10 @@ function putInRightIndexedBucket(otherNodeID) {
     else {
         routingTable[index].addNode(otherNodeID);
     }
-}
+};
 
 //Når ping er kaldet
-function addPeer(otherNode) {
+RoutingTable.prototype.addPeer = function(otherNode) {
     // What is the other Node's ID?
     var otherNodeID = otherNode.nodeID;
     // Which bucket to look in?
@@ -56,10 +56,10 @@ function addPeer(otherNode) {
 
     //putInRightIndexedBucket skal kaldes her
 
-}
+};
 
 
-function findNode(otherNodeID) {
+RoutingTable.prototype.findNode = function(otherNodeID) {
     var neighbourNodes;
     var bucketIndex = utilities.findMostSignificantBit(findDistanceBetweenNodes(index.getNodeID(), otherNodeID));
     var step = 1;
@@ -108,7 +108,7 @@ function findNode(otherNodeID) {
     //Slut af med at tage alt til venstre
     //Lav en liste af nodes og returnér.
     return neighbourNodes;
-}
+};
 
 // Har vi allerede kontakten? Slet og append
 // returner en bucket med nodes der har den definerede afstand
