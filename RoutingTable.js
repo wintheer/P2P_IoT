@@ -24,14 +24,15 @@ RoutingTable.prototype.createBuckets = function() {
 };
 
 RoutingTable.prototype.findDistanceBetweenNodes = function(nodeID, otherNodeID) {
-    return distance = nodeID ^ otherNodeID;
+    var distance = nodeID ^ otherNodeID;
+    return distance;
 };
 
 /**
  * Puts the given nodeID with the given distance from this node in the right bucket index
  */
 RoutingTable.prototype.putInRightIndexedBucket = function(otherNodeID) {
-    var index = utilities.findMostSignificantBit(RoutingTable.findDistanceBetweenNodes(index.getNodeID(), otherNodeID));
+    var index = utilities.findMostSignificantBit(RoutingTable.this.findDistanceBetweenNodes(index.getNodeID(), otherNodeID));
     var currentBucket = routingTable[index];
 
     // If the bucket is full, it will ping all it's notes to see, if can switch it out with the new node
@@ -48,7 +49,7 @@ RoutingTable.prototype.addPeer = function(otherNode) {
     // What is the other Node's ID?
     var otherNodeID = otherNode.nodeID;
     // Which bucket to look in?
-    var currentBucket = utilities.findMostSignificantBit(findDistanceBetweenNodes(otherNodeID));
+    var currentBucket = utilities.findMostSignificantBit(this.findDistanceBetweenNodes(otherNodeID));
     //Indeholder jeg allerede denne peer?
     if(routingTable[currentBucket].indexOf(otherNode)) {
         //Slet dette element og erstat med det samme objekt
@@ -61,7 +62,7 @@ RoutingTable.prototype.addPeer = function(otherNode) {
 
 RoutingTable.prototype.findNode = function(otherNodeID) {
     var neighbourNodes;
-    var bucketIndex = utilities.findMostSignificantBit(findDistanceBetweenNodes(index.getNodeID(), otherNodeID));
+    var bucketIndex = utilities.findMostSignificantBit(this.findDistanceBetweenNodes(index.getNodeID(), otherNodeID));
     var step = 1;
     neighbourNodes = routingTable[bucketIndex];
     // Bliver ved med at gå til venstre og højre for den nuværende bucket og tilføjer nodes til foundnodes,

@@ -1,9 +1,18 @@
-#myInfo{
-    /*border-style: solid;*/
-    display:inline;
+#myInfo {
+    border: solid;
+    display: inline-block;
+    padding: 5px;
 
 }
 
 body{
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 
+h3{
+    padding: 0px;
+    margin: 0px;
 }

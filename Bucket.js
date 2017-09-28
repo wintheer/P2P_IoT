@@ -49,7 +49,7 @@ function getNodeIndex(node) {
 }
 
 // This method returns the first dead node it finds
-function pingAllIdsInBucket() {
+Bucket.prototype.pingAllIdsInBucket = function() {
     var counter = 0;
     var foundDeadNode = false;
     var deadNode;
