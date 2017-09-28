@@ -1,7 +1,7 @@
 
 var https = require('https');
 
-var constants = require('config/constants');
+var constants = require('./config/constants');
 
 var nodeList;
 

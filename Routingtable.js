@@ -4,9 +4,9 @@
  * k nodes
  */
 
-//var constants = require('../../Downloads/P2P_IoT-master/P2P_IoT-master/config/constants');
+var constants = require('./config/constants');
 var bucket = require('./Bucket');
-//var index = require('../../Downloads/P2P_IoT-master/P2P_IoT-master/Index');
+var index = require('./Index');
 var utilities = require('./Utilities');
 
 var routingTable = [];

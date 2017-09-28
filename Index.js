@@ -1,7 +1,7 @@
 var randomNr = require('./Utilities');
 var express = require('express'), bodyParser = require('body-parser');
 var constants = require('./config/constants');
-var routingTable = require('Routingtable');
+var routingTable = require('./Routingtable');
 var app = express();
 app.use(bodyParser.json());
 var path = require("path");
