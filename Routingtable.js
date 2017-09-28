@@ -12,26 +12,26 @@ var utilities = require('./Utilities');
 var routingTable = [];
 
 function RoutingTable() {
-    this.createBuckets();
+    createBuckets();
 }
 
 
 // Creates k-buckets
-RoutingTable.prototype.createBuckets = function() {
-    for(var i = 0; i < constants.k; i++){
+function createBuckets() {
+    for(var i = 0; i < constants.k; i++) {
         routingTable.push(new bucket());
     }
-};
+}
 
-RoutingTable.prototype.findDistanceBetweenNodes = function(nodeID, otherNodeID) {
+var findDistanceBetweenNodes =  function(nodeID, otherNodeID) {
     return distance = nodeID ^ otherNodeID;
 };
 
 /**
  * Puts the given nodeID with the given distance from this node in the right bucket index
  */
-RoutingTable.prototype.putInRightIndexedBucket = function(otherNodeID) {
-    var index = utilities.findMostSignificantBit(RoutingTable.findDistanceBetweenNodes(index.getNodeID(), otherNodeID));
+var putInRightIndexedBucket = function(otherNodeID) {
+    var index = utilities.findMostSignificantBit(findDistanceBetweenNodes(index.getNodeID(), otherNodeID));
     var currentBucket = routingTable[index];
 
     // If the bucket is full, it will ping all it's notes to see, if can switch it out with the new node
@@ -44,7 +44,7 @@ RoutingTable.prototype.putInRightIndexedBucket = function(otherNodeID) {
 };
 
 //Når ping er kaldet
-RoutingTable.prototype.addPeer = function(otherNode) {
+var addPeer = function(otherNode) {
     // What is the other Node's ID?
     var otherNodeID = otherNode.nodeID;
     // Which bucket to look in?
@@ -59,7 +59,7 @@ RoutingTable.prototype.addPeer = function(otherNode) {
 };
 
 
-RoutingTable.prototype.findNode = function(otherNodeID) {
+var findNode = function(otherNodeID) {
     var neighbourNodes;
     var bucketIndex = utilities.findMostSignificantBit(findDistanceBetweenNodes(index.getNodeID(), otherNodeID));
     var step = 1;
@@ -108,6 +108,13 @@ RoutingTable.prototype.findNode = function(otherNodeID) {
     //Slut af med at tage alt til venstre
     //Lav en liste af nodes og returnér.
     return neighbourNodes;
+};
+
+module.exports = {
+    findDistanceBetweenNodes: findDistanceBetweenNodes(),
+    findNode: findNode(),
+    addPeer: addPeer(),
+    putInRightIndexedBucket: putInRightIndexedBucket()
 };
 
 // Har vi allerede kontakten? Slet og append
