@@ -16,33 +16,11 @@ function RoutingTable() {
 }
 
 
-// Creates k-buckets
-function createBuckets() {
-    for(var i = 0; i < constants.k; i++) {
-        routingTable.push(new bucket());
-    }
-}
 
-var findDistanceBetweenNodes =  function(nodeID, otherNodeID) {
-    var distance = nodeID ^ otherNodeID;
-    return distance;
-};
 
-/**
- * Puts the given nodeID with the given distance from this node in the right bucket index
- */
-var putInRightIndexedBucket = function(otherNodeID) {
-    var something = utilities.findMostSignificantBit(findDistanceBetweenNodes(index.getThisNodeID(), otherNodeID));
-    var currentBucket = routingTable[something];
 
-    // If the bucket is full, it will ping all it's notes to see, if can switch it out with the new node
-    if(currentBucket.isBucketFull) {
-        currentBucket.pingAllIdsInBucket();
-    }
-    else {
-        routingTable[something].addNode(otherNodeID);
-    }
-};
+
+
 
 //Når ping er kaldet
 var addPeer = function(otherNodeID) {

@@ -3,8 +3,13 @@ var nodeClass = require("./lib/Node");
 
 var constants = require('./config/constants');
 
-var nodeList =[];
+var nodeList;
 
+function Bucket() {
+    nodeList = []
+}
+
+Bucket.prototype
 var isBucketFull = function(){
     return nodeList.length === constants.k;
 };
@@ -76,6 +81,7 @@ var pingAllIdsInBucket = function() {
 };
 
 module.exports = {
+    Bucket: Bucket(),
     pingAllIdsInBucket: pingAllIdsInBucket(),
     getNodeIndex: getNodeIndex(),
     isBucketFull: isBucketFull(),

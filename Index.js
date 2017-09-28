@@ -1,4 +1,4 @@
-var randomNr = require('./Utilities');
+var utility = require('./Utilities');
 var express = require('express'), bodyParser = require('body-parser');
 var constants = require('./config/constants');
 var http = require('http');
@@ -60,8 +60,14 @@ var server = app.listen(port, function () {
     var port = server.address().port;
     node = createNode();
     nodeID = node.nodeID;
-    addNode(219, 9952);
-    console.log("Added Node", nodeList);
+
+
+
+
+    createBuckets();
+
+    //addNode(219, 9952);
+    //console.log("Added Node", nodeList);
 
 
 
@@ -71,7 +77,7 @@ var server = app.listen(port, function () {
 
 function createNode() {
     var nodeItem;
-    var generatedNodeID = randomNr.createQuasi(8);
+    var generatedNodeID = utility.createQuasi(8);
     if (nodeIDList.indexOf(generatedNodeID) === -1) {
         nodeIDList.push(generatedNodeID);
         nodeItem = new nodeClass.node(generatedNodeID, constants.ipAddress, port)
@@ -143,7 +149,7 @@ function isBucketFull(){
  This method returns the first dead node it finds
  */
 /*
-var pingAllIdsInBucket = function() {
+function pingAllIdsInBucket() {
     if (nodeList.length > 0){
         var counter = 0;
         var foundDeadNode = false;
@@ -183,3 +189,44 @@ var pingAllIdsInBucket = function() {
 };*/
 
 //---------------------------------------- ROUTING TABLE FUNCTIONS -------------------------------------
+
+
+
+/**
+ * Creates k buckets
+ */
+function createBuckets() {
+    for(var i = 0; i < constants.k; i++) {
+        var tempArray = [];
+        routingTable.push(tempArray);
+    }
+}
+
+/**
+ *
+ * @param nodeID
+ * @param otherNodeID
+ * @returns {number}
+ */
+function findDistanceBetweenNodes(nodeID, otherNodeID) {
+    var distance = nodeID ^ otherNodeID;
+    return distance;
+}
+
+
+/**
+ * Puts the given nodeID with the given distance from this node in the right bucket index
+ */
+function putInRightIndexedBucket(otherNodeID) {
+    var localIndex = utility.findMostSignificantBit(findDistanceBetweenNodes(nodeID, otherNodeID));
+    var currentBucket = routingTable[localIndex];
+
+    // If the bucket is full, it will ping all it's notes to see, if can switch it out with the new node
+    if(currentBucket.isBucketFull) {
+        currentBucket.pingAllIdsInBucket();
+    }
+    else {
+        routingTable[localIndex].addNode(otherNodeID);
+    }
+}
+
