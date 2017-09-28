@@ -12,27 +12,26 @@ var utilities = require('./Utilities');
 var routingTable = [];
 
 function RoutingTable() {
-    this.createBuckets();
+    createBuckets();
 }
 
 
 // Creates k-buckets
-RoutingTable.prototype.createBuckets = function() {
-    for(var i = 0; i < constants.k; i++){
+function createBuckets() {
+    for(var i = 0; i < constants.k; i++) {
         routingTable.push(new bucket());
     }
-};
+}
 
-RoutingTable.prototype.findDistanceBetweenNodes = function(nodeID, otherNodeID) {
-    var distance = nodeID ^ otherNodeID;
-    return distance;
+var findDistanceBetweenNodes =  function(nodeID, otherNodeID) {
+    return distance = nodeID ^ otherNodeID;
 };
 
 /**
  * Puts the given nodeID with the given distance from this node in the right bucket index
  */
-RoutingTable.prototype.putInRightIndexedBucket = function(otherNodeID) {
-    var index = utilities.findMostSignificantBit(RoutingTable.this.findDistanceBetweenNodes(index.getNodeID(), otherNodeID));
+var putInRightIndexedBucket = function(otherNodeID) {
+    var index = utilities.findMostSignificantBit(findDistanceBetweenNodes(index.getNodeID(), otherNodeID));
     var currentBucket = routingTable[index];
 
     // If the bucket is full, it will ping all it's notes to see, if can switch it out with the new node
@@ -45,11 +44,11 @@ RoutingTable.prototype.putInRightIndexedBucket = function(otherNodeID) {
 };
 
 //Når ping er kaldet
-RoutingTable.prototype.addPeer = function(otherNode) {
+var addPeer = function(otherNode) {
     // What is the other Node's ID?
     var otherNodeID = otherNode.nodeID;
     // Which bucket to look in?
-    var currentBucket = utilities.findMostSignificantBit(this.findDistanceBetweenNodes(otherNodeID));
+    var currentBucket = utilities.findMostSignificantBit(findDistanceBetweenNodes(otherNodeID));
     //Indeholder jeg allerede denne peer?
     if(routingTable[currentBucket].indexOf(otherNode)) {
         //Slet dette element og erstat med det samme objekt
@@ -60,9 +59,9 @@ RoutingTable.prototype.addPeer = function(otherNode) {
 };
 
 
-RoutingTable.prototype.findNode = function(otherNodeID) {
+var findNode = function(otherNodeID) {
     var neighbourNodes;
-    var bucketIndex = utilities.findMostSignificantBit(this.findDistanceBetweenNodes(index.getNodeID(), otherNodeID));
+    var bucketIndex = utilities.findMostSignificantBit(findDistanceBetweenNodes(index.getNodeID(), otherNodeID));
     var step = 1;
     neighbourNodes = routingTable[bucketIndex];
     // Bliver ved med at gå til venstre og højre for den nuværende bucket og tilføjer nodes til foundnodes,
@@ -109,6 +108,13 @@ RoutingTable.prototype.findNode = function(otherNodeID) {
     //Slut af med at tage alt til venstre
     //Lav en liste af nodes og returnér.
     return neighbourNodes;
+};
+
+module.exports = {
+    findDistanceBetweenNodes: findDistanceBetweenNodes(),
+    findNode: findNode(),
+    addPeer: addPeer(),
+    putInRightIndexedBucket: putInRightIndexedBucket()
 };
 
 // Har vi allerede kontakten? Slet og append

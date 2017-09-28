@@ -11,12 +11,12 @@ function Bucket() {
 }
 
 
-Bucket.prototype.isBucketFull = function(){
+var isBucketFull = function(){
     return nodeList.length === constants.k;
 };
 
 // Adds a node with ID, Port and IP
-Bucket.prototype.addNode = function(nodeID, Port) {
+var addNode = function(nodeID, Port) {
     if (nodeList.length >= constants.k) {
         var deadNode = pingAllIdsInBucket();
 
@@ -49,7 +49,7 @@ function getNodeIndex(node) {
 }
 
 // This method returns the first dead node it finds
-Bucket.prototype.pingAllIdsInBucket = function() {
+var pingAllIdsInBucket = function() {
     var counter = 0;
     var foundDeadNode = false;
     var deadNode;
@@ -75,5 +75,12 @@ Bucket.prototype.pingAllIdsInBucket = function() {
 
     //Returns the dead node if there has been found one
     return deadNode;
-}
+};
+
+module.exports = {
+    pingAllIdsInBucket: pingAllIdsInBucket(),
+    getNodeIndex: getNodeIndex(),
+    isBucketFull: isBucketFull(),
+    addNode: addNode()
+};
 
