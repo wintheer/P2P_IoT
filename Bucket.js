@@ -1,15 +1,10 @@
 
 var https = require('https');
+var node = require("./lib/Node");
 
 var constants = require('./config/constants');
 
-var nodeList;
-
-
-function Bucket() {
-    nodeList = [];
-}
-
+var nodeList =[];
 
 var isBucketFull = function(){
     return nodeList.length === constants.k;
@@ -23,12 +18,12 @@ var addNode = function(nodeID, Port) {
         // If a pinged node doesn't respond, this node will be removed.
         if (deadNode != null) {
             deleteNote(deadNode);
-            nodeList.push(new Node(nodeID, constants.ipAddress, Port));
+            nodeList.push(new node.node(nodeID, constants.ipAddress, Port));
         }
         console.log("Bucket is full and all nodes are alive.")
     }
     else {
-        nodeList.push(new Node(nodeID, constants.ipAddress, Port));
+        nodeList.push(new node.node(nodeID, constants.ipAddress, Port));
     }
 };
 
@@ -50,6 +45,7 @@ function getNodeIndex(node) {
 
 // This method returns the first dead node it finds
 var pingAllIdsInBucket = function() {
+    if (nodeList.length > 0){
     var counter = 0;
     var foundDeadNode = false;
     var deadNode;
@@ -75,6 +71,7 @@ var pingAllIdsInBucket = function() {
 
     //Returns the dead node if there has been found one
     return deadNode;
+    }
 };
 
 module.exports = {
