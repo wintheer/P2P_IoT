@@ -47,7 +47,7 @@ app.post('/api/node/ping', function (req, res, next) {
     res.send({'event': 'PONG', 'nodeID': node.nodeID, 'port': port});
 
     //buckets = routingTable.getRoutingTable();
-    //buckets[routingTable.putInRightIndexedBucket].addNode(remote_nodeid, remote_port);
+    //buckets[routingTable.putInRightIndexedBucket].addNodeTo(remote_nodeid, remote_port);
 
 });
 
@@ -66,7 +66,7 @@ var server = app.listen(port, function () {
 
     createBuckets();
 
-    //addNode(219, 9952);
+    //addNodeTo(219, 9952);
     //console.log("Added Node", nodeList);
 
 
@@ -107,7 +107,7 @@ module.exports = {
  * @param nodeID
  * @param Port
  */
-function addNode(nodeID, Port) {
+function addNodeTo(currentBucket, nodeID, Port) {
     var tempNode;
     if (nodeList.length >= constants.k) {
         var deadNode = pingAllIdsInBucket();
@@ -142,14 +142,19 @@ function getNodeIndex(node) {
     return nodeList.indexOf(node);
 }
 
-function isBucketFull(){
-    return nodeList.length === constants.k;
-};
+/**
+ * Checks if the given bucket is full
+ * @returns {boolean}
+ */
+function isBucketFull(currentBucket){
+    return currentBucket.length === constants.k;
+}
+
 /**
  This method returns the first dead node it finds
  */
 /*
-function pingAllIdsInBucket() {
+function pingAllIdsInBucket(currentBucket) {
     if (nodeList.length > 0){
         var counter = 0;
         var foundDeadNode = false;
@@ -217,16 +222,17 @@ function findDistanceBetweenNodes(nodeID, otherNodeID) {
 /**
  * Puts the given nodeID with the given distance from this node in the right bucket index
  */
-function putInRightIndexedBucket(otherNodeID) {
+function putInRightIndexedBucket(otherNodeID, otherNodePort) {
     var localIndex = utility.findMostSignificantBit(findDistanceBetweenNodes(nodeID, otherNodeID));
     var currentBucket = routingTable[localIndex];
 
     // If the bucket is full, it will ping all it's notes to see, if can switch it out with the new node
-    if(currentBucket.isBucketFull) {
-        currentBucket.pingAllIdsInBucket();
+    if(isBucketFull(currentBucket)) {
+        pingAllIdsInBucket(currentBucket);
     }
     else {
-        routingTable[localIndex].addNode(otherNodeID);
+        addNodeTo(routingTable[localIndex], otherNodeID, otherNodePort)
+
     }
 }
 
