@@ -11,6 +11,7 @@ var port = process.argv.slice(2)[0];
 var node;
 var nodeID;
 var nodeIDList = [];
+var buckets = [];
 
 
 function initialNode() {
@@ -43,6 +44,9 @@ app.post('/api/node/ping', function(req, res, next) {
     // Update Buckets
     res.send({'event': 'PONG', 'nodeID': node.nodeID, 'port': port});
 
+    //buckets = routingTable.getRoutingTable();
+    //buckets[routingTable.putInRightIndexedBucket].addNode(remote_nodeid, remote_port);
+
 });
 
 // Able to return information about this peer
@@ -73,12 +77,15 @@ function createNode() {
     return nodeItem;
 }
 
-module.exports ={
-    getNodeID: function() {
-        return nodeID;
-    },
+var getThisNodeID = function () {
+    return nodeID;
+};
 
-    getPort: function() {
-        return port;
-    }
+var getThisNodePort = function () {
+    return port;
+};
+
+module.exports ={
+    getThisNodeID: getThisNodeID(),
+    getThisNodePort: getThisNodePort()
 };

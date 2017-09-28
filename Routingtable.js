@@ -31,7 +31,7 @@ var findDistanceBetweenNodes =  function(nodeID, otherNodeID) {
  * Puts the given nodeID with the given distance from this node in the right bucket index
  */
 var putInRightIndexedBucket = function(otherNodeID) {
-    var index = utilities.findMostSignificantBit(findDistanceBetweenNodes(index.getNodeID(), otherNodeID));
+    var index = utilities.findMostSignificantBit(findDistanceBetweenNodes(index.getThisNodeID(), otherNodeID));
     var currentBucket = routingTable[index];
 
     // If the bucket is full, it will ping all it's notes to see, if can switch it out with the new node
@@ -44,15 +44,18 @@ var putInRightIndexedBucket = function(otherNodeID) {
 };
 
 //Når ping er kaldet
-var addPeer = function(otherNode) {
-    // What is the other Node's ID?
-    var otherNodeID = otherNode.nodeID;
+var addPeer = function(otherNodeID) {
     // Which bucket to look in?
     var currentBucket = utilities.findMostSignificantBit(findDistanceBetweenNodes(otherNodeID));
     //Indeholder jeg allerede denne peer?
+
+    /**
+     * Dette er ikke skrevet færdigt
+
     if(routingTable[currentBucket].indexOf(otherNode)) {
         //Slet dette element og erstat med det samme objekt
     }
+     */
 
     //putInRightIndexedBucket skal kaldes her
 
@@ -61,44 +64,46 @@ var addPeer = function(otherNode) {
 
 var findNode = function(otherNodeID) {
     var neighbourNodes;
-    var bucketIndex = utilities.findMostSignificantBit(findDistanceBetweenNodes(index.getNodeID(), otherNodeID));
+    var bucketIndex = utilities.findMostSignificantBit(findDistanceBetweenNodes(index.getThisNodeID, otherNodeID));
     var step = 1;
-    neighbourNodes = routingTable[bucketIndex];
-    // Bliver ved med at gå til venstre og højre for den nuværende bucket og tilføjer nodes til foundnodes,
-    // som er de tætteste naboer, går sålænge der stadig er buckets tilbage
-    while(bucketIndex + step < neighbourNodes.length() && bucketIndex - step >= 0){
-        // Går til højre
-        for (y = 0; y < routingTable[bucketIndex + step].length(); y++) {
-            if(neighbourNodes.length < constants.k){
-                neighbourNodes.push(bucket[y]);
+    if (routingTable.length > 0){
+        neighbourNodes = routingTable[bucketIndex];
+        // Bliver ved med at gå til venstre og højre for den nuværende bucket og tilføjer nodes til foundnodes,
+        // som er de tætteste naboer, går sålænge der stadig er buckets tilbage
+        while(bucketIndex + step < neighbourNodes.length() && bucketIndex - step >= 0){
+            // Går til højre
+            for (y = 0; y < routingTable[bucketIndex + step].length(); y++) {
+                if(neighbourNodes.length < constants.k){
+                    neighbourNodes.push(bucket[y]);
+                }
             }
-        }
 
-        // Går til venstre
-        for (y = 0; y < routingTable[bucketIndex - step].length(); y++) {
-            if(neighbourNodes.length < constants.k){
-                neighbourNodes.push(bucket[y]);
+            // Går til venstre
+            for (y = 0; y < routingTable[bucketIndex - step].length(); y++) {
+                if(neighbourNodes.length < constants.k){
+                    neighbourNodes.push(bucket[y]);
+                }
             }
+            step++;
         }
-        step++;
-    }
-    // Bliver ved med at gå til venstre, når der ikke er flere til højre for den nuværende bucket
-    while(bucketIndex - step >= 0){
-        for (y = 0; y < routingTable[bucketIndex - step].length(); y++) {
-            if(neighbourNodes.length < constants.k){
-                neighbourNodes.push(bucket[y]);
+        // Bliver ved med at gå til venstre, når der ikke er flere til højre for den nuværende bucket
+        while(bucketIndex - step >= 0){
+            for (y = 0; y < routingTable[bucketIndex - step].length(); y++) {
+                if(neighbourNodes.length < constants.k){
+                    neighbourNodes.push(bucket[y]);
+                }
             }
+            step++;
         }
-        step++;
-    }
-    // Bliver ved med at gå fra bucket til bucket så længe der er flere tilbage
-    while(bucketIndex + step < neighbourNodes.length()){
-        for (y = 0; y < routingTable[bucketIndex + step].length(); y++) {
-            if(neighbourNodes.length < constants.k){
-                neighbourNodes.push(bucket[y]);
+        // Bliver ved med at gå fra bucket til bucket så længe der er flere tilbage
+        while(bucketIndex + step < neighbourNodes.length()){
+            for (y = 0; y < routingTable[bucketIndex + step].length(); y++) {
+                if(neighbourNodes.length < constants.k){
+                    neighbourNodes.push(bucket[y]);
+                }
             }
+            step++;
         }
-        step++;
     }
 
     //Find bucket index
@@ -110,11 +115,16 @@ var findNode = function(otherNodeID) {
     return neighbourNodes;
 };
 
+var getRoutingTable = function () {
+    return routingTable;
+};
+
 module.exports = {
     findDistanceBetweenNodes: findDistanceBetweenNodes(),
     findNode: findNode(),
     addPeer: addPeer(),
-    putInRightIndexedBucket: putInRightIndexedBucket()
+    putInRightIndexedBucket: putInRightIndexedBucket(),
+    getRoutingTable: getRoutingTable()
 };
 
 // Har vi allerede kontakten? Slet og append
