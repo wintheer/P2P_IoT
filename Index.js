@@ -1,6 +1,7 @@
 var randomNr = require('./Utilities');
 var express = require('express'), bodyParser = require('body-parser');
 var constants = require('./config/constants');
+var routingTable = require('Routingtable');
 var app = express();
 app.use(bodyParser.json());
 var path = require("path");
@@ -37,12 +38,9 @@ app.get('/', function (req, res, next) {
 app.post('/api/node/ping', function(req, res, next) {
     var remote_nodeid = req.body['nodeID'];
     var remote_port = req.body['port'];
-
     console.log('From noteid', remote_nodeid, 'port', remote_port );
-    
     // Update Buckets
-    
-    res.send({'event': 'PONG', 'nodeID': nodeID, 'port': port});
+    res.send({'event': 'PONG', 'nodeID': node.nodeID, 'port': port});
 });
 
 // Able to return information about this peer

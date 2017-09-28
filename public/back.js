@@ -35,12 +35,13 @@ function ping() {
 }
 
 function ping2 () {
-    var fieldID =  document.getElementById("ID").value;
     var fieldPort = document.getElementById("Port").value;
-    var url = "http://localhost:" + fieldPort;
+    console.log(fieldPort);
+    var url = "http://localhost:" + fieldPort + '/api/node/ping';
+    console.log(url);
     axios.post(url, {
-        nodeID: fieldID,
-        port: fieldPort
+        nodeID: myNodeID,
+        port: myPort
     })
         .then(function (response) {
             console.log("Ping succeeded \n", response);
@@ -48,6 +49,7 @@ function ping2 () {
         .catch(function (error) {
             console.log("Ping failed \n", error);
         });
+
 
 
 }
