@@ -128,9 +128,9 @@ function addNodeTo(currentBucket, nodeID, Port) {
     var indexOfTempNode = currentBucket.indexOf(tempNode);
 
     // If the element is not in the list
-    if (indexOfTempNode != -1) {
-        /**if (currentBucket.length >= constants.k) {
-            //var deadNode = pingAllIdsInBucket(currentBucket);
+    if (indexOfTempNode >= 0) {
+        if (currentBucket.length >= constants.k) {
+            var deadNode = pingAllIdsInBucket(currentBucket);
 
             // If a pinged node doesn't respond, this node will be removed.
             if (deadNode !== null) {
@@ -139,9 +139,9 @@ function addNodeTo(currentBucket, nodeID, Port) {
             }
             console.log("Bucket is full and all nodes are alive.")
         }
-        else { */
+        else {
             currentBucket.push(tempNode);
-        //}
+        }
     }
     else {
         deleteNote(currentBucket, tempNode);
