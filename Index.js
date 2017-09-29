@@ -241,40 +241,45 @@ function findNode(otherNodeID) {
     var neighbourNodes;
     var bucketIndex = utility.findMostSignificantBit(findDistanceBetweenNodes(nodeID, otherNodeID));
     var step = 1;
+    var currentBucket;
 
     neighbourNodes = routingTable[bucketIndex];
     // Bliver ved med at gå til venstre og højre for den nuværende bucket og tilføjer nodes til foundnodes,
     // som er de tætteste naboer, går sålænge der stadig er buckets tilbage
     while (bucketIndex + step < neighbourNodes.length() && bucketIndex - step >= 0) {
         // Går til højre
-        for (y = 0; y < routingTable[bucketIndex + step].length(); y++) {
+        currentBucket = routingTable[bucketIndex + step];
+        for (y = 0; y < currentBucket.length(); y++) {
             if (neighbourNodes.length < constants.k) {
-                neighbourNodes.push(bucket[y]);
+                neighbourNodes.push(currentBucket[y]);
             }
         }
 
+        currentBucket = routingTable[bucketIndex - step];
         // Går til venstre
-        for (y = 0; y < routingTable[bucketIndex - step].length(); y++) {
+        for (y = 0; y < currentBucket.length(); y++) {
             if (neighbourNodes.length < constants.k) {
-                neighbourNodes.push(bucket[y]);
+                neighbourNodes.push(currentBucket[y]);
             }
         }
         step++;
     }
     // Bliver ved med at gå til venstre, når der ikke er flere til højre for den nuværende bucket
     while (bucketIndex - step >= 0) {
-        for (y = 0; y < routingTable[bucketIndex - step].length(); y++) {
+        currentBucket = routingTable[bucketIndex - step];
+        for (y = 0; y < currentBucket.length(); y++) {
             if (neighbourNodes.length < constants.k) {
-                neighbourNodes.push(bucket[y]);
+                neighbourNodes.push(currentBucket[y]);
             }
         }
         step++;
     }
     // Bliver ved med at gå fra bucket til bucket så længe der er flere tilbage
     while (bucketIndex + step < neighbourNodes.length()) {
-        for (y = 0; y < routingTable[bucketIndex + step].length(); y++) {
+        currentBucket = routingTable[bucketIndex + step];
+        for (y = 0; y < currentBucket.length(); y++) {
             if (neighbourNodes.length < constants.k) {
-                neighbourNodes.push(bucket[y]);
+                neighbourNodes.push(currentBucket[y]);
             }
         }
         step++;
