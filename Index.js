@@ -5,7 +5,6 @@ var http = require('http');
 var axios = require('axios');
 //var routing = require('./RoutingTable');
 //var routingTable = new routing();
-var bucket = require('./bucket');
 var app = express();
 app.use(bodyParser.json());
 var path = require("path");
@@ -205,7 +204,7 @@ function createBuckets() {
 }
 
 /**
- *
+ * Finds the distance between two given nodes
  * @param nodeID
  * @param otherNodeID
  * @returns {number}
@@ -233,6 +232,11 @@ function putInRightIndexedBucket(otherNodeID, otherNodePort) {
     }
 }
 
+/**
+ *
+ * @param otherNodeID
+ * @returns {*}
+ */
 function findNode(otherNodeID) {
     var neighbourNodes;
     var bucketIndex = utility.findMostSignificantBit(findDistanceBetweenNodes(nodeID, otherNodeID));
