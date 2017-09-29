@@ -5,7 +5,6 @@ var http = require('http');
 var axios = require('axios');
 //var routing = require('./RoutingTable');
 //var routingTable = new routing();
-var bucket = require('./bucket');
 var app = express();
 app.use(bodyParser.json());
 var path = require("path");
@@ -126,7 +125,7 @@ module.exports = {
 function addNodeTo(currentBucket, nodeID, Port) {
     var tempNode;
     if (currentBucket.length >= constants.k) {
-        var deadNode = pingAllIdsInBucket();
+        var deadNode = pingAllIdsInBucket(currentBucket);
 
         // If a pinged node doesn't respond, this node will be removed.
         if (deadNode !== null) {
@@ -165,45 +164,40 @@ function isBucketFull(currentBucket){
 /**
  This method returns the first dead node it finds
  */
-/*
 function pingAllIdsInBucket(currentBucket) {
     if (nodeList.length > 0){
         var counter = 0;
         var foundDeadNode = false;
         var deadNode;
-        var currentNode = nodeList[counter];
-        var url = constants.ipAddress + currentNode.port;
-        console.log("URL", url);
+        var currentNode;
+        var url;
+
         //This function should ping all the IDs in the list until it finds a dead node
-        if(counter < nodeList.length && foundDeadNode == false) {   //Skal det ikke være en While løkke eller en for-løkke?
-            //The format is https://ipaddress/port/nodeID
+        while(counter < nodeList.length && foundDeadNode == false) {
+
+            currentNode = currentBucket[counter];
+            url = constants.ipAddress + currentNode.port; //The format is https://ipaddress/port
+
+
+            // Connects to the defined url and checks if it exists or is dead
             axios.get(url)
                 .then(function (response) {
                     console.log("success",response);
+                    counter++
                 })
                 .catch(function (error) {
                     console.log(error);
-                });
-            /!*
-            http.get(url , function(parameters) {
-                var res = parameters.res;
-
-                if (res == 200) {
-                    counter++
-                }
-
-                else {
                     foundDeadNode = true;
                     deadNode = nodeList[counter];
-                }
-            });
-            *!/
+                });
         }
 
         //Returns the dead node if there has been found one
         return deadNode;
     }
-};*/
+}
+
+
 
 //---------------------------------------- ROUTING TABLE FUNCTIONS -------------------------------------\\
 
@@ -220,7 +214,7 @@ function createBuckets() {
 }
 
 /**
- *
+ * Finds the distance between two given nodes
  * @param nodeID
  * @param otherNodeID
  * @returns {number}
@@ -248,44 +242,54 @@ function putInRightIndexedBucket(otherNodeID, otherNodePort) {
     }
 }
 
+/**
+ *
+ * @param otherNodeID
+ * @returns {*}
+ */
 function findNode(otherNodeID) {
     var neighbourNodes;
     var bucketIndex = utility.findMostSignificantBit(findDistanceBetweenNodes(nodeID, otherNodeID));
     var step = 1;
+    var currentBucket;
 
     neighbourNodes = routingTable[bucketIndex];
     // Bliver ved med at gå til venstre og højre for den nuværende bucket og tilføjer nodes til foundnodes,
     // som er de tætteste naboer, går sålænge der stadig er buckets tilbage
     while (bucketIndex + step < neighbourNodes.length() && bucketIndex - step >= 0) {
         // Går til højre
-        for (y = 0; y < routingTable[bucketIndex + step].length(); y++) {
+        currentBucket = routingTable[bucketIndex + step];
+        for (y = 0; y < currentBucket.length(); y++) {
             if (neighbourNodes.length < constants.k) {
-                neighbourNodes.push(bucket[y]);
+                neighbourNodes.push(currentBucket[y]);
             }
         }
 
+        currentBucket = routingTable[bucketIndex - step];
         // Går til venstre
-        for (y = 0; y < routingTable[bucketIndex - step].length(); y++) {
+        for (y = 0; y < currentBucket.length(); y++) {
             if (neighbourNodes.length < constants.k) {
-                neighbourNodes.push(bucket[y]);
+                neighbourNodes.push(currentBucket[y]);
             }
         }
         step++;
     }
     // Bliver ved med at gå til venstre, når der ikke er flere til højre for den nuværende bucket
     while (bucketIndex - step >= 0) {
-        for (y = 0; y < routingTable[bucketIndex - step].length(); y++) {
+        currentBucket = routingTable[bucketIndex - step];
+        for (y = 0; y < currentBucket.length(); y++) {
             if (neighbourNodes.length < constants.k) {
-                neighbourNodes.push(bucket[y]);
+                neighbourNodes.push(currentBucket[y]);
             }
         }
         step++;
     }
     // Bliver ved med at gå fra bucket til bucket så længe der er flere tilbage
     while (bucketIndex + step < neighbourNodes.length()) {
-        for (y = 0; y < routingTable[bucketIndex + step].length(); y++) {
+        currentBucket = routingTable[bucketIndex + step];
+        for (y = 0; y < currentBucket.length(); y++) {
             if (neighbourNodes.length < constants.k) {
-                neighbourNodes.push(bucket[y]);
+                neighbourNodes.push(currentBucket[y]);
             }
         }
         step++;
