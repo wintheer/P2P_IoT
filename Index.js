@@ -141,12 +141,12 @@ function addNodeTo(currentBucket, localNodeID, port) {
             console.log("Bucket is full and all nodes are alive.")
         }
         else {
-            currentBucket.push(new nodeClass.node(localNodeID, constants.ipAddress, port));
+            currentBucket.push(tempNode);
         }
     }
     else {
         deleteNote(currentBucket, tempNode);
-        currentBucket.push(currentBucket, localNodeID, port);
+        currentBucket.push(tempNode);
     }
 }
 
