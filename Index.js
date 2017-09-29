@@ -197,12 +197,7 @@ function pingAllIdsInBucket(currentBucket) {
     }
 }
 
-
-
 //---------------------------------------- ROUTING TABLE FUNCTIONS -------------------------------------\\
-
-
-
 /**
  * Creates k buckets
  */
