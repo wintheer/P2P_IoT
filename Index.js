@@ -118,13 +118,13 @@ module.exports = {
 
 //-------------------------------------------- BUCKET FUNCTIONS ---------------------------------------\\
 /**
- * Adds a node with ID, Port. Checks for duplicating element in list,
+ * Adds a node with ID, port. Checks for duplicating element in list,
  * and updates the element, if it is there already
  * @param nodeID
- * @param Port
+ * @param port
  */
-function addNodeTo(currentBucket, nodeID, Port) {
-    var tempNode = new nodeClass.node(nodeID, constants.ipAddress, Port);
+function addNodeTo(currentBucket, nodeID, port) {
+    var tempNode = new nodeClass.node(nodeID, constants.ipAddress, port);
     var indexOfTempNode = currentBucket.indexOf(tempNode);
 
     // If the element is not in the list
@@ -140,7 +140,7 @@ function addNodeTo(currentBucket, nodeID, Port) {
             console.log("Bucket is full and all nodes are alive.")
         }
         else {
-            currentBucket.push(new nodeClass.node(nodeID, constants.ipAddress, Port));
+            currentBucket.push(new nodeClass.node(nodeID, constants.ipAddress, port));
         }
     }
     else {
