@@ -69,7 +69,7 @@ function addNode(){
     var fieldPort = document.getElementById("Port").value;
     var fieldID = document.getElementById("NodeID").value;
     var url = "http://localhost:" + fieldPort + '/api/node/addnode';
-    console.log()
+    console.log();
     axios.post(url, {
         my_NodeID: myNodeID,
         my_Port: myPort,
