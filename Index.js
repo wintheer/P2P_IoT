@@ -56,6 +56,12 @@ app.get('/api/node/info', function (req, res, next) {
     res.json({'nodeID': node.nodeID, 'port': port});
 });
 
+app.get('/api/node/routingTable', function (req, res, next) {
+    //res.json({'nodeID': node.nodeID, 'port': port});
+    res.send(routingTable);
+});
+
+
 var server = app.listen(port, function () {
     var port = server.address().port;
     node = createNode();
