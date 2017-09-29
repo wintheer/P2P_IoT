@@ -120,7 +120,7 @@ module.exports = {
 /**
  * Adds a node with ID, port. Checks for duplicating element in list,
  * and updates the element, if it is there already
- * @param nodeID
+ * @param localNodeID
  * @param port
  * @param currentBucket
  */
@@ -146,7 +146,7 @@ function addNodeTo(currentBucket, localNodeID, port) {
     }
     else {
         deleteNote(currentBucket, tempNode);
-        currentBucket.push(currentBucket, nodeID, port);
+        currentBucket.push(currentBucket, localNodeID, port);
     }
 }
 
