@@ -134,7 +134,7 @@ function addNodeTo(currentBucket, nodeID, port) {
 
             // If a pinged node doesn't respond, this node will be removed.
             if (deadNode !== null) {
-                deleteNote(deadNode);
+                deleteNote(currentBucket, deadNode);
                 currentBucket.push(tempNode);
             }
             console.log("Bucket is full and all nodes are alive.")
