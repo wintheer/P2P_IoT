@@ -20,8 +20,8 @@ var routingTable = [];
 
 //------------------------------------------ Server Functions -------------------------------------------------\\
 
-// We need this to be able to call cross-origin, 
-// which means that to different peers calling eachother 
+// We need this to be able to call cross-origin,
+// which means that to different peers calling eachother
 // on different ports
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -117,27 +117,35 @@ module.exports = {
 };
 
 //-------------------------------------------- BUCKET FUNCTIONS ---------------------------------------\\
-/**Adds a node with ID, Port and IP
- *
+/**
+ * Adds a node with ID, Port. Checks for duplicating element in list,
+ * and updates the element, if it is there already
  * @param nodeID
  * @param Port
  */
 function addNodeTo(currentBucket, nodeID, Port) {
-    var tempNode;
-    if (currentBucket.length >= constants.k) {
-        var deadNode = pingAllIdsInBucket(currentBucket);
+    var tempNode = new nodeClass.node(nodeID, constants.ipAddress, Port);
+    var indexOfTempNode = currentBucket.indexOf(tempNode);
 
-        // If a pinged node doesn't respond, this node will be removed.
-        if (deadNode !== null) {
-            deleteNote(deadNode);
-            tempNode = new nodeClass.node(nodeID, constants.ipAddress, Port);
+    // If the element is not in the list
+    if (indexOfTempNode != -1) {
+        if (currentBucket.length >= constants.k) {
+            var deadNode = pingAllIdsInBucket(currentBucket);
+
+            // If a pinged node doesn't respond, this node will be removed.
+            if (deadNode !== null) {
+                deleteNote(deadNode);
+                currentBucket.push(tempNode);
+            }
+            console.log("Bucket is full and all nodes are alive.")
+        }
+        else {
             currentBucket.push(tempNode);
         }
-        console.log("Bucket is full and all nodes are alive.")
     }
     else {
-        tempNode = new nodeClass.node(nodeID, constants.ipAddress, Port);
-        currentBucket.push(tempNode);
+        deleteNote(currentBucket, tempNode);
+        currentBucket.push(currentBucket, nodeID, port);
     }
 }
 
