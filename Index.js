@@ -140,7 +140,7 @@ function addNodeTo(currentBucket, nodeID, Port) {
             console.log("Bucket is full and all nodes are alive.")
         }
         else {
-            currentBucket.push(tempNode);
+            currentBucket.push(new nodeClass.node(nodeID, constants.ipAddress, Port));
         }
     }
     else {

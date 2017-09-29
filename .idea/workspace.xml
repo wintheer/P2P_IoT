@@ -40,8 +40,8 @@
       <file leaf-file-name="Index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="131" column="8" lean-forward="false" selection-start-line="131" selection-start-column="8" selection-end-line="131" selection-end-column="8" />
+            <state relative-caret-position="381">
+              <caret line="142" column="83" lean-forward="false" selection-start-line="142" selection-start-column="83" selection-end-line="142" selection-end-column="83" />
               <folding />
             </state>
           </provider>
@@ -546,7 +546,7 @@
       <workItem from="1506587396382" duration="5291000" />
       <workItem from="1506593810891" duration="1555000" />
       <workItem from="1506595420195" duration="6869000" />
-      <workItem from="1506671538051" duration="7692000" />
+      <workItem from="1506671538051" duration="7915000" />
     </task>
     <task id="LOCAL-00001" summary="Arbejdet lidt med konstruktoren">
       <created>1505118640472</created>
@@ -758,11 +758,18 @@
       <option name="project" value="LOCAL" />
       <updated>1506684542111</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="addNode cannot add duplicates anymore.">
+      <created>1506684954749</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1506684954749</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="107023000" />
+    <option name="totallyTimeSpent" value="107246000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="872" extended-state="6" />
@@ -963,8 +970,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="131" column="8" lean-forward="false" selection-start-line="131" selection-start-column="8" selection-end-line="131" selection-end-column="8" />
+        <state relative-caret-position="381">
+          <caret line="142" column="83" lean-forward="false" selection-start-line="142" selection-start-column="83" selection-end-line="142" selection-end-column="83" />
           <folding />
         </state>
       </provider>
