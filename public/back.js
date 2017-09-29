@@ -2,23 +2,39 @@ var myPort;
 var myNodeID;
 window.onload = function () {
     getInfo();
+    getBuckets();
 };
 
 function getInfo() {
-
     axios.get("../api/node/info")
         .then(function (response) {
             console.log("getInfo() succeeded \n", response);
             myPort = response.data.port;
             myNodeID = response.data.nodeID;
+            console.log(response);
+            /*
             document.getElementById('myInfo').innerHTML += "My Port: " + myPort;
             document.getElementById('myInfo').innerHTML += "<br>";
-            document.getElementById('myInfo').innerHTML += " My NodeID: " + myNodeID;
+            document.getElementById('myInfo').innerHTML += " My NodeID: " + myNodeID;*/
         })
         .catch(function (error) {
             console("getInfo() failed \n", error);
         });
 }
+
+function getBuckets() {
+    axios.get("../api/node/routingTable")
+        .then(function (response) {
+            console.log("routingTable: ", response);
+            document.getElementById('buckets').innerHTML += response.toString();
+
+        })
+        .catch(function (error) {
+            console("getInfo() failed \n", error);
+        });
+
+}
+
 
 function ping() {
     var url = 'http://localhost:8887/api/node/ping';
@@ -50,5 +66,10 @@ function ping2() {
         .catch(function (error) {
             console.log("Ping failed \n", error);
         });
+}
+
+function addNode(){
+    var fieldPort = document.getElementById("addNode").value;
+    console.log(fieldPort);
 
 }
