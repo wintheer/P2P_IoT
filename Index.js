@@ -122,9 +122,10 @@ module.exports = {
  * and updates the element, if it is there already
  * @param nodeID
  * @param port
+ * @param currentBucket
  */
-function addNodeTo(currentBucket, nodeID, port) {
-    var tempNode = new nodeClass.node(nodeID, constants.ipAddress, port);
+function addNodeTo(currentBucket, localNodeID, port) {
+    var tempNode = new nodeClass.node(localNodeID, constants.ipAddress, port);
     var indexOfTempNode = currentBucket.indexOf(tempNode);
 
     // If the element is not in the list
@@ -140,7 +141,7 @@ function addNodeTo(currentBucket, nodeID, port) {
             console.log("Bucket is full and all nodes are alive.")
         }
         else {
-            currentBucket.push(new nodeClass.node(nodeID, constants.ipAddress, port));
+            currentBucket.push(new nodeClass.node(localNodeID, constants.ipAddress, port));
         }
     }
     else {
@@ -151,6 +152,7 @@ function addNodeTo(currentBucket, nodeID, port) {
 
 /**
  * Deletes a given node from the bucket
+ * @param currentBucket
  * @param node
  */
 function deleteNote(currentBucket, node) {
@@ -163,6 +165,7 @@ function deleteNote(currentBucket, node) {
 
 /**
  * Checks if the given bucket is full
+ * @param currentBucket
  * @returns {boolean}
  */
 function isBucketFull(currentBucket){
@@ -171,6 +174,7 @@ function isBucketFull(currentBucket){
 
 /**
  This method returns the first dead node it finds
+ @param currentBucket
  */
 function pingAllIdsInBucket(currentBucket) {
     if (nodeList.length > 0){
