@@ -61,23 +61,33 @@ app.get('/api/node/routingTable', function (req, res, next) {
     res.send(routingTable);
 });
 
+//Post Request expecting nodeID and port in body
+app.post('/api/node/addnode', function (req, res, next) {
+    var remote_nodeid = req.body['my_NodeID'];
+    var remote_port = req.body['my_Port'];
+    var my_nodeid = req.body['nodeID'];
+    var my_port = req.body['port'];
+    console.log('Remote noteid', remote_nodeid, ' Remote port', remote_port);
+    console.log('My nodeid', my_nodeid, 'My port', my_port);
+    var distance = findDistanceBetweenNodes(my_nodeid, remote_nodeid);
+    var rightIndex = utility.findMostSignificantBit(distance);
+    var local_bucket = routingTable[rightIndex];
+    addNodeTo(local_bucket, remote_nodeid, remote_port);
+    console.log(routingTable);
+    res.send("hej");
+
+    //buckets = routingTable.getRoutingTable();
+    //buckets[routingTable.putInRightIndexedBucket].addNodeTo(remote_nodeid, remote_port);
+
+});
 
 var server = app.listen(port, function () {
     var port = server.address().port;
     node = createNode();
     nodeID = node.nodeID;
-
-
-
-
     createBuckets();
-
     //addNodeTo(219, 9952);
     //console.log("Added Node", nodeList);
-
-
-
-
     console.log('Server listening on http://localhost:' + port);
 });
 
