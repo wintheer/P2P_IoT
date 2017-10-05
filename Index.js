@@ -12,7 +12,6 @@ var arg_two = process.argv.slice(3)[0];
 var node;
 var nodeList = [];
 var nodeIDList = [];
-var buckets = [];
 var routingTable = [];
 
 //------------------------------------------ Server Functions -------------------------------------------------\\
@@ -50,8 +49,6 @@ app.post('/api/node/ping', function (req, res, next) {
     var remote_port = req.body['my_Port'];
     var my_nodeid = node.nodeID;
     console.log("my_nodeid", my_nodeid);
-    //Not used
-    //var my_port = req.body['port'];
     var distance = findDistanceBetweenNodes(my_nodeid, remote_nodeid);
     var rightIndex = utility.findMostSignificantBit(distance);
     var local_bucket = routingTable[rightIndex];
@@ -64,7 +61,7 @@ app.post('/api/node/findNode', function (req, res, next) {
     var remote_nodeid = req.body['my_NodeID'];
     var my_nodeid = node.nodeID;
     findNode(my_nodeid, remote_nodeid);
-    res.send("ISHSLAJKSJKASJALSJALJSA");
+    res.send({'event': 'FIND_NODE', 'rem_nodeid': remote_nodeid, 'local_node': my_nodeid});
 });
 
 var server = app.listen(port, function () {
@@ -73,7 +70,6 @@ var server = app.listen(port, function () {
     createBuckets();
     bootstrapNode();
     console.log('Server listening on http://localhost:' + port);
-
 });
 
 function createNode() {
@@ -90,7 +86,7 @@ function createNode() {
 }
 
 function bootstrapNode(){
-    if(arg_two == 0){
+    if(arg_two === 0){
         console.log("First Node Started");
     }
     else
@@ -102,9 +98,7 @@ function targetedPing(){
     console.log();
     axios.post(url, {
         my_NodeID: node.nodeID,
-        my_Port: node.port,
-        nodeID: '123456',
-        port: arg_two
+        my_Port: node.port
     })
         .then(function (response) {
             //console.log("Targeted Ping", response);

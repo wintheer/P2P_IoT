@@ -43,13 +43,10 @@ function ping(){
     axios.post(url, {
         my_NodeID: myNodeID,
         my_Port: myPort,
-        nodeID: fieldID,
-        port: fieldPort
     })
         .then(function (response) {
         console.log("Remote Ping Succeeded \n", response);
-        document.getElementById('receivedInfo').innerHTML += JSON.stringify(response.data) + '  <br>';
-
+        document.getElementById('receivedInfo').innerHTML += JSON.stringify(response.data) + '<br>';
         })
         .catch(function (error) {
             console.log("Something failed \n", error);
@@ -77,7 +74,7 @@ function findNode() {
     var url = "http://localhost:" + fieldPort + '/api/node/findNode';
     console.log(url);
     axios.post(url, {
-        my_NodeID: fieldID
+        my_NodeID: myNodeID
             })
         .then(function (response) {
             console.log("findNode \n", response);
