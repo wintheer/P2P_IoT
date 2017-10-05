@@ -317,3 +317,61 @@ function findNode(myNodeID, otherNodeID) {
     //Slut af med at tage alt til venstre
     //Lav en liste af nodes og returnér.
 }
+function findValue(value){
+    //Hash the value
+    var shasum = crypto.createHash('sha1');
+    //string-hash:
+    shasum.update(value);
+    console.log(shasum.digest('hex'));
+
+    //Findnode på sig selv og valuen(hash)
+    var neighborList = findNode(nodeID,shasum);
+
+    //Brugbare variabler og lister
+    var nodesToCheck = [];
+    var checkedNodes = [];
+    var counter = 0;
+    var found = false;
+
+    //Listen af de nærmeste nodes ud fra hash af value, lægges i listen af nodes der skal tjekkes
+    nodesToCheck.extend(neighborList);
+    // Tjekker sig selv for information/valuen, i så fald returner
+    if(node.value == shasum){
+        return node.value;
+        found = true;
+    }
+    else{
+
+    }
+    // Tjekker de andre nodes for information/valuen, i så fald returner
+    while(counter < nodesToCheck.length && found == false){
+        //Hash the value
+        //var shasum = crypto.createHash('sha1');
+        //string-hash:
+        //shasum.update(nodesToCheck[counter].nodeID);
+        //console.log(shasum.digest('hex'));
+
+        //if value[key]
+        //return value
+        //else
+        //return findNode
+        //Tjekker om vi allerede har tjekket denne node, hvis ja -> spring over denne node
+        if(!checkedNodes.indexOf(nodesToCheck[counter])){
+            for(x = 0; x < nodesToCheck[counter].values.length; x++){
+                if(nodesToCheck[counter].values[key] == shasum){
+                    return nodesToCheck[counter].values[key];
+                    break;
+                }
+                else{
+                    nodesToCheck.extend(findNode(nodesToCheck[counter]), shasum);
+                    checkedNodes.append(nodesToCheck[counter]);
+                    counter++;
+                }
+            }
+        }
+        else{
+
+        }
+
+    }
+}
