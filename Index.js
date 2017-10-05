@@ -30,21 +30,21 @@ app.use(express.static('public'));
 // For all of out routes we add next after res
 // which then uses inheritance to allow all routes
 // to get information from cross-origin calls
-app.get('/', function (req, res, next) {
+app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + '/public/index.html'));
 });
 
 // Able to return information about this peer
-app.get('/api/node/info', function (req, res, next) {
+app.get('/api/node/info', function (req, res) {
     res.json({'nodeID': node.nodeID, 'port': port});
 });
 
-app.get('/api/node/routingTable', function (req, res, next) {
+app.get('/api/node/routingTable', function (req, res) {
     res.send(routingTable);
 });
 
 //Post Request expecting nodeID and port in body
-app.post('/api/node/ping', function (req, res, next) {
+app.post('/api/node/ping', function (req, res) {
     var remote_nodeid = req.body['my_NodeID'];
     console.log("rem_nodeID", remote_nodeid);
     var remote_port = req.body['my_Port'];
@@ -58,7 +58,8 @@ app.post('/api/node/ping', function (req, res, next) {
     res.send({'event': 'PONG', 'nodeID': node.nodeID, 'port': port});
 });
 
-app.post('/api/node/findNode', function (req, res, next) {
+
+app.post('/api/node/findNode', function (req, res) {
     var remote_nodeid = req.body['my_NodeID'];
     var my_nodeid = node.nodeID;
     findNode(my_nodeid, remote_nodeid);
@@ -181,7 +182,7 @@ function pingAllIdsInBucket(currentBucket) {
         var url;
 
         //This function should ping all the IDs in the list until it finds a dead node
-        while(counter < nodeList.length && foundDeadNode == false) {
+        while(counter < nodeList.length && foundDeadNode === false) {
 
             currentNode = currentBucket[counter];
             url = constants.ipAddress + currentNode.port; //The format is https://ipaddress/port
@@ -223,8 +224,7 @@ function createBuckets() {
  * @returns {number}
  */
 function findDistanceBetweenNodes(nodeID, otherNodeID) {
-    var distance = nodeID ^ otherNodeID;
-    return distance;
+    return nodeID ^ otherNodeID;
 }
 
 
@@ -353,7 +353,7 @@ function findValue(value){
         //Tjekker om vi allerede har tjekket denne node, hvis ja -> spring over denne node
         if(!checkedNodes.indexOf(nodesToCheck[counter])){
             for(x = 0; x < nodesToCheck[counter].values.length; x++){
-                if(nodesToCheck[counter].values[key] == shasum){
+                if(nodesToCheck[counter].values[key] === shasum){
                     return nodesToCheck[counter].values[key];
                     break;
                 }
