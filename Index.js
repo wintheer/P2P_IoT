@@ -174,7 +174,7 @@ function isBucketFull(currentBucket){
  @param currentBucket
  */
 function pingAllIdsInBucket(currentBucket) {
-    if (nodeList.length > 0){
+    if (nodeList.length > 0) {
         var counter = 0;
         var foundDeadNode = false;
         var deadNode;
@@ -182,7 +182,7 @@ function pingAllIdsInBucket(currentBucket) {
         var url;
 
         //This function should ping all the IDs in the list until it finds a dead node
-        while(counter < nodeList.length && foundDeadNode === false) {
+        while (counter < nodeList.length && foundDeadNode === false) {
 
             currentNode = currentBucket[counter];
             url = constants.ipAddress + currentNode.port; //The format is https://ipaddress/port
@@ -191,7 +191,7 @@ function pingAllIdsInBucket(currentBucket) {
             // Connects to the defined url and checks if it exists or is dead
             axios.get(url)
                 .then(function (response) {
-                    console.log("success",response);
+                    console.log("success", response);
                     counter++
                 })
                 .catch(function (error) {
@@ -247,6 +247,7 @@ function putInRightIndexedBucket(otherNodeID, otherNodePort) {
 
 /**
  *
+ * @param myNodeID
  * @param otherNodeID
  * @returns {*}
  */
@@ -295,7 +296,7 @@ function findNode(myNodeID, otherNodeID) {
     while (bucketIndex + step < neighbourNodes.length) {
         console.log("3");
         currentBucket = routingTable[bucketIndex + step];
-        for (y = 0; y < currentBucket.length; y++) {
+        for (var y = 0; y < currentBucket.length; y++) {
             if (neighbourNodes.length < constants.k) {
                 neighbourNodes.push(currentBucket[y]);
             }
@@ -320,7 +321,7 @@ function findValue(value){
     console.log(shasum.digest('hex'));
 
     //Findnode på sig selv og valuen(hash)
-    var neighborList = findNode(nodeID,shasum);
+    var neighborList = findNode(node.nodeID,shasum);
 
     //Brugbare variabler og lister
     var nodesToCheck = [];
@@ -331,15 +332,15 @@ function findValue(value){
     //Listen af de nærmeste nodes ud fra hash af value, lægges i listen af nodes der skal tjekkes
     nodesToCheck.extend(neighborList);
     // Tjekker sig selv for information/valuen, i så fald returner
-    if(node.value == shasum){
-        return node.value;
+    if(node.value === shasum){
         found = true;
+        return node.value;
     }
     else{
 
     }
     // Tjekker de andre nodes for information/valuen, i så fald returner
-    while(counter < nodesToCheck.length && found == false){
+    while(counter < nodesToCheck.length && found === false){
         //Hash the value
         //var shasum = crypto.createHash('sha1');
         //string-hash:
@@ -352,9 +353,10 @@ function findValue(value){
         //return findNode
         //Tjekker om vi allerede har tjekket denne node, hvis ja -> spring over denne node
         if(!checkedNodes.indexOf(nodesToCheck[counter])){
-            for(x = 0; x < nodesToCheck[counter].values.length; x++){
+            for(var x = 0; x < nodesToCheck[counter].values.length; x++){
                 if(nodesToCheck[counter].values[key] === shasum){
                     return nodesToCheck[counter].values[key];
+                    //Mark sagde der skulle stå break
                     break;
                 }
                 else{
