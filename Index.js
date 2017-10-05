@@ -1,22 +1,19 @@
 var utility = require('./Utilities');
-var express = require('express'), bodyParser = require('body-parser');
-var constants = require('./config/constants');
-var http = require('http');
+var express = require('express');
+var bodyParser = require('body-parser');
 var axios = require('axios');
-//var routing = require('./RoutingTable');
-//var routingTable = new routing();
-var app = express();
-app.use(bodyParser.json());
 var path = require("path");
 var nodeClass = require('./lib/Node');
+var constants = require('./config/constants');
+var app = express();
+app.use(bodyParser.json());
 var port = process.argv.slice(2)[0];
+var arg_two = process.argv.slice(3)[0];
 var node;
-var nodeID;
 var nodeList = [];
 var nodeIDList = [];
 var buckets = [];
 var routingTable = [];
-
 
 //------------------------------------------ Server Functions -------------------------------------------------\\
 
@@ -35,19 +32,6 @@ app.use(express.static('public'));
 // to get information from cross-origin calls
 app.get('/', function (req, res, next) {
     res.sendFile(path.join(__dirname + '/public/index.html'));
-})
-
-//Post Request expecting nodeID and port in body
-app.post('/api/node/ping', function (req, res, next) {
-    var remote_nodeid = req.body['nodeID'];
-    var remote_port = req.body['port'];
-    console.log('From noteid', remote_nodeid, 'port', remote_port);
-    // Update Buckets
-    res.send({'event': 'PONG', 'nodeID': node.nodeID, 'port': port});
-
-    //buckets = routingTable.getRoutingTable();
-    //buckets[routingTable.putInRightIndexedBucket].addNodeTo(remote_nodeid, remote_port);
-
 });
 
 // Able to return information about this peer
@@ -56,38 +40,40 @@ app.get('/api/node/info', function (req, res, next) {
 });
 
 app.get('/api/node/routingTable', function (req, res, next) {
-    //res.json({'nodeID': node.nodeID, 'port': port});
     res.send(routingTable);
 });
 
 //Post Request expecting nodeID and port in body
-app.post('/api/node/addnode', function (req, res, next) {
+app.post('/api/node/ping', function (req, res, next) {
     var remote_nodeid = req.body['my_NodeID'];
+    console.log("rem_nodeID", remote_nodeid);
     var remote_port = req.body['my_Port'];
-    var my_nodeid = req.body['nodeID'];
-    var my_port = req.body['port'];
-    console.log('Remote noteid', remote_nodeid, ' Remote port', remote_port);
-    console.log('My nodeid', my_nodeid, 'My port', my_port);
+    var my_nodeid = node.nodeID;
+    console.log("my_nodeid", my_nodeid);
+    //Not used
+    //var my_port = req.body['port'];
     var distance = findDistanceBetweenNodes(my_nodeid, remote_nodeid);
     var rightIndex = utility.findMostSignificantBit(distance);
     var local_bucket = routingTable[rightIndex];
     addNodeTo(local_bucket, remote_nodeid, remote_port);
     console.log(routingTable);
-    res.send("hej");
+    res.send({'event': 'PONG', 'nodeID': node.nodeID, 'port': port});
+});
 
-    //buckets = routingTable.getRoutingTable();
-    //buckets[routingTable.putInRightIndexedBucket].addNodeTo(remote_nodeid, remote_port);
-
+app.post('/api/node/findNode', function (req, res, next) {
+    var remote_nodeid = req.body['my_NodeID'];
+    var my_nodeid = node.nodeID;
+    findNode(my_nodeid, remote_nodeid);
+    res.send("ISHSLAJKSJKASJALSJALJSA");
 });
 
 var server = app.listen(port, function () {
     var port = server.address().port;
     node = createNode();
-    nodeID = node.nodeID;
     createBuckets();
-    //addNodeTo(219, 9952);
-    //console.log("Added Node", nodeList);
+    bootstrapNode();
     console.log('Server listening on http://localhost:' + port);
+
 });
 
 function createNode() {
@@ -103,19 +89,33 @@ function createNode() {
     return nodeItem;
 }
 
-var getThisNodeID = function () {
-    return nodeID;
-};
+function bootstrapNode(){
+    if(arg_two == 0){
+        console.log("First Node Started");
+    }
+    else
+        targetedPing()
+}
 
-var getThisNodePort = function () {
-    return port;
-};
+function targetedPing(){
+    var url = "http://localhost:" + arg_two + '/api/node/ping';
+    console.log();
+    axios.post(url, {
+        my_NodeID: node.nodeID,
+        my_Port: node.port,
+        nodeID: '123456',
+        port: arg_two
+    })
+        .then(function (response) {
+            //console.log("Targeted Ping", response);
+            console.log("Targeted ping")
+        })
+        .catch(function (error) {
+            //console.log("Something failed \n", error);
+            console.log("error");
+        });
 
-module.exports = {
-    getThisNodeID: getThisNodeID(),
-    getThisNodePort: getThisNodePort()
-};
-
+}
 //-------------------------------------------- BUCKET FUNCTIONS ---------------------------------------\\
 /**
  * Adds a node with ID, port. Checks for duplicating element in list,
@@ -130,6 +130,7 @@ function addNodeTo(currentBucket, localNodeID, port) {
 
     // If the element is not in the list
     if (indexOfTempNode >= 0) {
+
         if (currentBucket.length >= constants.k) {
             var deadNode = pingAllIdsInBucket(currentBucket);
 
@@ -254,19 +255,21 @@ function putInRightIndexedBucket(otherNodeID, otherNodePort) {
  * @param otherNodeID
  * @returns {*}
  */
-function findNode(otherNodeID) {
+function findNode(myNodeID, otherNodeID) {
     var neighbourNodes;
-    var bucketIndex = utility.findMostSignificantBit(findDistanceBetweenNodes(nodeID, otherNodeID));
+    var bucketIndex = utility.findMostSignificantBit(findDistanceBetweenNodes(myNodeID, otherNodeID));
     var step = 1;
     var currentBucket;
 
     neighbourNodes = routingTable[bucketIndex];
+    //console.log("NN", neighbourNodes);
     // Bliver ved med at gå til venstre og højre for den nuværende bucket og tilføjer nodes til foundnodes,
-    // som er de tætteste naboer, går sålænge der stadig er buckets tilbage
-    while (bucketIndex + step < neighbourNodes.length() && bucketIndex - step >= 0) {
+    // som er de tætteste naboer, går så længe der stadig er buckets tilbage
+    while (bucketIndex + step < neighbourNodes.length && bucketIndex - step >= 0) {
         // Går til højre
+        console.log("1");
         currentBucket = routingTable[bucketIndex + step];
-        for (y = 0; y < currentBucket.length(); y++) {
+        for (y = 0; y < currentBucket.length; y++) {
             if (neighbourNodes.length < constants.k) {
                 neighbourNodes.push(currentBucket[y]);
             }
@@ -274,7 +277,8 @@ function findNode(otherNodeID) {
 
         currentBucket = routingTable[bucketIndex - step];
         // Går til venstre
-        for (y = 0; y < currentBucket.length(); y++) {
+        console.log("2");
+        for (y = 0; y < currentBucket.length; y++) {
             if (neighbourNodes.length < constants.k) {
                 neighbourNodes.push(currentBucket[y]);
             }
@@ -283,8 +287,9 @@ function findNode(otherNodeID) {
     }
     // Bliver ved med at gå til venstre, når der ikke er flere til højre for den nuværende bucket
     while (bucketIndex - step >= 0) {
+        console.log("3");
         currentBucket = routingTable[bucketIndex - step];
-        for (y = 0; y < currentBucket.length(); y++) {
+        for (y = 0; y < currentBucket.length; y++) {
             if (neighbourNodes.length < constants.k) {
                 neighbourNodes.push(currentBucket[y]);
             }
@@ -292,15 +297,17 @@ function findNode(otherNodeID) {
         step++;
     }
     // Bliver ved med at gå fra bucket til bucket så længe der er flere tilbage
-    while (bucketIndex + step < neighbourNodes.length()) {
+    while (bucketIndex + step < neighbourNodes.length) {
+        console.log("3");
         currentBucket = routingTable[bucketIndex + step];
-        for (y = 0; y < currentBucket.length(); y++) {
+        for (y = 0; y < currentBucket.length; y++) {
             if (neighbourNodes.length < constants.k) {
                 neighbourNodes.push(currentBucket[y]);
             }
         }
         step++;
     }
+    console.log("endNode", neighbourNodes);
     return neighbourNodes;
 
     //Find bucket index

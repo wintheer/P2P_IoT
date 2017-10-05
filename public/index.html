@@ -3,24 +3,20 @@
   <title>Kademlia PoC</title>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="back.js"></script>
-    <!--<script src="../config/constants.js"></script>-->
     <link rel="stylesheet" type="text/css" href="index%20style.css">
-    <!--Importer constant i back.js senere :)-->
 </head>
 <html>
    <body>
         <div id="myInfo"><h3>Node Info</h3></div>
         <br><br>
-        <!--<button type="button" onclick="ping()">Ping</button>-->
-        <button type="button" onclick="ping2()">Ping</button>
-        <button type="button" onclick="addNode()">Add Node</button>
+        <button type="button" onclick="ping()">Ping</button>
+        <button type="button" onclick="findNode()">Find Node</button>
         <br><br>
         Port:
-        <input type="text" id="Port" placeholder="Port for Method" value="8899">
+        <input type="text" id="Port" placeholder="Port for Method" value="8890">
         <br><br>
         Node ID:
         <input type="text" id="NodeID" placeholder="NodeID for Method">
-
         <br><br>
         <div id="receivedInfo"><h3>Received Responses:</h3></div>
         <div id="buckets"><h3>Buckets:</h3></div>
