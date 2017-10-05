@@ -13,6 +13,7 @@ var node;
 var nodeList = [];
 var nodeIDList = [];
 var routingTable = [];
+var values = [];
 
 //------------------------------------------ Server Functions -------------------------------------------------\\
 
@@ -231,7 +232,7 @@ function findDistanceBetweenNodes(nodeID, otherNodeID) {
  * Puts the given nodeID with the given distance from this node in the right bucket index
  */
 function putInRightIndexedBucket(otherNodeID, otherNodePort) {
-    var localIndex = utility.findMostSignificantBit(findDistanceBetweenNodes(nodeID, otherNodeID));
+    var localIndex = utility.findMostSignificantBit(findDistanceBetweenNodes(node.nodeID, otherNodeID));
     var currentBucket = routingTable[localIndex];
 
     // If the bucket is full, it will ping all it's notes to see, if can switch it out with the new node
@@ -239,7 +240,7 @@ function putInRightIndexedBucket(otherNodeID, otherNodePort) {
         pingAllIdsInBucket(currentBucket);
     }
     else {
-        addNodeTo(routingTable[localIndex], otherNodeID, otherNodePort)
+        addNodeTo(routingTable[localIndex], otherNodeID, otherNodePort);
 
     }
 }
@@ -366,6 +367,10 @@ function findValue(value){
         else{
 
         }
-
     }
+}
+function storeValue(type, value) {
+    var currentdate = new Date();
+    var datetime = currentdate.toLocaleString();
+    values.push({type: type, value:value, timeStamp:datetime});
 }
