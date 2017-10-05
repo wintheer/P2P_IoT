@@ -14,11 +14,13 @@ function getInfo() {
             document.getElementById('myInfo').innerHTML += "My Port: " + myPort;
             document.getElementById('myInfo').innerHTML += "<br>";
             document.getElementById('myInfo').innerHTML += " My NodeID: " + myNodeID;
+            document.title = myPort;
         })
         .catch(function (error) {
             console("getInfo() failed \n", error);
         });
 }
+
 /**
  * Fix to pretty HTML
  * */
@@ -35,7 +37,7 @@ function getBuckets() {
 
 }
 
-function ping(){
+function ping() {
     var fieldPort = document.getElementById("Port").value;
     var fieldID = document.getElementById("NodeID").value;
     var url = "http://localhost:" + fieldPort + '/api/node/ping';
@@ -45,14 +47,14 @@ function ping(){
         my_Port: myPort,
     })
         .then(function (response) {
-        console.log("Remote Ping Succeeded \n", response);
-        document.getElementById('receivedInfo').innerHTML += JSON.stringify(response.data) + '<br>';
+            console.log("Remote Ping Succeeded \n", response);
+            document.getElementById('receivedInfo').innerHTML += JSON.stringify(response.data) + '<br>';
         })
         .catch(function (error) {
             console.log("Something failed \n", error);
         });
     var url2 = "http://localhost:" + myPort + '/api/node/ping';
-     //Notice field_variables and my_variables are swapped from url
+    //Notice field_variables and my_variables are swapped from url
     axios.post(url2, {
         my_NodeID: fieldID,
         my_Port: fieldPort,
@@ -68,20 +70,17 @@ function ping(){
 
 }
 
-function findNode() {
+function findNodeWebHelper() {
     var fieldPort = document.getElementById("Port").value;
-    var fieldID = document.getElementById("NodeID").value;
     var url = "http://localhost:" + fieldPort + '/api/node/findNode';
     console.log(url);
     axios.post(url, {
         my_NodeID: myNodeID
-            })
+    })
         .then(function (response) {
             console.log("findNode \n", response);
         })
         .catch(function (error) {
             console.log("Something failed \n", error);
         });
-
-
 }

@@ -43,6 +43,11 @@ app.get('/api/node/routingTable', function (req, res) {
     res.send(routingTable);
 });
 
+// Able to return information about this peer
+app.get('/api/node/values', function (req, res) {
+    res.json(values);
+});
+
 //Post Request expecting nodeID and port in body
 app.post('/api/node/ping', function (req, res) {
     var remote_nodeid = req.body['my_NodeID'];
@@ -61,9 +66,11 @@ app.post('/api/node/ping', function (req, res) {
 
 app.post('/api/node/findNode', function (req, res) {
     var remote_nodeid = req.body['my_NodeID'];
+    console.log("remid", remote_nodeid);
     var my_nodeid = node.nodeID;
-    findNode(my_nodeid, remote_nodeid);
-    res.send({'event': 'FIND_NODE', 'rem_nodeid': remote_nodeid, 'local_node': my_nodeid});
+    console.log("locid", my_nodeid);
+    console.log("nn", findNode(my_nodeid, remote_nodeid));
+    res.send({'event': 'FIND_NODE', 'rem_nodeid': remote_nodeid, 'local_nodeid': my_nodeid});
 });
 
 var server = app.listen(port, function () {
@@ -72,12 +79,13 @@ var server = app.listen(port, function () {
     createBuckets();
     bootstrapNode();
     console.log('Server listening on http://localhost:' + port);
+    storeValue("temp", "10c");
 });
 
 function createNode() {
     var nodeItem;
     var generatedNodeID = utility.createQuasi(8);
-    if (nodeIDList.indexOf(generatedNodeID) === -1) {
+    if (nodeIDList.indexOf(generatedNodeID) == -1) {
         nodeIDList.push(generatedNodeID);
         nodeItem = new nodeClass.node(generatedNodeID, constants.ipAddress, port)
     }
@@ -88,7 +96,7 @@ function createNode() {
 }
 
 function bootstrapNode(){
-    if(arg_two === 0){
+    if(arg_two == 0){
         console.log("First Node Started");
     }
     else
@@ -112,6 +120,21 @@ function targetedPing(){
         });
 
 }
+
+function findNodeInFile(otherID) {
+    var url = "http://localhost:" + port + '/api/node/findNode';
+    console.log(url);
+    axios.post(url, {
+        my_NodeID: otherID
+    })
+        .then(function (response) {
+            console.log("findNode \n", response);
+        })
+        .catch(function (error) {
+            console.log("Something failed \n", error);
+        });
+}
+
 //-------------------------------------------- BUCKET FUNCTIONS ---------------------------------------\\
 /**
  * Adds a node with ID, port. Checks for duplicating element in list,
@@ -166,7 +189,7 @@ function deleteNote(currentBucket, node) {
  * @returns {boolean}
  */
 function isBucketFull(currentBucket){
-    return currentBucket.length === constants.k;
+    return currentBucket.length == constants.k;
 }
 
 /**
@@ -182,7 +205,7 @@ function pingAllIdsInBucket(currentBucket) {
         var url;
 
         //This function should ping all the IDs in the list until it finds a dead node
-        while (counter < nodeList.length && foundDeadNode === false) {
+        while (counter < nodeList.length && foundDeadNode == false) {
 
             currentNode = currentBucket[counter];
             url = constants.ipAddress + currentNode.port; //The format is https://ipaddress/port
@@ -332,7 +355,7 @@ function findValue(value){
     //Listen af de nærmeste nodes ud fra hash af value, lægges i listen af nodes der skal tjekkes
     nodesToCheck.extend(neighborList);
     // Tjekker sig selv for information/valuen, i så fald returner
-    if(node.value === hashedValue){
+    if(node.value == hashedValue){
         found = true;
         return node.value;
     }
@@ -340,7 +363,7 @@ function findValue(value){
 
     }
     // Tjekker de andre nodes for information/valuen, i så fald returner
-    while(counter < nodesToCheck.length && found === false){
+    while(counter < nodesToCheck.length && found == false){
         //Hash the value
         //var hashedValue = crypto.createHash('sha1');
         //string-hash:
@@ -354,7 +377,7 @@ function findValue(value){
         //Tjekker om vi allerede har tjekket denne node, hvis ja -> spring over denne node
         if(!checkedNodes.indexOf(nodesToCheck[counter])){
             for(var x = 0; x < nodesToCheck[counter].values.length; x++){
-                if(nodesToCheck[counter].values[key] === hashedValue){
+                if(nodesToCheck[counter].values[key] == hashedValue){
                     return nodesToCheck[counter].values[key];
                     //Mark sagde der skulle stå break
                     break;
