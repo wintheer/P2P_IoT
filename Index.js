@@ -394,8 +394,80 @@ function findValue(value){
         }
     }
 }
+
+//---------------------------------------- NODE FUNCTIONS ----------------------------------------\\
+
+
 function storeValue(type, value) {
     var currentdate = new Date();
     var datetime = currentdate.toLocaleString();
     values.push({type: type, value:value, timeStamp:datetime});
+}
+
+/**
+ * Løber iterativt igennem alle nodes for at finde en node.
+ * @param myNodeID
+ */
+function nodeLookup(myNodeID, otherNodeID) {
+    // Anvender findNode til at løbe igennem den modtagne liste iterativt
+    var foundNode = false;
+    var currentNode;
+    var counter = 0;
+
+    // containing the nodes, which have not been checked yet
+    var notCheckedYet = [];
+    var alreadyChecked = [];
+    var results = [];
+
+    // Kalder findNode på sig selv
+    notCheckedYet = findNode(otherNodeID);
+
+    // Runs to the end of the list
+    while (counter < notCheckedYet.length) {
+        currentNode = notCheckedYet[counter];
+
+        // If the node hasn't been looked at
+        if (alreadyChecked.indexOf(currentNode) != -1) {
+
+            if (results.length == constants.k) {
+                if (myNodeID ^ currentNode.nodeID < myNodeID ^ results[constants.k].nodeID) {
+                    //Replace the last node in the list with the new one
+                    results.splice(constants.k, 1, currentNode);
+                }
+            } else {
+                results.push(currentNode);
+            }
+
+
+
+            // Moves the current Node from the notCheckedYet-list to the alreadyChecked-list
+            alreadyChecked.push(currentNode);
+            notCheckedYet.slice(notCheckedYet.indexOf(currentNode));
+
+        }
+
+        results = sortListByNumberClosestTo(results, myNodeID);
+        counter++;
+    }
+}
+
+
+/**
+ * Sorts a given list depending on the distance between a given nodeID
+ * and each listitem's nodeID XOR'ed.
+ * LEAST DISTANCE AT INDEX 0
+ * @param list
+ * @param nodeID
+ * @returns {Array.<T>}
+ */
+function sortListByNumberClosestTo(list, nodeID) {
+    // Custom defined sort function. Sorts the list after which nodeID is furthest away from the given nodeID
+    return list.sort(function (a, b) {
+        var a_XOR_NodeID = a.nodeID ^ nodeID;
+        var b_XOR_NodeID = b.nodeID ^ nodeID;
+
+        if (a_XOR_NodeID < b_XOR_NodeID) {return -1;}
+        if (a_XOR_NodeID > b_XOR_NodeID) {return 1;}
+        return 0;
+    })
 }
