@@ -19,6 +19,7 @@ exports.createQuasi = function (nrOfBit) {
     return  idInInteger;
 };
 
+
 /**
  * This function calculates which index of the new node
  * with the calculated distance should be placed on
@@ -32,4 +33,4 @@ exports.findMostSignificantBit = function (distanceInDecimal) {
         distanceInDecimal >>>= 1;
     }
     return indexNumber;
-}
+};

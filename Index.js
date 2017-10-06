@@ -431,7 +431,17 @@ function nodeLookup(myNodeID, otherNodeID) {
                 results.push(currentNode);
             }
 
+            var tempList = JSON.parse(findNodeInFile(otherNodeID, currentNode.port));
 
+            // This list has to be run through, to see if it contains nodes, which has already been checked.
+            for (var i = 0; i < tempList.length; i++) {
+                // Has this node already been checked?
+                if (alreadyChecked.indexOf(tempList[i]) < 0) {
+                    results.push(tempList[i]);
+                    alreadyChecked.push(tempList[i]);
+                    notCheckedYet.splice(tempList[1], 1);
+                }
+            }
 
             // Moves the current Node from the notCheckedYet-list to the alreadyChecked-list
             alreadyChecked.push(currentNode);
