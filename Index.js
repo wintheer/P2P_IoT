@@ -54,6 +54,7 @@ app.post('/api/node/ping', function (req, res) {
     console.log("rem_nodeID", remote_nodeid);
     var remote_port = req.body['my_Port'];
     var my_nodeid = node.nodeID;
+    console.log("PING");
     console.log("my_nodeid", my_nodeid);
     var distance = findDistanceBetweenNodes(my_nodeid, remote_nodeid);
     var rightIndex = utility.findMostSignificantBit(distance);
@@ -65,15 +66,26 @@ app.post('/api/node/ping', function (req, res) {
     res.send({'event': 'PONG', 'nodeID': node.nodeID, 'port': port});
 });
 
-
 app.post('/api/node/findNode', function (req, res) {
     var remote_nodeid = req.body['my_NodeID'];
+    console.log("findNode");
     console.log("remid", remote_nodeid);
     var my_nodeid = node.nodeID;
     console.log("locid", my_nodeid);
     var tempJSON = findNode(my_nodeid, remote_nodeid);
     console.log("TEMPJSON: ", tempJSON);
     res.json(tempJSON);
+});
+
+app.post('/api/node/nodeLookup', function (req, res) {
+    var other_nodeid = req.body['target_NodeID'];
+    var my_nodeid = node.nodeID;
+    console.log("NODELOOKUP");
+    console.log("mynodeid", my_nodeid);
+    console.log("othernodeid", other_nodeid);
+    var temp = nodeLookup(my_nodeid, other_nodeid);
+    console.log("NL: \n", temp);
+    res.send(".");
 });
 
 var server = app.listen(port, function () {
@@ -131,7 +143,7 @@ function findNodeInFile(otherID, otherPort) {
         my_NodeID: otherID
     })
         .then(function (response) {
-            return(response.data);
+            return(response.data);u
         })
         .catch(function (error) {
             console.log("Something failed \n", error);
@@ -279,7 +291,6 @@ function findNode(myNodeID, otherNodeID) {
     // som er de tætteste naboer, går så længe der stadig er buckets tilbage
     while (bucketIndex + step < neighbourNodes.length && bucketIndex - step >= 0) {
         // Går til højre
-        console.log("1");
         currentBucket = routingTable[bucketIndex + step];
         for (y = 0; y < currentBucket.length; y++) {
             if (neighbourNodes.length < constants.k) {
@@ -289,7 +300,6 @@ function findNode(myNodeID, otherNodeID) {
 
         currentBucket = routingTable[bucketIndex - step];
         // Går til venstre
-        console.log("2");
         for (y = 0; y < currentBucket.length; y++) {
             if (neighbourNodes.length < constants.k) {
                 neighbourNodes.push(currentBucket[y]);
@@ -299,7 +309,6 @@ function findNode(myNodeID, otherNodeID) {
     }
     // Bliver ved med at gå til venstre, når der ikke er flere til højre for den nuværende bucket
     while (bucketIndex - step >= 0) {
-        console.log("3");
         currentBucket = routingTable[bucketIndex - step];
         for (y = 0; y < currentBucket.length; y++) {
             if (neighbourNodes.length < constants.k) {
@@ -310,7 +319,6 @@ function findNode(myNodeID, otherNodeID) {
     }
     // Bliver ved med at gå fra bucket til bucket så længe der er flere tilbage
     while (bucketIndex + step < neighbourNodes.length) {
-        console.log("3");
         currentBucket = routingTable[bucketIndex + step];
         for (var y = 0; y < currentBucket.length; y++) {
             if (neighbourNodes.length < constants.k) {
@@ -390,7 +398,6 @@ function findValue(value){
 
 //---------------------------------------- NODE FUNCTIONS ----------------------------------------\\
 
-
 function storeValue(type, value) {
     var currentdate = new Date();
     var datetime = currentdate.toLocaleString();
@@ -421,7 +428,7 @@ function nodeLookup(myNodeID, otherNodeID) {
 
         // If the node hasn't been looked at
         if (alreadyChecked.indexOf(currentNode) != -1) {
-
+            console.log("FRIEDRICH VIL GERNE LOGGE HER :)))))");
             if (results.length == constants.k) {
                 if (myNodeID ^ currentNode.nodeID < myNodeID ^ results[constants.k].nodeID) {
                     //Replace the last node in the list with the new one
@@ -452,8 +459,8 @@ function nodeLookup(myNodeID, otherNodeID) {
         results = sortListByNumberClosestTo(results, myNodeID);
         counter++;
     }
+    return results;
 }
-
 
 /**
  * Sorts a given list depending on the distance between a given nodeID

@@ -85,3 +85,18 @@ function findNodeWebHelper() {
             console.log("Something failed \n", error);
         });
 }
+
+function nodeLookup() {
+    var fieldPort = document.getElementById("Port").value;
+    var url = "http://localhost:" + fieldPort + '/api/node/nodeLookup';
+    axios.post(url, {
+        target_NodeID: myNodeID,
+    })
+        .then(function (response) {
+            console.log("nodeLookup \n", response);
+        })
+        .catch(function (error) {
+            console.log("Something failed \n", error);
+        });
+    
+}
