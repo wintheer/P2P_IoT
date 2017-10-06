@@ -58,6 +58,7 @@ app.post('/api/node/ping', function (req, res) {
     var distance = findDistanceBetweenNodes(my_nodeid, remote_nodeid);
     var rightIndex = utility.findMostSignificantBit(distance);
     var local_bucket = routingTable[rightIndex];
+
     addNodeTo(local_bucket, remote_nodeid, remote_port);
     console.log(routingTable);
     res.send({'event': 'PONG', 'nodeID': node.nodeID, 'port': port});
@@ -136,6 +137,18 @@ function findNodeInFile(otherID) {
 }
 
 //-------------------------------------------- BUCKET FUNCTIONS ---------------------------------------\\
+
+
+var testBucket = [new nodeClass.node(123, constants.ipAddress, 8888), new nodeClass.node(124, constants.ipAddress, 8889),
+    new nodeClass.node(128, constants.ipAddress, 8890)];
+
+var testPort = 8888;
+var testNodeID = 123;
+
+addNodeTo(testBucket, testNodeID, testPort);
+
+
+
 /**
  * Adds a node with ID, port. Checks for duplicating element in list,
  * and updates the element, if it is there already
@@ -145,11 +158,14 @@ function findNodeInFile(otherID) {
  */
 function addNodeTo(currentBucket, localNodeID, port) {
     var tempNode = new nodeClass.node(localNodeID, constants.ipAddress, port);
-    var indexOfTempNode = currentBucket.indexOf(tempNode);
+    var indexOfTempNode = currentBucket.map(function(el) {
+        return el.port
+    }).indexOf(port);
 
     // If the element is not in the list
-    if (indexOfTempNode >= 0) {
+    if (indexOfTempNode < 0) {
 
+        // If the bucket is full, ping to check for dead nodes
         if (currentBucket.length >= constants.k) {
             var deadNode = pingAllIdsInBucket(currentBucket);
 
@@ -160,12 +176,15 @@ function addNodeTo(currentBucket, localNodeID, port) {
             }
             console.log("Bucket is full and all nodes are alive.")
         }
+        // If the bucket is not full, just push
         else {
             currentBucket.push(tempNode);
         }
     }
     else {
-        deleteNote(currentBucket, tempNode);
+        // Remove the node and put it on top
+        currentBucket.splice(indexOfTempNode, 1);
+        //deleteNote(currentBucket, tempNode);
         currentBucket.push(tempNode);
     }
 }
@@ -250,23 +269,6 @@ function findDistanceBetweenNodes(nodeID, otherNodeID) {
     return nodeID ^ otherNodeID;
 }
 
-
-/**
- * Puts the given nodeID with the given distance from this node in the right bucket index
- */
-function putInRightIndexedBucket(otherNodeID, otherNodePort) {
-    var localIndex = utility.findMostSignificantBit(findDistanceBetweenNodes(node.nodeID, otherNodeID));
-    var currentBucket = routingTable[localIndex];
-
-    // If the bucket is full, it will ping all it's notes to see, if can switch it out with the new node
-    if(isBucketFull(currentBucket)) {
-        pingAllIdsInBucket(currentBucket);
-    }
-    else {
-        addNodeTo(routingTable[localIndex], otherNodeID, otherNodePort);
-
-    }
-}
 
 /**
  *
