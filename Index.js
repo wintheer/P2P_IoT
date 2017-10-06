@@ -426,8 +426,12 @@ function nodeLookup(myNodeID, otherNodeID) {
     while (counter < notCheckedYet.length) {
         currentNode = notCheckedYet[counter];
 
+        var indexOfNode = alreadyChecked.map(function(el) {
+            return el.port;
+        }).indexOf(currentNode.port);
+
         // If the node hasn't been looked at
-        if (alreadyChecked.indexOf(currentNode) != -1) {
+        if (indexOfNode != -1) {
             console.log("FRIEDRICH VIL GERNE LOGGE HER :)))))");
             if (results.length == constants.k) {
                 if (myNodeID ^ currentNode.nodeID < myNodeID ^ results[constants.k].nodeID) {
