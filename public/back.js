@@ -45,6 +45,7 @@ function ping() {
     axios.post(url, {
         my_NodeID: myNodeID,
         my_Port: myPort,
+        nodeID: fieldID
     })
         .then(function (response) {
             console.log("Remote Ping Succeeded \n", response);

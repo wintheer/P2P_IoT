@@ -57,10 +57,11 @@ app.post('/api/node/ping', function (req, res) {
     console.log("my_nodeid", my_nodeid);
     var distance = findDistanceBetweenNodes(my_nodeid, remote_nodeid);
     var rightIndex = utility.findMostSignificantBit(distance);
-    var local_bucket = routingTable[rightIndex];
-
+    console.log("Right Index: ", rightIndex);
+    //Nul indeksering :)))
+    var local_bucket = routingTable[rightIndex-1];
     addNodeTo(local_bucket, remote_nodeid, remote_port);
-    console.log(routingTable);
+    console.log("RT AFTER PING: \n", routingTable);
     res.send({'event': 'PONG', 'nodeID': node.nodeID, 'port': port});
 });
 
@@ -70,8 +71,9 @@ app.post('/api/node/findNode', function (req, res) {
     console.log("remid", remote_nodeid);
     var my_nodeid = node.nodeID;
     console.log("locid", my_nodeid);
-    console.log("nn", findNode(my_nodeid, remote_nodeid));
-    res.send({'event': 'FIND_NODE', 'rem_nodeid': remote_nodeid, 'local_nodeid': my_nodeid});
+    var tempJSON = findNode(my_nodeid, remote_nodeid);
+    console.log("TEMPJSON: ", tempJSON);
+    res.json(tempJSON);
 });
 
 var server = app.listen(port, function () {
@@ -122,14 +124,14 @@ function targetedPing(){
 
 }
 
-function findNodeInFile(otherID) {
-    var url = "http://localhost:" + port + '/api/node/findNode';
+function findNodeInFile(otherID, otherPort) {
+    var url = "http://localhost:" + otherPort + '/api/node/findNode';
     console.log(url);
     axios.post(url, {
         my_NodeID: otherID
     })
         .then(function (response) {
-            console.log("findNode \n", response);
+            return(response.data);
         })
         .catch(function (error) {
             console.log("Something failed \n", error);
@@ -137,17 +139,6 @@ function findNodeInFile(otherID) {
 }
 
 //-------------------------------------------- BUCKET FUNCTIONS ---------------------------------------\\
-
-
-var testBucket = [new nodeClass.node(123, constants.ipAddress, 8888), new nodeClass.node(124, constants.ipAddress, 8889),
-    new nodeClass.node(128, constants.ipAddress, 8890)];
-
-var testPort = 8888;
-var testNodeID = 123;
-
-addNodeTo(testBucket, testNodeID, testPort);
-
-
 
 /**
  * Adds a node with ID, port. Checks for duplicating element in list,
