@@ -453,6 +453,7 @@ function nodeLookup(myNodeID, otherNodeID) {
 
     // Kalder findNode på sig selv
     notCheckedYet = findNode(otherNodeID);
+    alreadyChecked.push(node);
     // Runs to the end of the list
     while (counter < notCheckedYet.length) {
         currentNode = notCheckedYet[counter];
