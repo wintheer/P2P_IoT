@@ -148,7 +148,8 @@ function argumentPing(argument_id, argument_port){
     })
         .then(function (response) {
             //console.log("Argument Ping", response);
-            console.log("Argument ping")
+            console.log("Argument ping");
+            console.log("I ", node.port, " pinged ", argument_port);
         })
         .catch(function (error) {
             //console.log("Something failed \n", error);
@@ -452,8 +453,9 @@ function nodeLookup(myNodeID, otherNodeID) {
     var results = [];
 
     // Kalder findNode på sig selv
-    notCheckedYet = findNode(otherNodeID);
+    notCheckedYet = findNode(myNodeID, otherNodeID);
     alreadyChecked.push(node);
+    console.log("Already checked", alreadyChecked);
     // Runs to the end of the list
     while (counter < notCheckedYet.length) {
         currentNode = notCheckedYet[counter];
@@ -472,29 +474,30 @@ function nodeLookup(myNodeID, otherNodeID) {
             } else {
                 results.push(currentNode);
             }
-
+            var tempList = [];
             try {
                 sync.fiber(function() {
-                    var tempList = sync.await(findNodeInFile(otherNodeID, currentNode.port));
+                    tempList = sync.await(findNodeInFile(otherNodeID, currentNode.port));
                     console.log("tempList: ", tempList);
+                    for (var i = 0; i < tempList.length; i++) {
+                        // Has this node already been checked?
+                        if (alreadyChecked.indexOf(tempList[i]) < 0) {
+                            results.push(tempList[i]);
+                            alreadyChecked.push(tempList[i]);
+                            notCheckedYet.splice(tempList[1], 1);
+                        }
+                    }
                 });
             } catch(err) {
                 console.log("Lol error in sync");
             }
 
-            /*// This list has to be run through, to see if it contains nodes, which has already been checked.
-            for (var i = 0; i < tempList.length; i++) {
-                // Has this node already been checked?
-                if (alreadyChecked.indexOf(tempList[i]) < 0) {
-                    results.push(tempList[i]);
-                    alreadyChecked.push(tempList[i]);
-                    notCheckedYet.splice(tempList[1], 1);
-                }
-            }
+            // This list has to be run through, to see if it contains nodes, which has already been checked.
+
 
             // Moves the current Node from the notCheckedYet-list to the alreadyChecked-list
             alreadyChecked.push(currentNode);
-            notCheckedYet.slice(notCheckedYet.indexOf(currentNode));*/
+            notCheckedYet.slice(notCheckedYet.indexOf(currentNode));
 
         }
 

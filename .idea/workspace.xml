@@ -4,6 +4,7 @@
     <list default="true" id="7347eb3b-3e44-4d7a-954a-c954e1512d5c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Index.js" afterPath="$PROJECT_DIR$/Index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/index.html" afterPath="$PROJECT_DIR$/public/index.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -20,8 +21,8 @@
       <file leaf-file-name="Index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="107">
-              <caret line="182" column="17" lean-forward="false" selection-start-line="182" selection-start-column="17" selection-end-line="183" selection-end-column="3" />
+            <state relative-caret-position="416">
+              <caret line="453" column="0" lean-forward="true" selection-start-line="453" selection-start-column="0" selection-end-line="453" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -30,8 +31,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" column="16" lean-forward="true" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
+            <state relative-caret-position="255">
+              <caret line="15" column="16" lean-forward="true" selection-start-line="15" selection-start-column="16" selection-end-line="16" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -60,10 +61,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>store</find>
-      <find>response</find>
-      <find>info</find>
-      <find>findvalue</find>
       <find>===</find>
       <find>puting</find>
       <find>endnode</find>
@@ -83,13 +80,17 @@
       <find>pingall</find>
       <find>addnodeto</find>
       <find>addnode</find>
-      <find>nodelookup</find>
       <find>end of node</find>
       <find>indexofnode</find>
       <find>console.log</find>
       <find>nodelook</find>
       <find>ping</find>
       <find>argumentPing</find>
+      <find>alre</find>
+      <find>nodeloo</find>
+      <find>nodelookup</find>
+      <find>488</find>
+      <find>mynodeid</find>
     </findStrings>
     <dirStrings>
       <dir>C:\Users\Ahmad\WebstormProjects\P2P_IoT\node_modules</dir>
@@ -127,8 +128,8 @@
         <option value="$PROJECT_DIR$/Bucket.js" />
         <option value="$PROJECT_DIR$/RoutingTable.js" />
         <option value="$PROJECT_DIR$/Utilities.js" />
-        <option value="$PROJECT_DIR$/public/index.html" />
         <option value="$PROJECT_DIR$/public/back.js" />
+        <option value="$PROJECT_DIR$/public/index.html" />
         <option value="$PROJECT_DIR$/Index.js" />
       </list>
     </option>
@@ -248,7 +249,6 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/workspace.xml</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/Index.js</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
@@ -526,7 +526,7 @@
       <workItem from="1507626933482" duration="596000" />
       <workItem from="1507628103652" duration="17000" />
       <workItem from="1507794258626" duration="7043000" />
-      <workItem from="1507812859568" duration="2821000" />
+      <workItem from="1507812859568" duration="4243000" />
     </task>
     <task id="LOCAL-00001" summary="Arbejdet lidt med konstruktoren">
       <created>1505118640472</created>
@@ -787,11 +787,18 @@
       <option name="project" value="LOCAL" />
       <updated>1507813549640</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="FNIF">
+      <created>1507815779689</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1507815779689</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="158419000" />
+    <option name="totallyTimeSpent" value="159841000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
@@ -823,7 +830,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="kBucket opdateret, Routingtable lavet og fået implementeret nogle metoder" />
     <MESSAGE value="Just an update" />
     <MESSAGE value="Added express" />
     <MESSAGE value="Trying to show a html file" />
@@ -848,7 +854,8 @@
     <MESSAGE value="Changed some comments" />
     <MESSAGE value="Ping doesn't duplicate" />
     <MESSAGE value="." />
-    <option name="LAST_COMMIT_MESSAGE" value="." />
+    <MESSAGE value="FNIF" />
+    <option name="LAST_COMMIT_MESSAGE" value="FNIF" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1001,14 +1008,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="16" lean-forward="true" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/back.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="627">
@@ -1017,10 +1016,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="16" lean-forward="true" selection-start-line="15" selection-start-column="16" selection-end-line="16" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="182" column="17" lean-forward="false" selection-start-line="182" selection-start-column="17" selection-end-line="183" selection-end-column="3" />
+        <state relative-caret-position="416">
+          <caret line="453" column="0" lean-forward="true" selection-start-line="453" selection-start-column="0" selection-end-line="453" selection-end-column="0" />
           <folding />
         </state>
       </provider>
