@@ -291,7 +291,7 @@ function findNode(myNodeID, otherNodeID) {
     var step = 1;
     var currentBucket;
 
-    neighbourNodes = routingTable[bucketIndex];
+    neighbourNodes = neighbourNodes.concat(routingTable[bucketIndex]);
     //console.log("NN", neighbourNodes);
     // Bliver ved med at gå til venstre og højre for den nuværende bucket og tilføjer nodes til foundnodes,
     // som er de tætteste naboer, går så længe der stadig er buckets tilbage
@@ -301,7 +301,7 @@ function findNode(myNodeID, otherNodeID) {
         for (y = 0; y < currentBucket.length; y++) {
             if (neighbourNodes.length < constants.k) {
                 addNodeTo(currentBucket, currentBucket[y].nodeID, currentBucket[y].port);
-                //neighbourNodes.push();
+                neighbourNodes.push(currentBucket[y]);
             }
         }
 
@@ -310,7 +310,7 @@ function findNode(myNodeID, otherNodeID) {
         for (y = 0; y < currentBucket.length; y++) {
             if (neighbourNodes.length < constants.k) {
                 addNodeTo(currentBucket, currentBucket[y].nodeID, currentBucket[y].port);
-                //neighbourNodes.push(currentBucket[y]);
+                neighbourNodes.push(currentBucket[y]);
             }
         }
         step++;
@@ -321,7 +321,7 @@ function findNode(myNodeID, otherNodeID) {
         for (y = 0; y < currentBucket.length; y++) {
             if (neighbourNodes.length < constants.k) {
                 addNodeTo(currentBucket, currentBucket[y].nodeID, currentBucket[y].port);
-                //neighbourNodes.push(currentBucket[y]);
+                neighbourNodes.push(currentBucket[y]);
             }
         }
         step++;
@@ -332,7 +332,7 @@ function findNode(myNodeID, otherNodeID) {
         for (var y = 0; y < currentBucket.length; y++) {
             if (neighbourNodes.length < constants.k) {
                 addNodeTo(currentBucket, currentBucket[y].nodeID, currentBucket[y].port);
-                //neighbourNodes.push(currentBucket[y]);
+                neighbourNodes.push(currentBucket[y]);
             }
         }
         step++;
@@ -347,6 +347,8 @@ function findNode(myNodeID, otherNodeID) {
     //Slut af med at tage alt til venstre
     //Lav en liste af nodes og returnér.
 }
+
+
 function findValue(value){
     //Hash the value
     var hashedValue = crypto.createHash('sha1');
