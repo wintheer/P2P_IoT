@@ -73,7 +73,7 @@ app.post('/api/node/findNode', function (req, res) {
     var my_nodeid = node.nodeID;
     console.log("locid", my_nodeid);
     var tempJSON = findNode(my_nodeid, remote_nodeid);
-    console.log("TEMPJSON: ", tempJSON);
+    console.log("RT Find Node: ", routingTable);
     res.json(tempJSON);
 });
 
@@ -143,7 +143,7 @@ function findNodeInFile(otherID, otherPort) {
         my_NodeID: otherID
     })
         .then(function (response) {
-            return(response.data);u
+            console.log("fnif: ", response);
         })
         .catch(function (error) {
             console.log("Something failed \n", error);
@@ -327,7 +327,7 @@ function findNode(myNodeID, otherNodeID) {
         }
         step++;
     }
-    console.log("endNode", neighbourNodes);
+    console.log("END OF FIND NODE", neighbourNodes);
     return neighbourNodes;
 
     //Find bucket index
@@ -429,10 +429,10 @@ function nodeLookup(myNodeID, otherNodeID) {
         var indexOfNode = alreadyChecked.map(function(el) {
             return el.port;
         }).indexOf(currentNode.port);
-
+        console.log("INDEXOFNODE: ",indexOfNode);
         // If the node hasn't been looked at
-        if (indexOfNode != -1) {
-            console.log("FRIEDRICH VIL GERNE LOGGE HER :)))))");
+        if (indexOfNode == -1) {
+            console.log("CURRENT NODE", currentNode);
             if (results.length == constants.k) {
                 if (myNodeID ^ currentNode.nodeID < myNodeID ^ results[constants.k].nodeID) {
                     //Replace the last node in the list with the new one
@@ -442,9 +442,10 @@ function nodeLookup(myNodeID, otherNodeID) {
                 results.push(currentNode);
             }
 
-            var tempList = JSON.parse(findNodeInFile(otherNodeID, currentNode.port));
+            var tempList = findNodeInFile(otherNodeID, currentNode.port);
+            console.log("tempList: ", tempList);
 
-            // This list has to be run through, to see if it contains nodes, which has already been checked.
+            /*// This list has to be run through, to see if it contains nodes, which has already been checked.
             for (var i = 0; i < tempList.length; i++) {
                 // Has this node already been checked?
                 if (alreadyChecked.indexOf(tempList[i]) < 0) {
@@ -456,7 +457,7 @@ function nodeLookup(myNodeID, otherNodeID) {
 
             // Moves the current Node from the notCheckedYet-list to the alreadyChecked-list
             alreadyChecked.push(currentNode);
-            notCheckedYet.slice(notCheckedYet.indexOf(currentNode));
+            notCheckedYet.slice(notCheckedYet.indexOf(currentNode));*/
 
         }
 
