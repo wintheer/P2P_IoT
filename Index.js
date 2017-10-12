@@ -420,10 +420,10 @@ function nodeLookup(myNodeID, otherNodeID) {
     var results = [];
 
     // Kalder findNode på sig selv
-    notCheckedYet = findNode(otherNodeID);
+    notCheckedYet = findNode(myNodeID, otherNodeID);
 
     // Runs to the end of the list
-    while (counter < notCheckedYet.length) {
+    while (notCheckedYet.length != 0) {
         currentNode = notCheckedYet[counter];
 
         var indexOfNode = alreadyChecked.map(function(el) {
@@ -431,7 +431,7 @@ function nodeLookup(myNodeID, otherNodeID) {
         }).indexOf(currentNode.port);
 
         // If the node hasn't been looked at
-        if (indexOfNode != -1) {
+        if (indexOfNode == -1) {
             console.log("FRIEDRICH VIL GERNE LOGGE HER :)))))");
             if (results.length == constants.k) {
                 if (myNodeID ^ currentNode.nodeID < myNodeID ^ results[constants.k].nodeID) {
@@ -442,21 +442,19 @@ function nodeLookup(myNodeID, otherNodeID) {
                 results.push(currentNode);
             }
 
-            var tempList = JSON.parse(findNodeInFile(otherNodeID, currentNode.port));
+            var tempList = findNodeInFile(currentNode.nodeID, currentNode.port);
 
             // This list has to be run through, to see if it contains nodes, which has already been checked.
             for (var i = 0; i < tempList.length; i++) {
                 // Has this node already been checked?
                 if (alreadyChecked.indexOf(tempList[i]) < 0) {
-                    results.push(tempList[i]);
-                    alreadyChecked.push(tempList[i]);
-                    notCheckedYet.splice(tempList[1], 1);
+                    notCheckedYet.push(tempList[i]);
                 }
             }
 
             // Moves the current Node from the notCheckedYet-list to the alreadyChecked-list
             alreadyChecked.push(currentNode);
-            notCheckedYet.slice(notCheckedYet.indexOf(currentNode));
+            notCheckedYet.shift();
 
         }
 
