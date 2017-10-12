@@ -120,7 +120,7 @@ function bootstrapNode(){
         console.log("First Node Started");
     }
     else
-        targetedPing()
+        targetedPing();
 }
 
 function targetedPing(){
@@ -135,10 +135,28 @@ function targetedPing(){
         })
         .catch(function (error) {
             //console.log("Something failed \n", error);
-            console.log("error");
+            console.log("error targPing");
         });
 
 }
+
+function argumentPing(argument_id, argument_port){
+    var url = "http://localhost:" + argument_port + '/api/node/ping';
+    axios.post(url, {
+        my_NodeID: argument_id,
+        my_Port: argument_port
+    })
+        .then(function (response) {
+            //console.log("Argument Ping", response);
+            console.log("Argument ping")
+        })
+        .catch(function (error) {
+            //console.log("Something failed \n", error);
+            console.log("error argPing");
+        });
+
+}
+
 
 function findNodeInFile(otherID, otherPort) {
     var url = "http://localhost:" + otherPort + '/api/node/findNode';
@@ -148,6 +166,7 @@ function findNodeInFile(otherID, otherPort) {
     })
         .then(function (response) {
             console.log("fnif: ", response.data);
+            argumentPing(otherID, otherPort);
         })
         .catch(function (error) {
             console.log("Something failed \n", error);

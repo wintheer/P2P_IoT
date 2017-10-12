@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7347eb3b-3e44-4d7a-954a-c954e1512d5c" name="Default" comment="Lalalalalala">
+    <list default="true" id="7347eb3b-3e44-4d7a-954a-c954e1512d5c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Index.js" afterPath="$PROJECT_DIR$/Index.js" />
     </list>
@@ -16,160 +16,81 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.7599049">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="constants.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/config/constants.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="345">
-                  <caret line="23" column="36" lean-forward="false" selection-start-line="23" selection-start-column="36" selection-end-line="23" selection-end-column="36" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Utilities.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Utilities.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="465">
-                  <caret line="31" column="22" lean-forward="false" selection-start-line="31" selection-start-column="22" selection-end-line="31" selection-end-column="22" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Index.js" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/Index.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="238">
-                  <caret line="303" column="16" lean-forward="true" selection-start-line="303" selection-start-column="16" selection-end-line="303" selection-end-column="16" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="temp.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/temp.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="0">
-                  <caret line="0" column="29" lean-forward="false" selection-start-line="0" selection-start-column="29" selection-end-line="0" selection-end-column="29" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Actuators.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/lib/Actuators.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="255">
-                  <caret line="17" column="2" lean-forward="false" selection-start-line="17" selection-start-column="2" selection-end-line="17" selection-end-column="2" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="back.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/public/back.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="630">
-                  <caret line="42" column="63" lean-forward="false" selection-start-line="42" selection-start-column="59" selection-end-line="42" selection-end-column="63" />
-                  <folding>
-                    <marker date="1507813560000" expanded="true" signature="2239:2631" ph="{...}" />
-                    <marker date="1507813560000" expanded="true" signature="2515:2527" ph="{...}" />
-                    <marker date="1507813560000" expanded="true" signature="2561:2627" ph="{...}" />
-                    <marker date="1507813560000" expanded="true" signature="2655:3056" ph="{...}" />
-                    <marker date="1507813560000" expanded="true" signature="2808:2848" ph="{&quot;target_NodeID&quot;: myNodeID...}" />
-                    <marker date="1507813560000" expanded="true" signature="2884:2947" ph="{...}" />
-                    <marker date="1507813560000" expanded="true" signature="2981:3047" ph="{...}" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Sensors.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Sensors.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="195">
-                  <caret line="13" column="44" lean-forward="false" selection-start-line="13" selection-start-column="44" selection-end-line="13" selection-end-column="44" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Node.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/lib/Node.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="225">
-                  <caret line="15" column="12" lean-forward="false" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="12" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="Index.js" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/Index.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1675">
-                  <caret line="445" column="12" lean-forward="false" selection-start-line="445" selection-start-column="12" selection-end-line="445" selection-end-column="12" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="Index.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="107">
+              <caret line="182" column="17" lean-forward="false" selection-start-line="182" selection-start-column="17" selection-end-line="183" selection-end-column="3" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="19" column="16" lean-forward="true" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="back.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/back.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="627">
+              <caret line="80" column="52" lean-forward="false" selection-start-line="80" selection-start-column="52" selection-end-line="80" selection-end-column="52" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="CSS File" />
         <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>api</find>
-      <find>xmlht</find>
-      <find>window</find>
-      <find>stat</find>
-      <find>hej</find>
-      <find>cons</find>
-      <find>nodeid</find>
-      <find>;</find>
-      <find>consta</find>
-      <find>routing</find>
-      <find>workspace</find>
-      <find>mod</find>
-      <find>nodeID</find>
-      <find>node</find>
-      <find>tempnode</find>
-      <find>getno</find>
-      <find>url</find>
-      <find>listen</find>
-      <find>isBucketFull</find>
-      <find>pingAll</find>
-      <find>addPeer</find>
-      <find>remove</find>
-      <find>.length</find>
-      <find>rightIn</find>
-      <find>addNode</find>
+      <find>store</find>
+      <find>response</find>
+      <find>info</find>
+      <find>findvalue</find>
+      <find>===</find>
+      <find>puting</find>
+      <find>endnode</find>
+      <find>console.log(&quot;1</find>
+      <find>addnode22</find>
+      <find>before</find>
+      <find>console.log(&quot;3</find>
+      <find>f</find>
+      <find>findnodein</find>
+      <find>fnif</find>
+      <find>nodeLookup</find>
+      <find>notcheckedyet</find>
+      <find>findnode</find>
+      <find>find node</find>
+      <find>neighb</find>
+      <find>neighboar</find>
+      <find>pingall</find>
+      <find>addnodeto</find>
+      <find>addnode</find>
+      <find>nodelookup</find>
+      <find>end of node</find>
+      <find>indexofnode</find>
+      <find>console.log</find>
+      <find>nodelook</find>
       <find>ping</find>
-      <find>utility.find</find>
-      <find>add</find>
-      <find>addNodeTo</find>
-      <find>findNode</find>
+      <find>argumentPing</find>
     </findStrings>
-    <replaceStrings>
-      <replace>nodeList</replace>
-    </replaceStrings>
     <dirStrings>
       <dir>C:\Users\Ahmad\WebstormProjects\P2P_IoT\node_modules</dir>
     </dirStrings>
@@ -202,13 +123,12 @@
         <option value="$PROJECT_DIR$/config/constants.js" />
         <option value="$PROJECT_DIR$/Routingtable.js" />
         <option value="$PROJECT_DIR$/lib/Actuators.js" />
-        <option value="$PROJECT_DIR$/public/index.html" />
         <option value="$PROJECT_DIR$/public/index style.css" />
-        <option value="$PROJECT_DIR$/RoutingTable.js" />
         <option value="$PROJECT_DIR$/Bucket.js" />
-        <option value="$PROJECT_DIR$/public/back.js" />
-        <option value="$PROJECT_DIR$/temp.js" />
+        <option value="$PROJECT_DIR$/RoutingTable.js" />
         <option value="$PROJECT_DIR$/Utilities.js" />
+        <option value="$PROJECT_DIR$/public/index.html" />
+        <option value="$PROJECT_DIR$/public/back.js" />
         <option value="$PROJECT_DIR$/Index.js" />
       </list>
     </option>
@@ -234,12 +154,15 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
-    <option name="width" value="1440" />
-    <option name="height" value="872" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1280" />
+    <option name="height" value="710" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="false" id="Update" />
+  </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
@@ -267,6 +190,11 @@
             <path>
               <item name="P2P_IoT" type="b2602c69:ProjectViewProjectNode" />
               <item name="P2P_IoT" type="462c0819:PsiDirectoryNode" />
+              <item name="build" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="P2P_IoT" type="b2602c69:ProjectViewProjectNode" />
+              <item name="P2P_IoT" type="462c0819:PsiDirectoryNode" />
               <item name="config" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -286,9 +214,9 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="configurable.group.language" />
+    <property name="settings.editor.selected.configurable" value="JavaScript.Libraries" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
+    <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="javascript.nodejs.core.library.configured.version" value="6.11.3" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -320,10 +248,8 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="UPDATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/workspace.xml</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/Index.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/package.json</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/public/back.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/public/index.html</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Created" />
@@ -432,7 +358,7 @@
     </option>
   </component>
   <component name="RunManager" selected="Node.js.Index.js">
-    <configuration name="Index.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="project" path-to-js-file="Index.js" application-parameters="8888" working-dir="$PROJECT_DIR$">
+    <configuration name="Index.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="project" path-to-js-file="Index.js" application-parameters="8888 0" working-dir="$PROJECT_DIR$">
       <EXTENSION ID="com.jetbrains.nodejs.remote.docker.NodeJSDockerRunConfigurationExtension">
         <option name="envVars">
           <list />
@@ -455,7 +381,8 @@
         </option>
       </EXTENSION>
     </configuration>
-    <configuration name="Utilities.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="project" path-to-js-file="Utilities.js" working-dir="$PROJECT_DIR$">
+    <configuration name="Node.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="project" path-to-js-file="Node.js" working-dir="$PROJECT_DIR$/lib" />
+    <configuration name="Utilities.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="C:/Program Files/nodejs/node" path-to-js-file="Utilities.js" working-dir="$PROJECT_DIR$/lib">
       <EXTENSION ID="com.jetbrains.nodejs.remote.docker.NodeJSDockerRunConfigurationExtension">
         <option name="envVars">
           <list />
@@ -502,30 +429,7 @@
       </EXTENSION>
     </configuration>
     <configuration name="kBucket.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="project" path-to-js-file="kBucket.js" working-dir="$PROJECT_DIR$/lib" />
-    <configuration name="temp.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="project" path-to-js-file="temp.js" working-dir="$PROJECT_DIR$">
-      <EXTENSION ID="com.jetbrains.nodejs.remote.docker.NodeJSDockerRunConfigurationExtension">
-        <option name="envVars">
-          <list />
-        </option>
-        <option name="extraHosts">
-          <list />
-        </option>
-        <option name="links">
-          <list />
-        </option>
-        <option name="networkDisabled" value="false" />
-        <option name="networkMode" value="bridge" />
-        <option name="portBindings">
-          <list />
-        </option>
-        <option name="publishAllPorts" value="false" />
-        <option name="version" value="1" />
-        <option name="volumeBindings">
-          <list />
-        </option>
-      </EXTENSION>
-    </configuration>
-    <configuration name="test.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="project" path-to-js-file="test.js" working-dir="$PROJECT_DIR$/lib">
+    <configuration name="test.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="C:/Program Files/nodejs/node" path-to-js-file="test.js" working-dir="$PROJECT_DIR$/lib">
       <EXTENSION ID="com.jetbrains.nodejs.remote.docker.NodeJSDockerRunConfigurationExtension">
         <option name="envVars">
           <list />
@@ -549,19 +453,19 @@
       </EXTENSION>
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Node.js.Index.js" />
-      <item index="1" class="java.lang.String" itemvalue="Node.js.kBucket.js" />
-      <item index="2" class="java.lang.String" itemvalue="Node.js.test.js" />
-      <item index="3" class="java.lang.String" itemvalue="Node.js.temp.js" />
-      <item index="4" class="java.lang.String" itemvalue="Node.js.Utilities.js" />
+      <item index="0" class="java.lang.String" itemvalue="Node.js.Utilities.js" />
+      <item index="1" class="java.lang.String" itemvalue="Node.js.Node.js" />
+      <item index="2" class="java.lang.String" itemvalue="Node.js.Index.js" />
+      <item index="3" class="java.lang.String" itemvalue="Node.js.kBucket.js" />
+      <item index="4" class="java.lang.String" itemvalue="Node.js.test.js" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Node.js.Index.js" />
-        <item index="1" class="java.lang.String" itemvalue="Node.js.Utilities.js" />
-        <item index="2" class="java.lang.String" itemvalue="Node.js.temp.js" />
-        <item index="3" class="java.lang.String" itemvalue="Node.js.test.js" />
-        <item index="4" class="java.lang.String" itemvalue="Node.js.kBucket.js" />
+        <item index="1" class="java.lang.String" itemvalue="Node.js.test.js" />
+        <item index="2" class="java.lang.String" itemvalue="Node.js.kBucket.js" />
+        <item index="3" class="java.lang.String" itemvalue="Node.js.Node.js" />
+        <item index="4" class="java.lang.String" itemvalue="Node.js.Utilities.js" />
       </list>
     </recent_temporary>
   </component>
@@ -606,11 +510,23 @@
       <workItem from="1506519727343" duration="4446000" />
       <workItem from="1506587396382" duration="5291000" />
       <workItem from="1506593810891" duration="1555000" />
-      <workItem from="1506595420195" duration="6869000" />
-      <workItem from="1506671538051" duration="11325000" />
-      <workItem from="1507022149355" duration="22477000" />
-      <workItem from="1507275780151" duration="14566000" />
-      <workItem from="1507797861461" duration="4649000" />
+      <workItem from="1506595420195" duration="7182000" />
+      <workItem from="1506670158388" duration="15149000" />
+      <workItem from="1506688294587" duration="244000" />
+      <workItem from="1507025562605" duration="3935000" />
+      <workItem from="1507190001618" duration="4947000" />
+      <workItem from="1507195112164" duration="2013000" />
+      <workItem from="1507204744339" duration="1465000" />
+      <workItem from="1507206241708" duration="529000" />
+      <workItem from="1507206790152" duration="6180000" />
+      <workItem from="1507274973796" duration="5079000" />
+      <workItem from="1507280596499" duration="2489000" />
+      <workItem from="1507284421090" duration="1557000" />
+      <workItem from="1507286139258" duration="7648000" />
+      <workItem from="1507626933482" duration="596000" />
+      <workItem from="1507628103652" duration="17000" />
+      <workItem from="1507794258626" duration="7043000" />
+      <workItem from="1507812859568" duration="2821000" />
     </task>
     <task id="LOCAL-00001" summary="Arbejdet lidt med konstruktoren">
       <created>1505118640472</created>
@@ -766,188 +682,137 @@
       <option name="project" value="LOCAL" />
       <updated>1506598815896</updated>
     </task>
-    <task id="LOCAL-00023" summary="redoing bucket">
-      <created>1506609369975</created>
+    <task id="LOCAL-00023" summary="Reworked bucket">
+      <created>1506608451735</created>
       <option name="number" value="00023" />
       <option name="presentableId" value="LOCAL-00023" />
       <option name="project" value="LOCAL" />
-      <updated>1506609369975</updated>
+      <updated>1506608451735</updated>
     </task>
-    <task id="LOCAL-00024" summary="Refactoring code">
-      <created>1506609886560</created>
+    <task id="LOCAL-00024" summary="Added routingTable route">
+      <created>1506673230734</created>
       <option name="number" value="00024" />
       <option name="presentableId" value="LOCAL-00024" />
       <option name="project" value="LOCAL" />
-      <updated>1506609886560</updated>
+      <updated>1506673230734</updated>
     </task>
-    <task id="LOCAL-00025" summary="Refactoring code">
-      <created>1506611309180</created>
+    <task id="LOCAL-00025" summary="Concussion">
+      <created>1506682846195</created>
       <option name="number" value="00025" />
       <option name="presentableId" value="LOCAL-00025" />
       <option name="project" value="LOCAL" />
-      <updated>1506611309180</updated>
+      <updated>1506682846195</updated>
     </task>
-    <task id="LOCAL-00026" summary="Refactoring code">
-      <created>1506674277258</created>
+    <task id="LOCAL-00026" summary="Concussion">
+      <created>1506682971809</created>
       <option name="number" value="00026" />
       <option name="presentableId" value="LOCAL-00026" />
       <option name="project" value="LOCAL" />
-      <updated>1506674277259</updated>
+      <updated>1506682971809</updated>
     </task>
-    <task id="LOCAL-00027" summary="Removed RoutingTable and Bucket files">
-      <created>1506676065690</created>
+    <task id="LOCAL-00027" summary="Concussion">
+      <created>1506683197725</created>
       <option name="number" value="00027" />
       <option name="presentableId" value="LOCAL-00027" />
       <option name="project" value="LOCAL" />
-      <updated>1506676065690</updated>
+      <updated>1506683197725</updated>
     </task>
-    <task id="LOCAL-00028" summary="Refactored findNode to make it work.">
-      <created>1506676603780</created>
+    <task id="LOCAL-00028" summary="findValue() kinda works">
+      <created>1507204772393</created>
       <option name="number" value="00028" />
       <option name="presentableId" value="LOCAL-00028" />
       <option name="project" value="LOCAL" />
-      <updated>1506676603780</updated>
+      <updated>1507204772393</updated>
     </task>
-    <task id="LOCAL-00029" summary="addNode cannot add duplicates anymore.">
-      <created>1506684009982</created>
+    <task id="LOCAL-00029" summary="oprydning">
+      <created>1507206057609</created>
       <option name="number" value="00029" />
       <option name="presentableId" value="LOCAL-00029" />
       <option name="project" value="LOCAL" />
-      <updated>1506684009982</updated>
+      <updated>1507206057609</updated>
     </task>
-    <task id="LOCAL-00030" summary="addNode cannot add duplicates anymore.">
-      <created>1506684542111</created>
+    <task id="LOCAL-00030" summary="oprydning">
+      <created>1507207051611</created>
       <option name="number" value="00030" />
       <option name="presentableId" value="LOCAL-00030" />
       <option name="project" value="LOCAL" />
-      <updated>1506684542111</updated>
+      <updated>1507207051611</updated>
     </task>
-    <task id="LOCAL-00031" summary="addNode cannot add duplicates anymore.">
-      <created>1506684954749</created>
+    <task id="LOCAL-00031" summary="Removed most warnings">
+      <created>1507207529305</created>
       <option name="number" value="00031" />
       <option name="presentableId" value="LOCAL-00031" />
       <option name="project" value="LOCAL" />
-      <updated>1506684954749</updated>
+      <updated>1507207529305</updated>
     </task>
-    <task id="LOCAL-00032" summary="addNode cannot add duplicates anymore.">
-      <created>1506685178007</created>
+    <task id="LOCAL-00032" summary="findNodeInFile">
+      <created>1507212254575</created>
       <option name="number" value="00032" />
       <option name="presentableId" value="LOCAL-00032" />
       <option name="project" value="LOCAL" />
-      <updated>1506685178007</updated>
+      <updated>1507212254575</updated>
     </task>
-    <task id="LOCAL-00033" summary="addNode cannot add duplicates anymore.">
-      <created>1506685233429</created>
+    <task id="LOCAL-00033" summary="findNodeInFile">
+      <created>1507287641076</created>
       <option name="number" value="00033" />
       <option name="presentableId" value="LOCAL-00033" />
       <option name="project" value="LOCAL" />
-      <updated>1506685233429</updated>
+      <updated>1507287641076</updated>
     </task>
-    <task id="LOCAL-00034" summary="addNode cannot add duplicates anymore.">
-      <created>1506685514972</created>
+    <task id="LOCAL-00034" summary="progress in nodelookup">
+      <created>1507291435715</created>
       <option name="number" value="00034" />
       <option name="presentableId" value="LOCAL-00034" />
       <option name="project" value="LOCAL" />
-      <updated>1506685514973</updated>
+      <updated>1507291435715</updated>
     </task>
-    <task id="LOCAL-00035" summary="addNode cannot add duplicates anymore.">
-      <created>1506685791421</created>
+    <task id="LOCAL-00035" summary="Changed some comments">
+      <created>1507797710552</created>
       <option name="number" value="00035" />
       <option name="presentableId" value="LOCAL-00035" />
       <option name="project" value="LOCAL" />
-      <updated>1506685791421</updated>
+      <updated>1507797710552</updated>
     </task>
-    <task id="LOCAL-00036" summary="addNode cannot add duplicates anymore.">
-      <created>1506685916621</created>
+    <task id="LOCAL-00036" summary="Ping doesn't duplicate">
+      <created>1507799211260</created>
       <option name="number" value="00036" />
       <option name="presentableId" value="LOCAL-00036" />
       <option name="project" value="LOCAL" />
-      <updated>1506685916621</updated>
+      <updated>1507799211260</updated>
     </task>
-    <task id="LOCAL-00037" summary="addNode cannot add duplicates anymore.">
-      <created>1506686113333</created>
+    <task id="LOCAL-00037" summary=".">
+      <created>1507813549640</created>
       <option name="number" value="00037" />
       <option name="presentableId" value="LOCAL-00037" />
       <option name="project" value="LOCAL" />
-      <updated>1506686113333</updated>
+      <updated>1507813549640</updated>
     </task>
-    <task id="LOCAL-00038" summary="for  Linoj">
-      <created>1507206572771</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1507206572771</updated>
-    </task>
-    <task id="LOCAL-00039" summary="nodeLookup function beginning">
-      <created>1507276014256</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1507276014257</updated>
-    </task>
-    <task id="LOCAL-00040" summary="Made addNodeTo work as intended.">
-      <created>1507281525059</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1507281525059</updated>
-    </task>
-    <task id="LOCAL-00041" summary="nodeLookup has been implemented. Probably  not working though..">
-      <created>1507288892450</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1507288892450</updated>
-    </task>
-    <task id="LOCAL-00042" summary="Second try of nodeLookup">
-      <created>1507291947003</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1507291947003</updated>
-    </task>
-    <task id="LOCAL-00043" summary="Lalalalalala">
-      <created>1507798779493</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1507798779493</updated>
-    </task>
-    <option name="localTasksCounter" value="44" />
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="152348000" />
-  </component>
-  <component name="TodoView">
-    <todo-panel id="selected-file">
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-    <todo-panel id="all">
-      <are-packages-shown value="true" />
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
+    <option name="totallyTimeSpent" value="158419000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="872" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11064129" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32947233" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28709677" sideWeight="0.5168598" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32818532" sideWeight="0.49789253" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28700128" sideWeight="0.48314014" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12486828" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28709677" sideWeight="0.51896733" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.49367756" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28709677" sideWeight="0.48103267" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16473617" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32561132" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39892474" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32818532" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32818532" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -958,7 +823,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Problem med at programmet overskriver den samme node og giver dem det samme nodeid" />
     <MESSAGE value="kBucket opdateret, Routingtable lavet og fået implementeret nogle metoder" />
     <MESSAGE value="Just an update" />
     <MESSAGE value="Added express" />
@@ -972,40 +836,27 @@
     <MESSAGE value="Requirement now work" />
     <MESSAGE value="Routingtable update" />
     <MESSAGE value="Did HTML stuff" />
-    <MESSAGE value="redoing bucket" />
-    <MESSAGE value="Refactoring code" />
-    <MESSAGE value="Removed RoutingTable and Bucket files" />
-    <MESSAGE value="Refactored findNode to make it work." />
-    <MESSAGE value="addNode cannot add duplicates anymore." />
-    <MESSAGE value="for  Linoj" />
-    <MESSAGE value="nodeLookup function beginning" />
-    <MESSAGE value="Made addNodeTo work as intended." />
-    <MESSAGE value="nodeLookup has been implemented. Probably  not working though.." />
-    <MESSAGE value="Second try of nodeLookup" />
-    <MESSAGE value="Lalalalalala" />
-    <option name="LAST_COMMIT_MESSAGE" value="Lalalalalala" />
+    <MESSAGE value="Reworked bucket" />
+    <MESSAGE value="Added routingTable route" />
+    <MESSAGE value="Concussion" />
+    <MESSAGE value="findValue() kinda works" />
+    <MESSAGE value="removed stupid stuff" />
+    <MESSAGE value="oprydning" />
+    <MESSAGE value="Removed most warnings" />
+    <MESSAGE value="findNodeInFile" />
+    <MESSAGE value="progress in nodelookup" />
+    <MESSAGE value="Changed some comments" />
+    <MESSAGE value="Ping doesn't duplicate" />
+    <MESSAGE value="." />
+    <option name="LAST_COMMIT_MESSAGE" value="." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/Utilities.js</url>
-          <line>29</line>
-          <option name="timeStamp" value="17" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/Index.js</url>
-          <line>176</line>
-          <properties />
-          <option name="timeStamp" value="18" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="20" />
+      <option name="time" value="11" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/config/constants.js" />
     <entry file="file://$PROJECT_DIR$/lib/Node.js" />
     <entry file="file://$PROJECT_DIR$/lib/Utilities.js" />
     <entry file="file://$PROJECT_DIR$/lib/kBucket.js" />
@@ -1027,7 +878,7 @@
     <entry file="file://$PROJECT_DIR$/lib/testPing.html" />
     <entry file="file://$PROJECT_DIR$/lib/Routes.js" />
     <entry file="file://$PROJECT_DIR$/app.js" />
-    <entry file="file://$PROJECT_DIR$/lib/RoutingTable.js" />
+    <entry file="file://$PROJECT_DIR$/lib/Routingtable.js" />
     <entry file="file://$PROJECT_DIR$/lib/Index.html" />
     <entry file="file://$PROJECT_DIR$/lib/kBucket.js" />
     <entry file="file://$PROJECT_DIR$/lib/Utilities.js" />
@@ -1042,26 +893,67 @@
     <entry file="file://$PROJECT_DIR$/lib/test.html" />
     <entry file="file://$PROJECT_DIR$/lib/public/buttonpage.js" />
     <entry file="file://$PROJECT_DIR$/lib/public/Button_Page.html" />
-    <entry file="file://$PROJECT_DIR$/lib/Index.js" />
-    <entry file="file://$PROJECT_DIR$/temp/lib/public/Button_Page.html" />
-    <entry file="file://$PROJECT_DIR$/temp/lib/public/buttonpage.js" />
-    <entry file="file://$PROJECT_DIR$/temp/lib/Bucket.js" />
-    <entry file="file://$PROJECT_DIR$/temp/app.js" />
-    <entry file="file://$PROJECT_DIR$/temp/lib/Index.js" />
-    <entry file="file://$USER_HOME$/node_modules/bindings/bindings.js" />
-    <entry file="file://$PROJECT_DIR$/lib/Actuators.js">
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/javascript/nodejs/library/node-globals-stub.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="2" lean-forward="false" selection-start-line="17" selection-start-column="2" selection-end-line="17" selection-end-column="2" />
-          <folding />
+        <state relative-caret-position="187">
+          <caret line="303" column="4" lean-forward="false" selection-start-line="303" selection-start-column="4" selection-end-line="303" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/Index.js" />
+    <entry file="file://$PROJECT_DIR$/temp/lib/public/Button_Page.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="11" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/temp/lib/public/buttonpage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="16" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/temp/lib/Bucket.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/temp/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="8" column="29" lean-forward="false" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/temp/lib/Index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="104">
+          <caret line="15" column="21" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/node_modules/bindings/bindings.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1394">
+          <caret line="82" column="0" lean-forward="false" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/constants.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="19" lean-forward="false" selection-start-line="23" selection-start-column="18" selection-end-line="23" selection-end-column="37" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Sensors.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="44" lean-forward="false" selection-start-line="13" selection-start-column="44" selection-end-line="13" selection-end-column="44" />
-          <folding />
+        <state relative-caret-position="323">
+          <caret line="19" column="32" lean-forward="false" selection-start-line="19" selection-start-column="32" selection-end-line="19" selection-end-column="32" />
         </state>
       </provider>
     </entry>
@@ -1072,74 +964,63 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RoutingTable.js" />
     <entry file="file://$PROJECT_DIR$/Bucket.js" />
-    <entry file="file://$PROJECT_DIR$/config/constants.js">
+    <entry file="file://$PROJECT_DIR$/RoutingTable.js" />
+    <entry file="file://$PROJECT_DIR$/lib/Actuators.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="36" lean-forward="false" selection-start-line="23" selection-start-column="36" selection-end-line="23" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="18" selection-end-column="71" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/javascript/nodejs/library/node-globals-stub.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="51" column="4" lean-forward="false" selection-start-line="51" selection-start-column="4" selection-end-line="51" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/back.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="42" column="63" lean-forward="false" selection-start-line="42" selection-start-column="59" selection-end-line="42" selection-end-column="63" />
-          <folding>
-            <marker date="1507813560000" expanded="true" signature="2239:2631" ph="{...}" />
-            <marker date="1507813560000" expanded="true" signature="2515:2527" ph="{...}" />
-            <marker date="1507813560000" expanded="true" signature="2561:2627" ph="{...}" />
-            <marker date="1507813560000" expanded="true" signature="2655:3056" ph="{...}" />
-            <marker date="1507813560000" expanded="true" signature="2808:2848" ph="{&quot;target_NodeID&quot;: myNodeID...}" />
-            <marker date="1507813560000" expanded="true" signature="2884:2947" ph="{...}" />
-            <marker date="1507813560000" expanded="true" signature="2981:3047" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/temp.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="29" lean-forward="false" selection-start-line="0" selection-start-column="29" selection-end-line="0" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Utilities.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="31" column="22" lean-forward="false" selection-start-line="31" selection-start-column="22" selection-end-line="31" selection-end-column="22" />
-          <folding />
+        <state relative-caret-position="238">
+          <caret line="14" column="33" lean-forward="true" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="33" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/Node.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="12" lean-forward="false" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="12" />
+        <state relative-caret-position="204">
+          <caret line="12" column="15" lean-forward="false" selection-start-line="12" selection-start-column="15" selection-end-line="12" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/DOMCore.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="301">
+          <caret line="268" column="0" lean-forward="false" selection-start-line="268" selection-start-column="0" selection-end-line="268" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/startKademlia.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Utilities.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="33" column="22" lean-forward="false" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="16" lean-forward="true" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/back.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="627">
+          <caret line="80" column="52" lean-forward="false" selection-start-line="80" selection-start-column="52" selection-end-line="80" selection-end-column="52" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="303" column="16" lean-forward="true" selection-start-line="303" selection-start-column="16" selection-end-line="303" selection-end-column="16" />
+        <state relative-caret-position="107">
+          <caret line="182" column="17" lean-forward="false" selection-start-line="182" selection-start-column="17" selection-end-line="183" selection-end-column="3" />
           <folding />
         </state>
       </provider>
