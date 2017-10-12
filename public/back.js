@@ -74,12 +74,11 @@ function ping() {
 function findNodeWebHelper() {
     var fieldPort = document.getElementById("Port").value;
     var url = "http://localhost:" + fieldPort + '/api/node/findNode';
-    console.log(url);
     axios.post(url, {
         my_NodeID: myNodeID
     })
         .then(function (response) {
-            console.log("findNode \n", response);
+            console.log("findNode \n", response.data);
         })
         .catch(function (error) {
             console.log("Something failed \n", error);

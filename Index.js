@@ -3,6 +3,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var axios = require('axios');
 var path = require("path");
+var sync = require('synchronize');
 var nodeClass = require('./lib/Node');
 var constants = require('./config/constants');
 var app = express();
@@ -50,41 +51,45 @@ app.get('/api/node/values', function (req, res) {
 
 //Post Request expecting nodeID and port in body
 app.post('/api/node/ping', function (req, res) {
+    console.log("Ping: P");
     var remote_nodeid = req.body['my_NodeID'];
-    console.log("rem_nodeID", remote_nodeid);
+    console.log("P: rem_id", remote_nodeid);
     var remote_port = req.body['my_Port'];
+    console.log("P: rem_port", remote_port);
     var my_nodeid = node.nodeID;
-    console.log("PING");
-    console.log("my_nodeid", my_nodeid);
+    console.log("P: loc_id", my_nodeid);
     var distance = findDistanceBetweenNodes(my_nodeid, remote_nodeid);
     var rightIndex = utility.findMostSignificantBit(distance);
-    console.log("Right Index: ", rightIndex);
+    //console.log("Right Index: ", rightIndex);
     //Nul indeksering :)))
     var local_bucket = routingTable[rightIndex-1];
     addNodeTo(local_bucket, remote_nodeid, remote_port);
-    console.log("RT AFTER PING: \n", routingTable);
+    console.log("P: RT \n", routingTable);
+    console.log("P: Ended.");
     res.send({'event': 'PONG', 'nodeID': node.nodeID, 'port': port});
 });
 
 app.post('/api/node/findNode', function (req, res) {
+    console.log("Find Node: FN");
     var remote_nodeid = req.body['my_NodeID'];
-    console.log("findNode");
-    console.log("remid", remote_nodeid);
+    console.log("FN: rem_id", remote_nodeid);
     var my_nodeid = node.nodeID;
-    console.log("locid", my_nodeid);
+    console.log("FN: loc_id", my_nodeid);
     var tempJSON = findNode(my_nodeid, remote_nodeid);
-    console.log("RT Find Node: ", routingTable);
+    console.log("FN: RT: ", routingTable);
+    console.log("FN: Ended.");
     res.json(tempJSON);
 });
 
 app.post('/api/node/nodeLookup', function (req, res) {
     var other_nodeid = req.body['target_NodeID'];
     var my_nodeid = node.nodeID;
-    console.log("NODELOOKUP");
-    console.log("mynodeid", my_nodeid);
-    console.log("othernodeid", other_nodeid);
+    console.log("Node Lookup: NL");
+    console.log("NL: loc_id", my_nodeid);
+    console.log("NL: rem_id", other_nodeid);
     var temp = nodeLookup(my_nodeid, other_nodeid);
-    console.log("NL: \n", temp);
+    console.log("NL: Lookup result \n", temp);
+    console.log("NL: Ended.");
     res.send(".");
 });
 
@@ -120,7 +125,6 @@ function bootstrapNode(){
 
 function targetedPing(){
     var url = "http://localhost:" + arg_two + '/api/node/ping';
-    console.log();
     axios.post(url, {
         my_NodeID: node.nodeID,
         my_Port: node.port
@@ -138,12 +142,12 @@ function targetedPing(){
 
 function findNodeInFile(otherID, otherPort) {
     var url = "http://localhost:" + otherPort + '/api/node/findNode';
-    console.log(url);
+    console.log('ENTERED FNIF', url);
     axios.post(url, {
         my_NodeID: otherID
     })
         .then(function (response) {
-            console.log("fnif: ", response);
+            console.log("fnif: ", response.data);
         })
         .catch(function (error) {
             console.log("Something failed \n", error);
@@ -280,7 +284,9 @@ function findDistanceBetweenNodes(nodeID, otherNodeID) {
  * @returns {*}
  */
 function findNode(myNodeID, otherNodeID) {
-    var neighbourNodes = null;
+    console.log("Find Node started, internal");
+
+    var neighbourNodes = [];
     var bucketIndex = utility.findMostSignificantBit(findDistanceBetweenNodes(myNodeID, otherNodeID));
     var step = 1;
     var currentBucket;
@@ -294,7 +300,8 @@ function findNode(myNodeID, otherNodeID) {
         currentBucket = routingTable[bucketIndex + step];
         for (y = 0; y < currentBucket.length; y++) {
             if (neighbourNodes.length < constants.k) {
-                neighbourNodes.push(currentBucket[y]);
+                addNodeTo(currentBucket, currentBucket[y].nodeID, currentBucket[y].port);
+                //neighbourNodes.push();
             }
         }
 
@@ -302,7 +309,8 @@ function findNode(myNodeID, otherNodeID) {
         // Går til venstre
         for (y = 0; y < currentBucket.length; y++) {
             if (neighbourNodes.length < constants.k) {
-                neighbourNodes.push(currentBucket[y]);
+                addNodeTo(currentBucket, currentBucket[y].nodeID, currentBucket[y].port);
+                //neighbourNodes.push(currentBucket[y]);
             }
         }
         step++;
@@ -312,7 +320,8 @@ function findNode(myNodeID, otherNodeID) {
         currentBucket = routingTable[bucketIndex - step];
         for (y = 0; y < currentBucket.length; y++) {
             if (neighbourNodes.length < constants.k) {
-                neighbourNodes.push(currentBucket[y]);
+                addNodeTo(currentBucket, currentBucket[y].nodeID, currentBucket[y].port);
+                //neighbourNodes.push(currentBucket[y]);
             }
         }
         step++;
@@ -322,7 +331,8 @@ function findNode(myNodeID, otherNodeID) {
         currentBucket = routingTable[bucketIndex + step];
         for (var y = 0; y < currentBucket.length; y++) {
             if (neighbourNodes.length < constants.k) {
-                neighbourNodes.push(currentBucket[y]);
+                addNodeTo(currentBucket, currentBucket[y].nodeID, currentBucket[y].port);
+                //neighbourNodes.push(currentBucket[y]);
             }
         }
         step++;
@@ -409,6 +419,7 @@ function storeValue(type, value) {
  * @param myNodeID
  */
 function nodeLookup(myNodeID, otherNodeID) {
+    console.log("NodeLookup started, internal");
     // Anvender findNode til at løbe igennem den modtagne liste iterativt
     var foundNode = false;
     var currentNode;
@@ -429,10 +440,8 @@ function nodeLookup(myNodeID, otherNodeID) {
         var indexOfNode = alreadyChecked.map(function(el) {
             return el.port;
         }).indexOf(currentNode.port);
-        console.log("INDEXOFNODE: ",indexOfNode);
         // If the node hasn't been looked at
         if (indexOfNode == -1) {
-            console.log("CURRENT NODE", currentNode);
             if (results.length == constants.k) {
                 if (myNodeID ^ currentNode.nodeID < myNodeID ^ results[constants.k].nodeID) {
                     //Replace the last node in the list with the new one
@@ -442,8 +451,14 @@ function nodeLookup(myNodeID, otherNodeID) {
                 results.push(currentNode);
             }
 
-            var tempList = findNodeInFile(otherNodeID, currentNode.port);
-            console.log("tempList: ", tempList);
+            try {
+                sync.fiber(function() {
+                    var tempList = sync.await(findNodeInFile(otherNodeID, currentNode.port));
+                    console.log("tempList: ", tempList);
+                });
+            } catch(err) {
+                console.log("Lol error in sync");
+            }
 
             /*// This list has to be run through, to see if it contains nodes, which has already been checked.
             for (var i = 0; i < tempList.length; i++) {
