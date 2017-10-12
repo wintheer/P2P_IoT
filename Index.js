@@ -143,7 +143,7 @@ function findNodeInFile(otherID, otherPort) {
         my_NodeID: otherID
     })
         .then(function (response) {
-            return(response.data);u
+            return(response.data);
         })
         .catch(function (error) {
             console.log("Something failed \n", error);
