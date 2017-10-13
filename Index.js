@@ -62,7 +62,7 @@ app.post('/api/node/ping', function (req, res) {
     var rightIndex = utility.findMostSignificantBit(distance);
     //console.log("Right Index: ", rightIndex);
     //Nul indeksering :)))
-    var local_bucket = routingTable[rightIndex-1];
+    var local_bucket = routingTable[rightIndex - 1];
     addNodeTo(local_bucket, remote_nodeid, remote_port);
     console.log("P: RT \n", routingTable);
     console.log("P: Ended.");
@@ -115,15 +115,15 @@ function createNode() {
     return nodeItem;
 }
 
-function bootstrapNode(){
-    if(arg_two == 0){
+function bootstrapNode() {
+    if (arg_two == 0) {
         console.log("First Node Started");
     }
     else
         targetedPing();
 }
 
-function targetedPing(){
+function targetedPing() {
     var url = "http://localhost:" + arg_two + '/api/node/ping';
     axios.post(url, {
         my_NodeID: node.nodeID,
@@ -140,7 +140,7 @@ function targetedPing(){
 
 }
 
-function argumentPing(argument_id, argument_port){
+function argumentPing(argument_id, argument_port) {
     var url = "http://localhost:" + argument_port + '/api/node/ping';
     axios.post(url, {
         my_NodeID: argument_id,
@@ -185,34 +185,36 @@ function findNodeInFile(otherID, otherPort) {
  */
 function addNodeTo(currentBucket, localNodeID, port) {
     var tempNode = new nodeClass.node(localNodeID, constants.ipAddress, port);
-    var indexOfTempNode = currentBucket.map(function(el) {
+    var indexOfTempNode = currentBucket.map(function (el) {
         return el.port
     }).indexOf(port);
 
-    // If the element is not in the list
-    if (indexOfTempNode < 0) {
+    if (port != node.port) {
+        // If the element is not in the list
+        if (indexOfTempNode < 0) {
 
-        // If the bucket is full, ping to check for dead nodes
-        if (currentBucket.length >= constants.k) {
-            var deadNode = pingAllIdsInBucket(currentBucket);
+            // If the bucket is full, ping to check for dead nodes
+            if (currentBucket.length >= constants.k) {
+                var deadNode = pingAllIdsInBucket(currentBucket);
 
-            // If a pinged node doesn't respond, this node will be removed.
-            if (deadNode !== null) {
-                deleteNote(currentBucket, deadNode);
+                // If a pinged node doesn't respond, this node will be removed.
+                if (deadNode !== null) {
+                    deleteNote(currentBucket, deadNode);
+                    currentBucket.push(tempNode);
+                }
+                console.log("Bucket is full and all nodes are alive.")
+            }
+            // If the bucket is not full, just push
+            else {
                 currentBucket.push(tempNode);
             }
-            console.log("Bucket is full and all nodes are alive.")
         }
-        // If the bucket is not full, just push
         else {
+            // Remove the node and put it on top
+            currentBucket.splice(indexOfTempNode, 1);
+            //deleteNote(currentBucket, tempNode);
             currentBucket.push(tempNode);
         }
-    }
-    else {
-        // Remove the node and put it on top
-        currentBucket.splice(indexOfTempNode, 1);
-        //deleteNote(currentBucket, tempNode);
-        currentBucket.push(tempNode);
     }
 }
 
@@ -234,7 +236,7 @@ function deleteNote(currentBucket, node) {
  * @param currentBucket
  * @returns {boolean}
  */
-function isBucketFull(currentBucket){
+function isBucketFull(currentBucket) {
     return currentBucket.length == constants.k;
 }
 
@@ -280,7 +282,7 @@ function pingAllIdsInBucket(currentBucket) {
  * Creates k buckets
  */
 function createBuckets() {
-    for(var i = 0; i < constants.k; i++) {
+    for (var i = 0; i < constants.k; i++) {
         var tempArray = [];
         routingTable.push(tempArray);
     }
@@ -369,7 +371,7 @@ function findNode(myNodeID, otherNodeID) {
 }
 
 
-function findValue(value){
+function findValue(value) {
     //Hash the value
     var hashedValue = crypto.createHash('sha1');
     //string-hash:
@@ -377,7 +379,7 @@ function findValue(value){
     console.log(hashedValue.digest('hex'));
 
     //Findnode på sig selv og valuen(hash)
-    var neighborList = findNode(node.nodeID,hashedValue);
+    var neighborList = findNode(node.nodeID, hashedValue);
 
     //Brugbare variabler og lister
     var nodesToCheck = [];
@@ -388,15 +390,15 @@ function findValue(value){
     //Listen af de nærmeste nodes ud fra hash af value, lægges i listen af nodes der skal tjekkes
     nodesToCheck.extend(neighborList);
     // Tjekker sig selv for information/valuen, i så fald returner
-    if(node.value == hashedValue){
+    if (node.value == hashedValue) {
         found = true;
         return node.value;
     }
-    else{
+    else {
 
     }
     // Tjekker de andre nodes for information/valuen, i så fald returner
-    while(counter < nodesToCheck.length && found == false){
+    while (counter < nodesToCheck.length && found == false) {
         //Hash the value
         //var hashedValue = crypto.createHash('sha1');
         //string-hash:
@@ -408,21 +410,21 @@ function findValue(value){
         //else
         //return findNode
         //Tjekker om vi allerede har tjekket denne node, hvis ja -> spring over denne node
-        if(!checkedNodes.indexOf(nodesToCheck[counter])){
-            for(var x = 0; x < nodesToCheck[counter].values.length; x++){
-                if(nodesToCheck[counter].values[key] == hashedValue){
+        if (!checkedNodes.indexOf(nodesToCheck[counter])) {
+            for (var x = 0; x < nodesToCheck[counter].values.length; x++) {
+                if (nodesToCheck[counter].values[key] == hashedValue) {
                     return nodesToCheck[counter].values[key];
                     //Mark sagde der skulle stå break
                     break;
                 }
-                else{
+                else {
                     nodesToCheck.extend(findNode(nodesToCheck[counter]), hashedValue);
                     checkedNodes.append(nodesToCheck[counter]);
                     counter++;
                 }
             }
         }
-        else{
+        else {
 
         }
     }
@@ -433,7 +435,7 @@ function findValue(value){
 function storeValue(type, value) {
     var currentdate = new Date();
     var datetime = currentdate.toLocaleString();
-    values.push({type: type, value:value, timeStamp:datetime});
+    values.push({type: type, value: value, timeStamp: datetime});
 }
 
 /**
@@ -457,17 +459,21 @@ function nodeLookup(myNodeID, otherNodeID) {
     alreadyChecked.push(node);
     console.log("Already checked", alreadyChecked);
     // Runs to the end of the list
-    while (counter < notCheckedYet.length) {
-        currentNode = notCheckedYet[counter];
+    while (0 < notCheckedYet.length) {
+        currentNode = notCheckedYet[0];
 
 
-        var indexOfNode = alreadyChecked.map(function(el) {
+        var indexOfNode = alreadyChecked.map(function (el) {
             return el.port;
         }).indexOf(currentNode.port);
         // If the node hasn't been looked at
         if (indexOfNode == -1) {
             if (results.length == constants.k) {
-                if (myNodeID ^ currentNode.nodeID < myNodeID ^ results[constants.k].nodeID) {
+                //Kan måske blive et problem, da vi er tvivl om vi bruger de rigtige IDs til at vurdere distance
+                console.log("Look in nodelookup if you found a problem here");
+                console.log("mni", myNodeID);
+                console.log("cni", currentNode.nodeID);
+                if (otherNodeID ^ currentNode.nodeID < otherNodeID ^ results[constants.k].nodeID) {
                     //Replace the last node in the list with the new one
                     results.splice(constants.k, 1, currentNode);
                 }
@@ -476,20 +482,22 @@ function nodeLookup(myNodeID, otherNodeID) {
             }
             var tempList = [];
             try {
-                sync.fiber(function() {
+                sync.fiber(function () {
                     tempList = sync.await(findNodeInFile(otherNodeID, currentNode.port));
                     console.log("tempList: ", tempList);
+                    //TODO VI ER NÅET HERTIL
                     for (var i = 0; i < tempList.length; i++) {
                         // Has this node already been checked?
-                        if (alreadyChecked.indexOf(tempList[i]) < 0) {
-                            results.push(tempList[i]);
-                            alreadyChecked.push(tempList[i]);
-                            notCheckedYet.splice(tempList[1], 1);
+                        var tempListIndex = alreadyChecked.map(function (el) {
+                            return el.port;
+                        }).indexOf(tempList[i].port);
+                        if (tempListIndex == -1) {
+                            notCheckedYet.push(tempList[i]);
                         }
                     }
                 });
-            } catch(err) {
-                console.log("Lol error in sync");
+            } catch (err) {
+                console.log("Error in sync / NL");
             }
 
             // This list has to be run through, to see if it contains nodes, which has already been checked.
@@ -502,7 +510,6 @@ function nodeLookup(myNodeID, otherNodeID) {
         }
 
         results = sortListByNumberClosestTo(results, myNodeID);
-        counter++;
     }
     return results;
 }
@@ -521,8 +528,12 @@ function sortListByNumberClosestTo(list, nodeID) {
         var a_XOR_NodeID = a.nodeID ^ nodeID;
         var b_XOR_NodeID = b.nodeID ^ nodeID;
 
-        if (a_XOR_NodeID < b_XOR_NodeID) {return -1;}
-        if (a_XOR_NodeID > b_XOR_NodeID) {return 1;}
+        if (a_XOR_NodeID < b_XOR_NodeID) {
+            return -1;
+        }
+        if (a_XOR_NodeID > b_XOR_NodeID) {
+            return 1;
+        }
         return 0;
     })
 }
