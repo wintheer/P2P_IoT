@@ -458,10 +458,10 @@ function nodeLookup(myNodeID, otherNodeID) {
     notCheckedYet = findNode(myNodeID, otherNodeID);
     alreadyChecked.push(node);
     console.log("Already checked", alreadyChecked);
-    // Runs to the end of the list
-    while (0 < notCheckedYet.length) {
-        currentNode = notCheckedYet[0];
 
+    // Runs to the end of the list
+    while (counter < notCheckedYet.length) {
+        currentNode = notCheckedYet[counter];
 
         var indexOfNode = alreadyChecked.map(function (el) {
             return el.port;
@@ -472,6 +472,7 @@ function nodeLookup(myNodeID, otherNodeID) {
                 console.log("Look in nodelookup if you found a problem here");
                 console.log("mni", myNodeID);
                 console.log("cni", currentNode.nodeID);
+
                 if (otherNodeID ^ currentNode.nodeID < otherNodeID ^ results[constants.k].nodeID) {
                     //Replace the last node in the list with the new one
                     results.pop();
@@ -492,6 +493,7 @@ function nodeLookup(myNodeID, otherNodeID) {
                             return el.port;
                         }).indexOf(tempList[i].port);
                         if (tempListIndex == -1) {
+
                             notCheckedYet.push(tempList[i]);
                         }
                     }
@@ -502,14 +504,13 @@ function nodeLookup(myNodeID, otherNodeID) {
 
             // This list has to be run through, to see if it contains nodes, which has already been checked.
 
-
             // Moves the current Node from the notCheckedYet-list to the alreadyChecked-list
             alreadyChecked.push(currentNode);
-            notCheckedYet.shift();
 
         }
 
         results = sortListByNumberClosestTo(results, myNodeID);
+        counter++;
     }
     return results;
 }
