@@ -469,13 +469,13 @@ function nodeLookup(myNodeID, otherNodeID) {
         // If the node hasn't been looked at
         if (indexOfNode == -1) {
             if (results.length == constants.k) {
-                //Kan måske blive et problem, da vi er tvivl om vi bruger de rigtige IDs til at vurdere distance
                 console.log("Look in nodelookup if you found a problem here");
                 console.log("mni", myNodeID);
                 console.log("cni", currentNode.nodeID);
                 if (otherNodeID ^ currentNode.nodeID < otherNodeID ^ results[constants.k].nodeID) {
                     //Replace the last node in the list with the new one
-                    results.splice(constants.k, 1, currentNode);
+                    results.pop();
+                    results.push(currentNode);
                 }
             } else {
                 results.push(currentNode);
@@ -505,7 +505,7 @@ function nodeLookup(myNodeID, otherNodeID) {
 
             // Moves the current Node from the notCheckedYet-list to the alreadyChecked-list
             alreadyChecked.push(currentNode);
-            notCheckedYet.slice(notCheckedYet.indexOf(currentNode));
+            notCheckedYet.shift();
 
         }
 
