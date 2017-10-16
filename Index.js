@@ -15,6 +15,7 @@ var nodeList = [];
 var nodeIDList = [];
 var routingTable = [];
 var values = [];
+var sleep = require('sleep');
 var wait = require('wait.for');
 
 //------------------------------------------ Server Functions -------------------------------------------------\\
@@ -319,7 +320,7 @@ function findNode(myNodeID, otherNodeID) {
     //console.log("NN", neighbourNodes);
     // Bliver ved med at gå til venstre og højre for den nuværende bucket og tilføjer nodes til foundnodes,
     // som er de tætteste naboer, går så længe der stadig er buckets tilbage
-    while (bucketIndex + step < neighbourNodes.length && bucketIndex - step >= 0) {
+    while (bucketIndex + step < constants.k && bucketIndex - step >= 0) {
         console.log("Loop 1");
         // Går til højre
         currentBucket = routingTable[bucketIndex + step];
@@ -353,7 +354,7 @@ function findNode(myNodeID, otherNodeID) {
         step++;
     }
     // Bliver ved med at gå fra bucket til bucket så længe der er flere tilbage
-    while (bucketIndex + step < neighbourNodes.length) {
+    while (bucketIndex + step < constants.k) {
         console.log("Loop 3");
         currentBucket = routingTable[bucketIndex + step];
         for (var y = 0; y < currentBucket.length; y++) {
@@ -501,29 +502,35 @@ function nodeLookup(myNodeID, otherNodeID) {
                     console.log("Response in NL: ", response.data);
                     argumentPing(otherNodeID, currentNode.port);
                     tempList = response.data;
-                    console.log("tempList", tempList);
 
+                    // This list has to be run through, to see if it contains nodes, which has already been checked.
+                    for (var i = 0; i < tempList.length; i++) {
+                        console.log("WE IN BOYS");
+                        // Has this node already been checked?
+                        var tempListIndex = alreadyChecked.map(function (el) {
+                            return el.port;
+                        }).indexOf(tempList[i].port);
+                        if (tempListIndex == -1) {
+                            console.log("NCY before:", notCheckedYet);
+                            notCheckedYet.push(tempList[i]);
+                            console.log("NCY after:", notCheckedYet);
+                        }
+
+                        // Moves the current Node from the notCheckedYet-list to the alreadyChecked-list
+                        alreadyChecked.push(currentNode);
+                        console.log("NCY after removal:", notCheckedYet);
+                        results = sortListByNumberClosestTo(results, myNodeID);
+                        counter++;
+                        q++;
+                        console.log("Time inside AXIOS", new Date().toISOString());
+                    }
                 })
                 .catch(function (error) {
                     console.log("Something failed \n", error);
                 });
 
-            for (var i = 0; i < tempList.length; i++) {
-                console.log("WE IN BOYS");
-                // Has this node already been checked?
-                var tempListIndex = alreadyChecked.map(function (el) {
-                    return el.port;
-                }).indexOf(tempList[i].port);
-                if (tempListIndex == -1) {
-                    notCheckedYet.push(tempList[i]);
-                }
-            }
-            // This list has to be run through, to see if it contains nodes, which has already been checked.
-
-            // Moves the current Node from the notCheckedYet-list to the alreadyChecked-list
-            alreadyChecked.push(currentNode);
-
         }
+        console.log("Time outside AXIOS", new Date().toISOString());
 
         results = sortListByNumberClosestTo(results, myNodeID);
         counter++;
