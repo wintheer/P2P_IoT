@@ -15,6 +15,7 @@ var nodeList = [];
 var nodeIDList = [];
 var routingTable = [];
 var values = [];
+var wait = require('wait.for');
 
 //------------------------------------------ Server Functions -------------------------------------------------\\
 
@@ -88,7 +89,7 @@ app.post('/api/node/nodeLookup', function (req, res) {
     console.log("NL: loc_id", my_nodeid);
     console.log("NL: rem_id", other_nodeid);
     var temp = nodeLookup(my_nodeid, other_nodeid);
-    console.log("NL: Lookup result \n", temp);
+    console.log("NL: Lookup result for node\n", node.port, temp);
     console.log("NL: Ended.");
     res.send(".");
 });
@@ -460,7 +461,10 @@ function nodeLookup(myNodeID, otherNodeID) {
     console.log("Already checked", alreadyChecked);
 
     // Runs to the end of the list
+    var q = 0;
+    var url;
     while (counter < notCheckedYet.length) {
+        console.log("Times through", q);
         currentNode = notCheckedYet[counter];
 
         var indexOfNode = alreadyChecked.map(function (el) {
@@ -482,26 +486,36 @@ function nodeLookup(myNodeID, otherNodeID) {
                 results.push(currentNode);
             }
             var tempList = [];
-            try {
-                sync.fiber(function () {
-                    tempList = sync.await(findNodeInFile(otherNodeID, currentNode.port));
-                    console.log("tempList: ", tempList);
-                    //TODO VI ER NÅET HERTIL
-                    for (var i = 0; i < tempList.length; i++) {
-                        // Has this node already been checked?
-                        var tempListIndex = alreadyChecked.map(function (el) {
-                            return el.port;
-                        }).indexOf(tempList[i].port);
-                        if (tempListIndex == -1) {
+            //tempList = findNodeInFile(otherNodeID, currentNode.port);
 
-                            notCheckedYet.push(tempList[i]);
-                        }
-                    }
+            //FNIF
+            url = "http://localhost:" + currentNode.port + '/api/node/findNode';
+            console.log('ENTERED FNIF', url);
+            axios.post(url, {
+                my_NodeID: otherNodeID
+            })
+                .then(function (response) {
+                    console.log("fnif: ", response.data);
+                    argumentPing(otherNodeID, currentNode.port);
+                    tempList = JSON.parse(response.data);
+                    //PARSE JSON :(
+                    console.log("tempList", tempList);
+                    console.log("length", console.log(tempList.length));
+                })
+                .catch(function (error) {
+                    console.log("Something failed \n", error);
                 });
-            } catch (err) {
-                console.log("Error in sync / NL");
-            }
-
+/*
+            for (var i = 0; i < tempList.length; i++) {
+                console.log("WE IN BOYS");
+                // Has this node already been checked?
+                var tempListIndex = alreadyChecked.map(function (el) {
+                    return el.port;
+                }).indexOf(tempList[i].port);
+                if (tempListIndex == -1) {
+                    notCheckedYet.push(tempList[i]);
+                }
+            }*/
             // This list has to be run through, to see if it contains nodes, which has already been checked.
 
             // Moves the current Node from the notCheckedYet-list to the alreadyChecked-list
@@ -511,6 +525,7 @@ function nodeLookup(myNodeID, otherNodeID) {
 
         results = sortListByNumberClosestTo(results, myNodeID);
         counter++;
+        q++;
     }
     return results;
 }

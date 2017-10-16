@@ -87,9 +87,10 @@ function findNodeWebHelper() {
 
 function nodeLookup() {
     var fieldPort = document.getElementById("Port").value;
+    var fieldID = document.getElementById("NodeID").value;
     var url = "http://localhost:" + fieldPort + '/api/node/nodeLookup';
     axios.post(url, {
-        target_NodeID: myNodeID,
+        target_NodeID: fieldID,
     })
         .then(function (response) {
             console.log("nodeLookup \n", response);
