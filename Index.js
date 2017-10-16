@@ -77,9 +77,10 @@ app.post('/api/node/findNode', function (req, res) {
     var my_nodeid = node.nodeID;
     console.log("FN: loc_id", my_nodeid);
     var tempJSON = findNode(my_nodeid, remote_nodeid);
+    console.log("FN RESULT", tempJSON);
     console.log("FN: RT: ", routingTable);
     console.log("FN: Ended.");
-    res.json(tempJSON);
+    res.send(tempJSON);
 });
 
 app.post('/api/node/nodeLookup', function (req, res) {
@@ -307,7 +308,7 @@ function findDistanceBetweenNodes(nodeID, otherNodeID) {
  * @returns {*}
  */
 function findNode(myNodeID, otherNodeID) {
-    console.log("Find Node started, internal");
+    console.log("Find Node started, on self:", node.port);
 
     var neighbourNodes = [];
     var bucketIndex = utility.findMostSignificantBit(findDistanceBetweenNodes(myNodeID, otherNodeID));
@@ -360,7 +361,7 @@ function findNode(myNodeID, otherNodeID) {
         }
         step++;
     }
-    console.log("END OF FIND NODE", neighbourNodes);
+    console.log("neighbourNodes:", neighbourNodes);
     return neighbourNodes;
 
     //Find bucket index
@@ -486,7 +487,6 @@ function nodeLookup(myNodeID, otherNodeID) {
                 results.push(currentNode);
             }
             var tempList = [];
-            //tempList = findNodeInFile(otherNodeID, currentNode.port);
 
             //FNIF
             url = "http://localhost:" + currentNode.port + '/api/node/findNode';
@@ -495,17 +495,16 @@ function nodeLookup(myNodeID, otherNodeID) {
                 my_NodeID: otherNodeID
             })
                 .then(function (response) {
-                    console.log("fnif: ", response.data);
+                    console.log("Response in NL: ", response.data);
                     argumentPing(otherNodeID, currentNode.port);
-                    tempList = JSON.parse(response.data);
-                    //PARSE JSON :(
+                    tempList = response.data;
                     console.log("tempList", tempList);
-                    console.log("length", console.log(tempList.length));
+
                 })
                 .catch(function (error) {
                     console.log("Something failed \n", error);
                 });
-/*
+
             for (var i = 0; i < tempList.length; i++) {
                 console.log("WE IN BOYS");
                 // Has this node already been checked?
@@ -515,7 +514,7 @@ function nodeLookup(myNodeID, otherNodeID) {
                 if (tempListIndex == -1) {
                     notCheckedYet.push(tempList[i]);
                 }
-            }*/
+            }
             // This list has to be run through, to see if it contains nodes, which has already been checked.
 
             // Moves the current Node from the notCheckedYet-list to the alreadyChecked-list

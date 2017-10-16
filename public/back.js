@@ -27,8 +27,8 @@ function getInfo() {
 function getBuckets() {
     axios.get("../api/node/routingTable")
         .then(function (response) {
-            console.log("routingTable: ", response);
-            document.getElementById('buckets').innerHTML += response.data;
+            console.log("routingTable: ", response.data);
+            document.getElementById('buckets').innerHTML += JSON.stringify(response.data);
 
         })
         .catch(function (error) {
