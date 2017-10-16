@@ -3,7 +3,6 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var axios = require('axios');
 var path = require("path");
-var sync = require('synchronize');
 var nodeClass = require('./lib/Node');
 var constants = require('./config/constants');
 var app = express();
@@ -16,7 +15,6 @@ var nodeIDList = [];
 var routingTable = [];
 var values = [];
 var sleep = require('sleep');
-var wait = require('wait.for');
 
 //------------------------------------------ Server Functions -------------------------------------------------\\
 
@@ -487,57 +485,64 @@ function nodeLookup(myNodeID, otherNodeID) {
                     results.pop();
                     results.push(currentNode);
                 }
-            } else {
+            }
+            else {
                 results.push(currentNode);
             }
             var tempList = [];
 
-            //FNIF
-            url = "http://localhost:" + currentNode.port + '/api/node/findNode';
-            console.log('ENTERED FNIF', url);
-            axios.post(url, {
-                my_NodeID: otherNodeID
-            })
-                .then(function (response) {
-                    console.log("Response in NL: ", response.data);
-                    argumentPing(otherNodeID, currentNode.port);
-                    tempList = response.data;
 
-                    // This list has to be run through, to see if it contains nodes, which has already been checked.
-                    for (var i = 0; i < tempList.length; i++) {
-                        console.log("WE IN BOYS");
-                        // Has this node already been checked?
-                        var tempListIndex = alreadyChecked.map(function (el) {
-                            return el.port;
-                        }).indexOf(tempList[i].port);
-                        if (tempListIndex == -1) {
-                            console.log("NCY before:", notCheckedYet);
-                            notCheckedYet.push(tempList[i]);
-                            console.log("NCY after:", notCheckedYet);
-                        }
-
-                        // Moves the current Node from the notCheckedYet-list to the alreadyChecked-list
-                        alreadyChecked.push(currentNode);
-                        console.log("NCY after removal:", notCheckedYet);
-                        results = sortListByNumberClosestTo(results, myNodeID);
-                        counter++;
-                        q++;
-                        console.log("Time inside AXIOS", new Date().toISOString());
-                    }
-                })
-                .catch(function (error) {
-                    console.log("Something failed \n", error);
-                });
-
+        }
+        else{
+            console.log("Node has been looked at.")
         }
         console.log("Time outside AXIOS", new Date().toISOString());
 
+        // This list has to be run through, to see if it contains nodes, which has already been checked.
+        for (var i = 0; i < tempList.length; i++) {
+            console.log("WE IN BOYS");
+            // Has this node already been checked?
+            var tempListIndex = alreadyChecked.map(function (el) {
+                return el.port;
+            }).indexOf(tempList[i].port);
+            if (tempListIndex == -1) {
+                console.log("NCY before:", notCheckedYet);
+                notCheckedYet.push(tempList[i]);
+                console.log("NCY after:", notCheckedYet);
+            }
+        }
+        // Moves the current Node from the notCheckedYet-list to the alreadyChecked-list
+        alreadyChecked.push(currentNode);
+        console.log("NCY after removal:", notCheckedYet);
         results = sortListByNumberClosestTo(results, myNodeID);
         counter++;
         q++;
+
+
     }
     return results;
 }
+
+async function blop(otherNodeID, currentNode){
+    //FNIF
+    url = "http://localhost:" + currentNode.port + '/api/node/findNode';
+    console.log('ENTERED FNIF', url);
+    await axios.post(url, {
+        my_NodeID: otherNodeID
+    })
+        .then(function (response) {
+            console.log("Response in NL: ", response.data);
+            argumentPing(otherNodeID, currentNode.port);
+            tempList = response.data;
+            console.log("Time inside AXIOS", new Date().toISOString());
+            return tempList;
+        })
+        .catch(function (error) {
+            console.log("Something failed \n", error);
+        });
+}
+
+
 
 /**
  * Sorts a given list depending on the distance between a given nodeID
