@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7347eb3b-3e44-4d7a-954a-c954e1512d5c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Index.js" afterPath="$PROJECT_DIR$/Index.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -21,8 +20,8 @@
       <file leaf-file-name="Index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="17" column="29" lean-forward="false" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
+            <state relative-caret-position="297">
+              <caret line="512" column="50" lean-forward="true" selection-start-line="512" selection-start-column="50" selection-end-line="512" selection-end-column="50" />
               <folding />
             </state>
           </provider>
@@ -41,7 +40,7 @@
       <file leaf-file-name="back.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/back.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
+            <state relative-caret-position="-631">
               <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
               <folding />
             </state>
@@ -61,14 +60,12 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>neighb</find>
       <find>neighboar</find>
       <find>pingall</find>
       <find>addnodeto</find>
       <find>addnode</find>
       <find>end of node</find>
       <find>indexofnode</find>
-      <find>nodelook</find>
       <find>alre</find>
       <find>nodeloo</find>
       <find>nodelookup</find>
@@ -91,6 +88,8 @@
       <find>bucketIndex</find>
       <find>response in nl</find>
       <find>neighbournodes</find>
+      <find>nodelook</find>
+      <find>nodeLook</find>
     </findStrings>
     <dirStrings>
       <dir>C:\Users\Ahmad\WebstormProjects\P2P_IoT\node_modules</dir>
@@ -155,11 +154,10 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1280" />
-    <option name="height" value="710" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-7" />
+    <option name="width" value="974" />
+    <option name="height" value="1057" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="false" id="Update" />
@@ -421,7 +419,7 @@
       <workItem from="1507884303077" duration="2518000" />
       <workItem from="1507892955094" duration="5293000" />
       <workItem from="1508141662502" duration="695000" />
-      <workItem from="1508143101870" duration="6162000" />
+      <workItem from="1508143101870" duration="7990000" />
     </task>
     <task id="LOCAL-00001" summary="Arbejdet lidt med konstruktoren">
       <created>1505118640472</created>
@@ -724,22 +722,30 @@
       <option name="project" value="LOCAL" />
       <updated>1508145760858</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="delay">
+      <created>1508150295274</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1508150295274</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="178901000" />
+    <option name="totallyTimeSpent" value="180729000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
+    <frame x="-7" y="0" width="974" height="1057" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12486828" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25320512" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28709677" sideWeight="0.51896733" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.49367756" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28709677" sideWeight="0.48103267" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33224756" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39892474" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -759,7 +765,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="needed to add files" />
     <MESSAGE value="Fixed stupid error" />
     <MESSAGE value="stuff" />
     <MESSAGE value="Made Manual Ping" />
@@ -784,7 +789,8 @@
     <MESSAGE value="push baby push" />
     <MESSAGE value="progress" />
     <MESSAGE value="more progress" />
-    <option name="LAST_COMMIT_MESSAGE" value="more progress" />
+    <MESSAGE value="delay" />
+    <option name="LAST_COMMIT_MESSAGE" value="delay" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -947,7 +953,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/back.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
+        <state relative-caret-position="-631">
           <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
           <folding />
         </state>
@@ -955,8 +961,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="17" column="29" lean-forward="false" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
+        <state relative-caret-position="297">
+          <caret line="512" column="50" lean-forward="true" selection-start-line="512" selection-start-column="50" selection-end-line="512" selection-end-column="50" />
           <folding />
         </state>
       </provider>
