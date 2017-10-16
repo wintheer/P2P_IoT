@@ -320,6 +320,7 @@ function findNode(myNodeID, otherNodeID) {
     // Bliver ved med at gå til venstre og højre for den nuværende bucket og tilføjer nodes til foundnodes,
     // som er de tætteste naboer, går så længe der stadig er buckets tilbage
     while (bucketIndex + step < neighbourNodes.length && bucketIndex - step >= 0) {
+        console.log("Loop 1");
         // Går til højre
         currentBucket = routingTable[bucketIndex + step];
         for (y = 0; y < currentBucket.length; y++) {
@@ -341,6 +342,7 @@ function findNode(myNodeID, otherNodeID) {
     }
     // Bliver ved med at gå til venstre, når der ikke er flere til højre for den nuværende bucket
     while (bucketIndex - step >= 0) {
+        console.log("Loop 2");
         currentBucket = routingTable[bucketIndex - step];
         for (y = 0; y < currentBucket.length; y++) {
             if (neighbourNodes.length < constants.k) {
@@ -352,6 +354,7 @@ function findNode(myNodeID, otherNodeID) {
     }
     // Bliver ved med at gå fra bucket til bucket så længe der er flere tilbage
     while (bucketIndex + step < neighbourNodes.length) {
+        console.log("Loop 3");
         currentBucket = routingTable[bucketIndex + step];
         for (var y = 0; y < currentBucket.length; y++) {
             if (neighbourNodes.length < constants.k) {
