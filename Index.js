@@ -15,6 +15,9 @@ var nodeIDList = [];
 var routingTable = [];
 var values = [];
 var tempList = [];
+var alreadyChecked = [];
+var results = [];
+
 //------------------------------------------ Server Functions -------------------------------------------------\\
 
 // We need this to be able to call cross-origin,
@@ -155,7 +158,7 @@ function argumentPing(argument_id, argument_port) {
         })
         .catch(function (error) {
             //console.log("Something failed \n", error);
-            console.log("error argPing");
+            console.log("error argPing", argument_port);
         });
 
 }
@@ -454,78 +457,23 @@ function nodeLookup(myNodeID, otherNodeID) {
     var currentNode;
     // containing the nodes, which have not been checked yet
     var notCheckedYet = [];
-    var alreadyChecked = [];
-    var results = [];
 
     // Kalder findNode på sig selv
     notCheckedYet = findNode(myNodeID, otherNodeID);
     alreadyChecked.push(node);
 
     currentNode = notCheckedYet[0];
-    var indexOfNode = alreadyChecked.map(function (el) {
-        return el.port;
-    }).indexOf(currentNode.port);
-    // If the node hasn't been looked at
-    if (indexOfNode == -1) {
-        if (results.length == constants.k) {
-            console.log("Look in nodelookup if you found a problem here");
-            console.log("mni", myNodeID);
-            console.log("cni", currentNode.nodeID);
-
-            if (otherNodeID ^ currentNode.nodeID < otherNodeID ^ results[constants.k].nodeID) {
-                //Replace the last node in the list with the new one
-                results.pop();
-                console.log("results pre", results);
-                results.push(currentNode);
-            }
-        }
-        else {
-            console.log("results", results);
-            results.push(currentNode);
-        }
-
-        // Callback function
-        nlFindNode(otherNodeID, currentNode, function (res) {
-            res.forEach(function (item) {
-                var tempNodeID = item.nodeID;
-                var tempNodePort = item.port;
-                //var tempNodeForTempList = new nodeClass.node(tempNodeID, constants.ipAddress, tempNodePort);
-                addNodeTo(tempList, tempNodeID, tempNodePort);
-            });
-            console.log("past for each", tempList);
-        });
-
-        if (tempList != null) {
-            for (var i = 0; i < tempList.length; i++) {
-                console.log("WE IN BOYS TEMPLIST ", tempList);
-                // Has this node already been checked?
-                var tempListIndex = alreadyChecked.map(function (el) {
-                    return el.port;
-                }).indexOf(tempList[i].port);
-                if (tempListIndex == -1) {
-                    notCheckedYet.pop();
-                    notCheckedYet.push(tempList[i]);
-                    console.log("NCY after:", notCheckedYet);
-                }
-            }
-            nlFindNode()
-        }
 
 
-
-    }
-    else {
-        console.log("Node has been looked at.")
-    }
+    // Callback function
+    recursiveFindNode(otherNodeID, currentNode);
 
     // This list has to be run through, to see if it contains nodes, which has already been checked.
     // Moves the current Node from the notCheckedYet-list to the alreadyChecked-list
-    setTimeout(function () {
-        alreadyChecked.push(currentNode);
-        results = sortListByNumberClosestTo(results, myNodeID);
-        console.log("NLU end", results);
-        return results;
-    }, 1000);
+    alreadyChecked.push(currentNode);
+    results = sortListByNumberClosestTo(results, myNodeID);
+    console.log("NLU end", results);
+    return results;
 
 }
 
@@ -537,10 +485,9 @@ function nlFindNode(otherNodeID, currentNode, callback) {
         my_NodeID: otherNodeID
     })
         .then(function (response) {
-            //console.log("Response in BLOP: ", response.data);
             argumentPing(otherNodeID, currentNode.port);
             tempList = response.data;
-            console.log("templist in BLOP", tempList);
+            console.log("templist in nlFN", tempList);
             callback(response.data);
         })
         .catch(function (error) {
@@ -571,4 +518,50 @@ function sortListByNumberClosestTo(list, nodeID) {
         }
         return 0;
     })
+}
+
+function recursiveFindNode(method_OtherNodeID, method_CurrentNode) {
+    var indexOfNode = alreadyChecked.map(function (el) {
+        return el.port;
+    }).indexOf(method_CurrentNode.port);
+    if (indexOfNode == -1) {
+
+        nlFindNode(method_OtherNodeID, method_CurrentNode, function (res) {
+            if (res.length == 0) {
+                console.log("nothing happens :)");
+            }
+            res.forEach(function (item) {
+                var tempNodeID = item.nodeID;
+                var tempNodePort = item.port;
+                addNodeTo(tempList, tempNodeID, tempNodePort);
+                console.log("new node", tempNodeID, tempNodePort);
+
+                if (results.length == constants.k) {
+                    console.log("Look in nodelookup if you found a problem here");
+                    console.log("mni", myNodeID);
+                    console.log("cni", method_CurrentNode.nodeID);
+
+                    if (method_OtherNodeID ^ method_CurrentNode.nodeID < method_OtherNodeID ^ results[constants.k].nodeID) {
+                        //Replace the last node in the list with the new one
+                        results.pop();
+                        console.log("results full pre", results);
+                        results.push(method_CurrentNode);
+                        console.log("results full post", results);
+                    }
+                }
+                else {
+                    console.log("results pre", results);
+                    results.push(method_CurrentNode);
+                    console.log("results post", results);
+                }
+
+                recursiveFindNode(method_OtherNodeID, tempList[tempList.length - 1]);
+            })
+        });
+
+    }
+    else {
+        console.log("bad case");
+        console.log("couldn't find any unchecked nodes", tempList);
+    }
 }
