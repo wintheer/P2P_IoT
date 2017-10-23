@@ -14,8 +14,8 @@ var nodeList = [];
 var nodeIDList = [];
 var routingTable = [];
 var values = [];
-var sleep = require('sleep');
-
+var tempList = [];
+var promiseList = [];
 //------------------------------------------ Server Functions -------------------------------------------------\\
 
 // We need this to be able to call cross-origin,
@@ -86,12 +86,14 @@ app.post('/api/node/nodeLookup', function (req, res) {
     var other_nodeid = req.body['target_NodeID'];
     var my_nodeid = node.nodeID;
     console.log("Node Lookup: NL");
-    console.log("NL: loc_id", my_nodeid);
-    console.log("NL: rem_id", other_nodeid);
+    //console.log("NL: loc_id", my_nodeid);
+    //console.log("NL: rem_id", other_nodeid);
     var temp = nodeLookup(my_nodeid, other_nodeid);
-    console.log("NL: Lookup result for node\n", node.port, temp);
-    console.log("NL: Ended.");
-    res.send(".");
+    setTimeout(function() {
+        console.log("NL: Lookup result for node\n", node.port, temp);
+        console.log("NL: Ended.");
+        res.send(".");
+    }, 3000);
 });
 
 var server = app.listen(port, function () {
@@ -465,7 +467,6 @@ function nodeLookup(myNodeID, otherNodeID) {
 
     // Runs to the end of the list
     var q = 0;
-    var url;
     while (counter < notCheckedYet.length) {
         console.log("Times through", q);
         currentNode = notCheckedYet[counter];
@@ -483,65 +484,76 @@ function nodeLookup(myNodeID, otherNodeID) {
                 if (otherNodeID ^ currentNode.nodeID < otherNodeID ^ results[constants.k].nodeID) {
                     //Replace the last node in the list with the new one
                     results.pop();
+                    console.log("results pre", results);
                     results.push(currentNode);
                 }
             }
             else {
+                console.log("results", results);
                 results.push(currentNode);
             }
-            var tempList = [];
 
+             nlFindNode(otherNodeID, currentNode, function (res) {
+                 console.log("nlFindNode response", res);
+                 tempList = res;
+                 if (tempList != null) {
+                     for (var i = 0; i < tempList.length; i++) {
+                         console.log("WE IN BOYS");
+                         console.log("WE IN BOYS TEMPLIST ", tempList);
+                         // Has this node already been checked?
+                         var tempListIndex = alreadyChecked.map(function (el) {
+                             return el.port;
+                         }).indexOf(tempList[i].port);
+                         if (tempListIndex == -1) {
+                             console.log("NCY before:", notCheckedYet);
+                             notCheckedYet.push(tempList[i]);
+                             console.log("NCY after:", notCheckedYet);
+                         }
+                     }
+                 }
+             });
+
+            console.log("Time inside LOOP", new Date().toISOString());
 
         }
-        else{
+        else {
             console.log("Node has been looked at.")
         }
-        console.log("Time outside AXIOS", new Date().toISOString());
+        console.log("Time outside LOOP", new Date().toISOString());
 
         // This list has to be run through, to see if it contains nodes, which has already been checked.
-        for (var i = 0; i < tempList.length; i++) {
-            console.log("WE IN BOYS");
-            // Has this node already been checked?
-            var tempListIndex = alreadyChecked.map(function (el) {
-                return el.port;
-            }).indexOf(tempList[i].port);
-            if (tempListIndex == -1) {
-                console.log("NCY before:", notCheckedYet);
-                notCheckedYet.push(tempList[i]);
-                console.log("NCY after:", notCheckedYet);
-            }
-        }
         // Moves the current Node from the notCheckedYet-list to the alreadyChecked-list
         alreadyChecked.push(currentNode);
         console.log("NCY after removal:", notCheckedYet);
         results = sortListByNumberClosestTo(results, myNodeID);
+
         counter++;
         q++;
 
 
     }
+    console.log("NLU end", results);
     return results;
 }
 
-async function blop(otherNodeID, currentNode){
+function nlFindNode(otherNodeID, currentNode, callback) {
     //FNIF
-    url = "http://localhost:" + currentNode.port + '/api/node/findNode';
+    var url = "http://localhost:" + currentNode.port + '/api/node/findNode';
     console.log('ENTERED FNIF', url);
-    await axios.post(url, {
+    return axios.post(url, {
         my_NodeID: otherNodeID
     })
         .then(function (response) {
-            console.log("Response in NL: ", response.data);
+            console.log("Response in BLOP: ", response.data);
             argumentPing(otherNodeID, currentNode.port);
             tempList = response.data;
-            console.log("Time inside AXIOS", new Date().toISOString());
-            return tempList;
+            console.log("templist in BLOP", tempList);
+            callback(response.data);
         })
         .catch(function (error) {
             console.log("Something failed \n", error);
         });
 }
-
 
 
 /**
