@@ -495,7 +495,12 @@ function nodeLookup(myNodeID, otherNodeID) {
 
              nlFindNode(otherNodeID, currentNode, function (res) {
                  console.log("nlFindNode response", res);
-                 tempList = res;
+                 res.forEach(function (item) {
+                     var tempNodeID = item.nodeID;
+                     var tempNodePort = item.port;
+                     var tempNodeForTempList = new nodeClass.node(tempNodeID, constants.ipAddress, tempNodePort);
+                     tempList.push(tempNodeForTempList);
+                 });
                  if (tempList != null) {
                      for (var i = 0; i < tempList.length; i++) {
                          console.log("WE IN BOYS");
