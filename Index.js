@@ -93,7 +93,7 @@ app.post('/api/node/nodeLookup', function (req, res) {
         console.log("NL: Lookup result for node\n", node.port, temp);
         console.log("NL: Ended.");
         res.send(".");
-    }, 3000);
+    }, 1000);
 });
 
 var server = app.listen(port, function () {
@@ -321,7 +321,7 @@ function findNode(myNodeID, otherNodeID) {
     // Bliver ved med at gå til venstre og højre for den nuværende bucket og tilføjer nodes til foundnodes,
     // som er de tætteste naboer, går så længe der stadig er buckets tilbage
     while (bucketIndex + step < constants.k && bucketIndex - step >= 0) {
-        console.log("Loop 1");
+        //console.log("Loop 1");
         // Går til højre
         currentBucket = routingTable[bucketIndex + step];
         for (y = 0; y < currentBucket.length; y++) {
@@ -343,7 +343,7 @@ function findNode(myNodeID, otherNodeID) {
     }
     // Bliver ved med at gå til venstre, når der ikke er flere til højre for den nuværende bucket
     while (bucketIndex - step >= 0) {
-        console.log("Loop 2");
+        //console.log("Loop 2");
         currentBucket = routingTable[bucketIndex - step];
         for (y = 0; y < currentBucket.length; y++) {
             if (neighbourNodes.length < constants.k) {
@@ -355,7 +355,7 @@ function findNode(myNodeID, otherNodeID) {
     }
     // Bliver ved med at gå fra bucket til bucket så længe der er flere tilbage
     while (bucketIndex + step < constants.k) {
-        console.log("Loop 3");
+        //console.log("Loop 3");
         currentBucket = routingTable[bucketIndex + step];
         for (var y = 0; y < currentBucket.length; y++) {
             if (neighbourNodes.length < constants.k) {
@@ -365,7 +365,7 @@ function findNode(myNodeID, otherNodeID) {
         }
         step++;
     }
-    console.log("neighbourNodes:", neighbourNodes);
+    //console.log("neighbourNodes:", neighbourNodes);
     return neighbourNodes;
 
     //Find bucket index
@@ -463,7 +463,7 @@ function nodeLookup(myNodeID, otherNodeID) {
     // Kalder findNode på sig selv
     notCheckedYet = findNode(myNodeID, otherNodeID);
     alreadyChecked.push(node);
-    console.log("Already checked", alreadyChecked);
+    //console.log("Already checked", alreadyChecked);
 
     // Runs to the end of the list
     var q = 0;
@@ -494,31 +494,32 @@ function nodeLookup(myNodeID, otherNodeID) {
             }
 
              nlFindNode(otherNodeID, currentNode, function (res) {
-                 console.log("nlFindNode response", res);
                  res.forEach(function (item) {
                      var tempNodeID = item.nodeID;
                      var tempNodePort = item.port;
-                     var tempNodeForTempList = new nodeClass.node(tempNodeID, constants.ipAddress, tempNodePort);
-                     tempList.push(tempNodeForTempList);
+                     //var tempNodeForTempList = new nodeClass.node(tempNodeID, constants.ipAddress, tempNodePort);
+                     addNodeTo(tempList, tempNodeID,tempNodePort );
                  });
+                 console.log("past for each", tempList);
                  if (tempList != null) {
                      for (var i = 0; i < tempList.length; i++) {
-                         console.log("WE IN BOYS");
                          console.log("WE IN BOYS TEMPLIST ", tempList);
                          // Has this node already been checked?
                          var tempListIndex = alreadyChecked.map(function (el) {
                              return el.port;
                          }).indexOf(tempList[i].port);
                          if (tempListIndex == -1) {
-                             console.log("NCY before:", notCheckedYet);
+                             //console.log("NCY before:", notCheckedYet);
                              notCheckedYet.push(tempList[i]);
-                             console.log("NCY after:", notCheckedYet);
+                             //console.log("NCY after:", notCheckedYet);
                          }
                      }
                  }
              });
 
             console.log("Time inside LOOP", new Date().toISOString());
+            console.log("notcheckedyet inside if", notCheckedYet);
+            console.log("counter", counter);
 
         }
         else {
@@ -534,8 +535,6 @@ function nodeLookup(myNodeID, otherNodeID) {
 
         counter++;
         q++;
-
-
     }
     console.log("NLU end", results);
     return results;
@@ -549,7 +548,7 @@ function nlFindNode(otherNodeID, currentNode, callback) {
         my_NodeID: otherNodeID
     })
         .then(function (response) {
-            console.log("Response in BLOP: ", response.data);
+            //console.log("Response in BLOP: ", response.data);
             argumentPing(otherNodeID, currentNode.port);
             tempList = response.data;
             console.log("templist in BLOP", tempList);
