@@ -163,22 +163,6 @@ function argumentPing(argument_id, argument_port) {
 
 }
 
-
-function findNodeInFile(otherID, otherPort) {
-    var url = "http://localhost:" + otherPort + '/api/node/findNode';
-    console.log('ENTERED FNIF', url);
-    axios.post(url, {
-        my_NodeID: otherID
-    })
-        .then(function (response) {
-            console.log("fnif: ", response.data);
-            argumentPing(otherID, otherPort);
-        })
-        .catch(function (error) {
-            console.log("Something failed \n", error);
-        });
-}
-
 //-------------------------------------------- BUCKET FUNCTIONS ---------------------------------------\\
 
 /**
@@ -471,7 +455,6 @@ function nodeLookup(myNodeID, otherNodeID) {
     // This list has to be run through, to see if it contains nodes, which has already been checked.
     // Moves the current Node from the notCheckedYet-list to the alreadyChecked-list
     alreadyChecked.push(currentNode);
-    results = sortListByNumberClosestTo(results, myNodeID);
     console.log("NLU end", results);
     return results;
 
@@ -528,35 +511,41 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode) {
 
         nlFindNode(method_OtherNodeID, method_CurrentNode, function (res) {
             if (res.length == 0) {
-                console.log("nothing happens :)");
+                console.log("nothing happens :)", method_CurrentNode);
+                results.push(method_CurrentNode);
+                results = sortListByNumberClosestTo(results, node.nodeID);
+
             }
-            res.forEach(function (item) {
-                var tempNodeID = item.nodeID;
-                var tempNodePort = item.port;
-                addNodeTo(tempList, tempNodeID, tempNodePort);
-                console.log("new node", tempNodeID, tempNodePort);
+            else{
+                res.forEach(function (item) {
+                    var tempNodeID = item.nodeID;
+                    var tempNodePort = item.port;
+                    addNodeTo(tempList, tempNodeID, tempNodePort);
+                    console.log("_________________________________________________________");
+                    console.log("new node", tempNodeID, tempNodePort);
 
-                if (results.length == constants.k) {
-                    console.log("Look in nodelookup if you found a problem here");
-                    console.log("mni", myNodeID);
-                    console.log("cni", method_CurrentNode.nodeID);
-
-                    if (method_OtherNodeID ^ method_CurrentNode.nodeID < method_OtherNodeID ^ results[constants.k].nodeID) {
-                        //Replace the last node in the list with the new one
-                        results.pop();
-                        console.log("results full pre", results);
-                        results.push(method_CurrentNode);
-                        console.log("results full post", results);
+                    if (results.length == constants.k) {
+                        console.log("Look in nodelookup if you found a problem here");
+                        if (method_OtherNodeID ^ method_CurrentNode.nodeID < method_OtherNodeID ^ results[constants.k-1].nodeID) {
+                            //Replace the last node in the list with the new one
+                            results.pop();
+                            console.log("results full pre", results);
+                            results.push(method_CurrentNode);
+                            results = sortListByNumberClosestTo(results, node.nodeID);
+                            console.log("results full post", results);
+                        }
                     }
-                }
-                else {
-                    console.log("results pre", results);
-                    results.push(method_CurrentNode);
-                    console.log("results post", results);
-                }
+                    else {
+                        console.log("results pre", results);
+                        results.push(method_CurrentNode);
+                        results = sortListByNumberClosestTo(results, node.nodeID);
+                        console.log("results post", results);
+                    }
 
-                recursiveFindNode(method_OtherNodeID, tempList[tempList.length - 1]);
-            })
+                    recursiveFindNode(method_OtherNodeID, tempList[tempList.length - 1]);
+                })
+            }
+
         });
 
     }
