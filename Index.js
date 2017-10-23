@@ -466,9 +466,9 @@ function nodeLookup(myNodeID, otherNodeID) {
     //console.log("Already checked", alreadyChecked);
 
     // Runs to the end of the list
-    var q = 0;
-    while (counter < notCheckedYet.length) {
-        console.log("Times through", q);
+    var notCheckedYetLength = notCheckedYet.length;
+    while (counter < notCheckedYetLength) {
+        console.log("Times through", counter);
         currentNode = notCheckedYet[counter];
 
         var indexOfNode = alreadyChecked.map(function (el) {
@@ -493,29 +493,32 @@ function nodeLookup(myNodeID, otherNodeID) {
                 results.push(currentNode);
             }
 
-             nlFindNode(otherNodeID, currentNode, function (res) {
-                 res.forEach(function (item) {
-                     var tempNodeID = item.nodeID;
-                     var tempNodePort = item.port;
-                     //var tempNodeForTempList = new nodeClass.node(tempNodeID, constants.ipAddress, tempNodePort);
-                     addNodeTo(tempList, tempNodeID,tempNodePort );
-                 });
-                 console.log("past for each", tempList);
-                 if (tempList != null) {
-                     for (var i = 0; i < tempList.length; i++) {
-                         console.log("WE IN BOYS TEMPLIST ", tempList);
-                         // Has this node already been checked?
-                         var tempListIndex = alreadyChecked.map(function (el) {
-                             return el.port;
-                         }).indexOf(tempList[i].port);
-                         if (tempListIndex == -1) {
-                             //console.log("NCY before:", notCheckedYet);
-                             notCheckedYet.push(tempList[i]);
-                             //console.log("NCY after:", notCheckedYet);
-                         }
-                     }
-                 }
-             });
+            // Callback function
+            nlFindNode(otherNodeID, currentNode, function (res) {
+                res.forEach(function (item) {
+                    var tempNodeID = item.nodeID;
+                    var tempNodePort = item.port;
+                    //var tempNodeForTempList = new nodeClass.node(tempNodeID, constants.ipAddress, tempNodePort);
+                    addNodeTo(tempList, tempNodeID,tempNodePort );
+                });
+                console.log("past for each", tempList);
+            });
+
+            if (tempList != null) {
+                for (var i = 0; i < tempList.length; i++) {
+                    console.log("WE IN BOYS TEMPLIST ", tempList);
+                    // Has this node already been checked?
+                    var tempListIndex = alreadyChecked.map(function (el) {
+                        return el.port;
+                    }).indexOf(tempList[i].port);
+                    if (tempListIndex == -1) {
+                        //console.log("NCY before:", notCheckedYet);
+                        notCheckedYet.push(tempList[i]);
+                        notCheckedYetLength = notCheckedYet.length;
+                        //console.log("NCY after:", notCheckedYet);
+                    }
+                }
+            }
 
             console.log("Time inside LOOP", new Date().toISOString());
             console.log("notcheckedyet inside if", notCheckedYet);
@@ -534,7 +537,6 @@ function nodeLookup(myNodeID, otherNodeID) {
         results = sortListByNumberClosestTo(results, myNodeID);
 
         counter++;
-        q++;
     }
     console.log("NLU end", results);
     return results;

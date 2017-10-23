@@ -8,3 +8,5 @@ function storeValue(type, value) {
     var datetime = currentdate.toLocaleString();
     values.push({type: type, value:value, timeStamp:datetime});
 }
+
+
