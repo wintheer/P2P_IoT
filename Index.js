@@ -508,7 +508,10 @@ function nodeLookup(myNodeID, otherNodeID) {
                     console.log("NCY after:", notCheckedYet);
                 }
             }
+            nlFindNode()
         }
+
+
 
     }
     else {
