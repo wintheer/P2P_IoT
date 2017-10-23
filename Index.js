@@ -15,7 +15,6 @@ var nodeIDList = [];
 var routingTable = [];
 var values = [];
 var tempList = [];
-var promiseList = [];
 //------------------------------------------ Server Functions -------------------------------------------------\\
 
 // We need this to be able to call cross-origin,
@@ -89,10 +88,10 @@ app.post('/api/node/nodeLookup', function (req, res) {
     //console.log("NL: loc_id", my_nodeid);
     //console.log("NL: rem_id", other_nodeid);
     var temp = nodeLookup(my_nodeid, other_nodeid);
-    setTimeout(function() {
+    setTimeout(function () {
         console.log("NL: Lookup result for node\n", node.port, temp);
         console.log("NL: Ended.");
-        res.send(".");
+        res.send(temp);
     }, 1000);
 });
 
@@ -453,8 +452,6 @@ function nodeLookup(myNodeID, otherNodeID) {
     // Anvender findNode til at løbe igennem den modtagne liste iterativt
     var foundNode = false;
     var currentNode;
-    var counter = 0;
-
     // containing the nodes, which have not been checked yet
     var notCheckedYet = [];
     var alreadyChecked = [];
@@ -463,83 +460,70 @@ function nodeLookup(myNodeID, otherNodeID) {
     // Kalder findNode på sig selv
     notCheckedYet = findNode(myNodeID, otherNodeID);
     alreadyChecked.push(node);
-    //console.log("Already checked", alreadyChecked);
 
-    // Runs to the end of the list
-    var notCheckedYetLength = notCheckedYet.length;
-    while (counter < notCheckedYetLength) {
-        console.log("Times through", counter);
-        currentNode = notCheckedYet[counter];
+    currentNode = notCheckedYet[0];
+    var indexOfNode = alreadyChecked.map(function (el) {
+        return el.port;
+    }).indexOf(currentNode.port);
+    // If the node hasn't been looked at
+    if (indexOfNode == -1) {
+        if (results.length == constants.k) {
+            console.log("Look in nodelookup if you found a problem here");
+            console.log("mni", myNodeID);
+            console.log("cni", currentNode.nodeID);
 
-        var indexOfNode = alreadyChecked.map(function (el) {
-            return el.port;
-        }).indexOf(currentNode.port);
-        // If the node hasn't been looked at
-        if (indexOfNode == -1) {
-            if (results.length == constants.k) {
-                console.log("Look in nodelookup if you found a problem here");
-                console.log("mni", myNodeID);
-                console.log("cni", currentNode.nodeID);
-
-                if (otherNodeID ^ currentNode.nodeID < otherNodeID ^ results[constants.k].nodeID) {
-                    //Replace the last node in the list with the new one
-                    results.pop();
-                    console.log("results pre", results);
-                    results.push(currentNode);
-                }
-            }
-            else {
-                console.log("results", results);
+            if (otherNodeID ^ currentNode.nodeID < otherNodeID ^ results[constants.k].nodeID) {
+                //Replace the last node in the list with the new one
+                results.pop();
+                console.log("results pre", results);
                 results.push(currentNode);
             }
-
-            // Callback function
-            nlFindNode(otherNodeID, currentNode, function (res) {
-                res.forEach(function (item) {
-                    var tempNodeID = item.nodeID;
-                    var tempNodePort = item.port;
-                    //var tempNodeForTempList = new nodeClass.node(tempNodeID, constants.ipAddress, tempNodePort);
-                    addNodeTo(tempList, tempNodeID,tempNodePort );
-                });
-                console.log("past for each", tempList);
-            });
-
-            if (tempList != null) {
-                for (var i = 0; i < tempList.length; i++) {
-                    console.log("WE IN BOYS TEMPLIST ", tempList);
-                    // Has this node already been checked?
-                    var tempListIndex = alreadyChecked.map(function (el) {
-                        return el.port;
-                    }).indexOf(tempList[i].port);
-                    if (tempListIndex == -1) {
-                        //console.log("NCY before:", notCheckedYet);
-                        notCheckedYet.push(tempList[i]);
-                        notCheckedYetLength = notCheckedYet.length;
-                        //console.log("NCY after:", notCheckedYet);
-                    }
-                }
-            }
-
-            console.log("Time inside LOOP", new Date().toISOString());
-            console.log("notcheckedyet inside if", notCheckedYet);
-            console.log("counter", counter);
-
         }
         else {
-            console.log("Node has been looked at.")
+            console.log("results", results);
+            results.push(currentNode);
         }
-        console.log("Time outside LOOP", new Date().toISOString());
 
-        // This list has to be run through, to see if it contains nodes, which has already been checked.
-        // Moves the current Node from the notCheckedYet-list to the alreadyChecked-list
-        alreadyChecked.push(currentNode);
-        console.log("NCY after removal:", notCheckedYet);
-        results = sortListByNumberClosestTo(results, myNodeID);
+        // Callback function
+        nlFindNode(otherNodeID, currentNode, function (res) {
+            res.forEach(function (item) {
+                var tempNodeID = item.nodeID;
+                var tempNodePort = item.port;
+                //var tempNodeForTempList = new nodeClass.node(tempNodeID, constants.ipAddress, tempNodePort);
+                addNodeTo(tempList, tempNodeID, tempNodePort);
+            });
+            console.log("past for each", tempList);
+        });
 
-        counter++;
+        if (tempList != null) {
+            for (var i = 0; i < tempList.length; i++) {
+                console.log("WE IN BOYS TEMPLIST ", tempList);
+                // Has this node already been checked?
+                var tempListIndex = alreadyChecked.map(function (el) {
+                    return el.port;
+                }).indexOf(tempList[i].port);
+                if (tempListIndex == -1) {
+                    notCheckedYet.pop();
+                    notCheckedYet.push(tempList[i]);
+                    console.log("NCY after:", notCheckedYet);
+                }
+            }
+        }
+
     }
-    console.log("NLU end", results);
-    return results;
+    else {
+        console.log("Node has been looked at.")
+    }
+
+    // This list has to be run through, to see if it contains nodes, which has already been checked.
+    // Moves the current Node from the notCheckedYet-list to the alreadyChecked-list
+    setTimeout(function () {
+        alreadyChecked.push(currentNode);
+        results = sortListByNumberClosestTo(results, myNodeID);
+        console.log("NLU end", results);
+        return results;
+    }, 1000);
+
 }
 
 function nlFindNode(otherNodeID, currentNode, callback) {
