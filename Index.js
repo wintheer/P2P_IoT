@@ -174,13 +174,15 @@ function argumentPing(argument_id, argument_port) {
  */
 function addNodeTo(currentBucket, localNodeID, port) {
     var tempNode = new nodeClass.node(localNodeID, constants.ipAddress, port);
-    var indexOfTempNode
-    if (typeof currentBucket[0] == 'undefined') {
+    var indexOfTempNode;
+    var bucketLength = 0;
+    if (typeof currentBucket == 'undefined') {
         indexOfTempNode = -1;
     } else {
         indexOfTempNode = currentBucket.map(function (el) {
             return el.port
         }).indexOf(port);
+        bucketLength = currentBucket.length;
     }
 
     if (port != node.port) {
@@ -188,7 +190,7 @@ function addNodeTo(currentBucket, localNodeID, port) {
         if (indexOfTempNode < 0) {
 
             // If the bucket is full, ping to check for dead nodes
-            if (currentBucket.length >= constants.k) {
+            if (bucketLength >= constants.k) {
                 var deadNode = pingAllIdsInBucket(currentBucket);
 
                 // If a pinged node doesn't respond, this node will be removed.
