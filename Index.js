@@ -174,9 +174,14 @@ function argumentPing(argument_id, argument_port) {
  */
 function addNodeTo(currentBucket, localNodeID, port) {
     var tempNode = new nodeClass.node(localNodeID, constants.ipAddress, port);
-    var indexOfTempNode = currentBucket.map(function (el) {
-        return el.port
-    }).indexOf(port);
+    var indexOfTempNode
+    if (currentBucket.length == 0) {
+        indexOfTempNode = -1;
+    } else {
+        indexOfTempNode = currentBucket.map(function (el) {
+            return el.port
+        }).indexOf(port);
+    }
 
     if (port != node.port) {
         // If the element is not in the list

@@ -4,7 +4,6 @@
     <list default="true" id="7347eb3b-3e44-4d7a-954a-c954e1512d5c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Index.js" afterPath="$PROJECT_DIR$/Index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/startKademlia.bat" afterPath="$PROJECT_DIR$/startKademlia.bat" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -21,18 +20,38 @@
       <file leaf-file-name="Index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="176" column="20" lean-forward="false" selection-start-line="176" selection-start-column="20" selection-end-line="176" selection-end-column="20" />
+            <state relative-caret-position="190">
+              <caret line="179" column="12" lean-forward="false" selection-start-line="179" selection-start-column="12" selection-end-line="179" selection-end-column="12" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="constants.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/constants.js">
+      <file leaf-file-name="temp.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/temp.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="12" lean-forward="false" selection-start-line="9" selection-start-column="12" selection-end-line="9" selection-end-column="12" />
+            <state relative-caret-position="105">
+              <caret line="7" column="48" lean-forward="false" selection-start-line="7" selection-start-column="48" selection-end-line="7" selection-end-column="48" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="19" column="16" lean-forward="false" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="back.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/back.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="615">
+              <caret line="41" column="49" lean-forward="false" selection-start-line="41" selection-start-column="43" selection-end-line="41" selection-end-column="49" />
               <folding />
             </state>
           </provider>
@@ -51,36 +70,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>fail</find>
-      <find>bucketIndex</find>
-      <find>response in nl</find>
-      <find>neighbournodes</find>
-      <find>nodeLook</find>
-      <find>inside</find>
-      <find>length</find>
-      <find>templlis</find>
-      <find>response in</find>
-      <find>results</find>
-      <find>templist</find>
-      <find>nodelook</find>
-      <find>async</find>
-      <find>l</find>
-      <find>if</find>
-      <find>neighbour</find>
-      <find>notche</find>
-      <find>alreadycheck</find>
-      <find>oni</find>
+      <find>console.log(&quot;3</find>
+      <find>f</find>
+      <find>findnodein</find>
       <find>fnif</find>
-      <find>argping</find>
-      <find>templist in blk</find>
-      <find>mynodeID</find>
-      <find>myNode</find>
-      <find>546</find>
-      <find>findnodeinfile</find>
-      <find>new node</find>
-      <find>argumentping</find>
-      <find>target</find>
-      <find>targetedping</find>
+      <find>nodeLookup</find>
+      <find>notcheckedyet</find>
+      <find>findnode</find>
+      <find>find node</find>
+      <find>neighb</find>
+      <find>neighboar</find>
+      <find>pingall</find>
+      <find>addnodeto</find>
+      <find>addnode</find>
+      <find>nodelookup</find>
+      <find>end of node</find>
+      <find>indexofnode</find>
+      <find>console.log</find>
+      <find>nodelook</find>
+      <find>ping</find>
+      <find>argumentPing</find>
+      <find>slice</find>
+      <find>notCheckedYet</find>
+      <find>alreadyChecked</find>
+      <find>notCheckedYet.sh</find>
+      <find>new No</find>
+      <find>NodeClass</find>
+      <find>wait</find>
+      <find>tempList</find>
+      <find>tempList+</find>
+      <find>results =</find>
     </findStrings>
     <dirStrings>
       <dir>C:\Users\Ahmad\WebstormProjects\P2P_IoT\node_modules</dir>
@@ -111,6 +130,7 @@
         <option value="$PROJECT_DIR$/lib/Index.js" />
         <option value="$PROJECT_DIR$/index.js" />
         <option value="$PROJECT_DIR$/Sensors.js" />
+        <option value="$PROJECT_DIR$/config/constants.js" />
         <option value="$PROJECT_DIR$/Routingtable.js" />
         <option value="$PROJECT_DIR$/lib/Actuators.js" />
         <option value="$PROJECT_DIR$/public/index style.css" />
@@ -119,7 +139,7 @@
         <option value="$PROJECT_DIR$/Utilities.js" />
         <option value="$PROJECT_DIR$/public/index.html" />
         <option value="$PROJECT_DIR$/public/back.js" />
-        <option value="$PROJECT_DIR$/config/constants.js" />
+        <option value="$PROJECT_DIR$/temp.js" />
         <option value="$PROJECT_DIR$/Index.js" />
       </list>
     </option>
@@ -146,10 +166,9 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="974" />
-    <option name="height" value="1057" />
+    <option name="y" value="23" />
+    <option name="width" value="1440" />
+    <option name="height" value="873" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="false" id="Update" />
@@ -170,18 +189,12 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="P2P_IoT" type="b2602c69:ProjectViewProjectNode" />
               <item name="P2P_IoT" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="P2P_IoT" type="b2602c69:ProjectViewProjectNode" />
-              <item name="P2P_IoT" type="462c0819:PsiDirectoryNode" />
-              <item name="build" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="P2P_IoT" type="b2602c69:ProjectViewProjectNode" />
@@ -202,21 +215,20 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="Template Data Languages" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
-    <property name="javascript.nodejs.core.library.configured.version" value="8.7.0" />
+    <property name="javascript.nodejs.core.library.configured.version" value="6.11.3" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
-    <property name="JavaScriptPreferStrict" value="false" />
-    <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -226,6 +238,117 @@
       <recent name="C:\Users\Ahmad\WebstormProjects\P2P_IoT\public" />
       <recent name="$PROJECT_DIR$" />
     </key>
+  </component>
+  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
+    <UpdatedFiles>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Updated from server" />
+        <option name="myStatusName" value="Changed on server" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="CHANGED_ON_SERVER" />
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated" />
+          <option name="myStatusName" value="Changed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UPDATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/workspace.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/Index.js</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Created" />
+          <option name="myStatusName" value="Created" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CREATED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Deleted" />
+          <option name="myStatusName" value="Deleted" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="true" />
+          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Restored" />
+          <option name="myStatusName" value="Will be restored" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="RESTORED" />
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Modified" />
+        <option name="myStatusName" value="Modified" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MODIFIED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Skipped" />
+        <option name="myStatusName" value="Skipped" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SKIPPED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with conflicts" />
+        <option name="myStatusName" value="Will be merged with conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_CONFLICTS" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with tree conflicts" />
+        <option name="myStatusName" value="Merged with tree conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with property conflicts" />
+        <option name="myStatusName" value="Will be merged with property conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged" />
+        <option name="myStatusName" value="Will be merged" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Not in repository" />
+        <option name="myStatusName" value="Not in repository" />
+        <option name="mySupportsDeletion" value="true" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="UNKNOWN" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally added" />
+        <option name="myStatusName" value="Locally added" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_ADDED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally removed" />
+        <option name="myStatusName" value="Locally removed" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_REMOVED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Switched" />
+        <option name="myStatusName" value="Switched" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SWITCHED" />
+      </FILE-GROUP>
+    </UpdatedFiles>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -240,7 +363,7 @@
     </option>
   </component>
   <component name="RunManager" selected="Node.js.Index.js">
-    <configuration name="Index.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="project" path-to-js-file="Index.js" application-parameters="8888 0" working-dir="$PROJECT_DIR$">
+    <configuration name="Index.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="/usr/local/bin/node" path-to-js-file="Index.js" application-parameters="8888 0" working-dir="$PROJECT_DIR$">
       <EXTENSION ID="com.jetbrains.nodejs.remote.docker.NodeJSDockerRunConfigurationExtension">
         <option name="envVars">
           <list />
@@ -264,29 +387,6 @@
       </EXTENSION>
     </configuration>
     <configuration name="Node.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="project" path-to-js-file="Node.js" working-dir="$PROJECT_DIR$/lib" />
-    <configuration name="Utilities.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="C:/Program Files/nodejs/node" path-to-js-file="Utilities.js" working-dir="$PROJECT_DIR$/lib">
-      <EXTENSION ID="com.jetbrains.nodejs.remote.docker.NodeJSDockerRunConfigurationExtension">
-        <option name="envVars">
-          <list />
-        </option>
-        <option name="extraHosts">
-          <list />
-        </option>
-        <option name="links">
-          <list />
-        </option>
-        <option name="networkDisabled" value="false" />
-        <option name="networkMode" value="bridge" />
-        <option name="portBindings">
-          <list />
-        </option>
-        <option name="publishAllPorts" value="false" />
-        <option name="version" value="1" />
-        <option name="volumeBindings">
-          <list />
-        </option>
-      </EXTENSION>
-    </configuration>
     <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="C:/Program Files/nodejs/node" working-dir="">
       <EXTENSION ID="com.jetbrains.nodejs.remote.docker.NodeJSDockerRunConfigurationExtension">
         <option name="envVars">
@@ -311,6 +411,29 @@
       </EXTENSION>
     </configuration>
     <configuration name="kBucket.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="project" path-to-js-file="kBucket.js" working-dir="$PROJECT_DIR$/lib" />
+    <configuration name="temp.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="/usr/local/bin/node" path-to-js-file="temp.js" working-dir="$PROJECT_DIR$">
+      <EXTENSION ID="com.jetbrains.nodejs.remote.docker.NodeJSDockerRunConfigurationExtension">
+        <option name="envVars">
+          <list />
+        </option>
+        <option name="extraHosts">
+          <list />
+        </option>
+        <option name="links">
+          <list />
+        </option>
+        <option name="networkDisabled" value="false" />
+        <option name="networkMode" value="bridge" />
+        <option name="portBindings">
+          <list />
+        </option>
+        <option name="publishAllPorts" value="false" />
+        <option name="version" value="1" />
+        <option name="volumeBindings">
+          <list />
+        </option>
+      </EXTENSION>
+    </configuration>
     <configuration name="test.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="C:/Program Files/nodejs/node" path-to-js-file="test.js" working-dir="$PROJECT_DIR$/lib">
       <EXTENSION ID="com.jetbrains.nodejs.remote.docker.NodeJSDockerRunConfigurationExtension">
         <option name="envVars">
@@ -335,19 +458,19 @@
       </EXTENSION>
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Node.js.Utilities.js" />
-      <item index="1" class="java.lang.String" itemvalue="Node.js.Node.js" />
-      <item index="2" class="java.lang.String" itemvalue="Node.js.Index.js" />
-      <item index="3" class="java.lang.String" itemvalue="Node.js.kBucket.js" />
-      <item index="4" class="java.lang.String" itemvalue="Node.js.test.js" />
+      <item index="0" class="java.lang.String" itemvalue="Node.js.Node.js" />
+      <item index="1" class="java.lang.String" itemvalue="Node.js.Index.js" />
+      <item index="2" class="java.lang.String" itemvalue="Node.js.kBucket.js" />
+      <item index="3" class="java.lang.String" itemvalue="Node.js.test.js" />
+      <item index="4" class="java.lang.String" itemvalue="Node.js.temp.js" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Node.js.Index.js" />
-        <item index="1" class="java.lang.String" itemvalue="Node.js.test.js" />
-        <item index="2" class="java.lang.String" itemvalue="Node.js.kBucket.js" />
-        <item index="3" class="java.lang.String" itemvalue="Node.js.Node.js" />
-        <item index="4" class="java.lang.String" itemvalue="Node.js.Utilities.js" />
+        <item index="1" class="java.lang.String" itemvalue="Node.js.temp.js" />
+        <item index="2" class="java.lang.String" itemvalue="Node.js.test.js" />
+        <item index="3" class="java.lang.String" itemvalue="Node.js.kBucket.js" />
+        <item index="4" class="java.lang.String" itemvalue="Node.js.Node.js" />
       </list>
     </recent_temporary>
   </component>
@@ -408,19 +531,34 @@
       <workItem from="1507626933482" duration="596000" />
       <workItem from="1507628103652" duration="17000" />
       <workItem from="1507794258626" duration="7043000" />
-      <workItem from="1507812859568" duration="5296000" />
-      <workItem from="1507880055232" duration="3339000" />
-      <workItem from="1507884303077" duration="2518000" />
-      <workItem from="1507892955094" duration="5293000" />
-      <workItem from="1508141662502" duration="695000" />
-      <workItem from="1508143101870" duration="13779000" />
-      <workItem from="1508158234949" duration="251000" />
-      <workItem from="1508158503443" duration="248000" />
-      <workItem from="1508491760282" duration="8259000" />
-      <workItem from="1508745439531" duration="93000" />
-      <workItem from="1508745613663" duration="13747000" />
-      <workItem from="1508763956613" duration="149000" />
-      <workItem from="1508918607109" duration="2487000" />
+      <workItem from="1507812859568" duration="2821000" />
+      <workItem from="1507815825898" duration="2585000" />
+      <workItem from="1507881304194" duration="20578000" />
+      <workItem from="1508498800976" duration="736000" />
+      <workItem from="1508747816581" duration="6020000" />
+      <workItem from="1508920537452" duration="40000" />
+      <workItem from="1508920608828" duration="752000" />
+    </task>
+    <task id="LOCAL-00001" summary="Arbejdet lidt med konstruktoren">
+      <created>1505118640472</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1505118640472</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Uddelegering af ansvar - flere klasser">
+      <created>1505120986340</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1505120986340</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Uddelegering af ansvar - flere klasser">
+      <created>1505121303606</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1505121303606</updated>
     </task>
     <task id="LOCAL-00004" summary="Tilføjet flere metoder til kBucket klassen">
       <created>1505166953237</created>
@@ -660,130 +798,60 @@
       <option name="project" value="LOCAL" />
       <updated>1507813549640</updated>
     </task>
-    <task id="LOCAL-00038" summary="FNIF">
-      <created>1507815779689</created>
+    <task id="LOCAL-00038" summary="Changed empty list">
+      <created>1507815954894</created>
       <option name="number" value="00038" />
       <option name="presentableId" value="LOCAL-00038" />
       <option name="project" value="LOCAL" />
-      <updated>1507815779689</updated>
+      <updated>1507815954894</updated>
     </task>
-    <task id="LOCAL-00039" summary="added missing argument">
-      <created>1507817211943</created>
+    <task id="LOCAL-00039" summary="Changes to nodeLookup. Optimized editing in arrays.">
+      <created>1507882649229</created>
       <option name="number" value="00039" />
       <option name="presentableId" value="LOCAL-00039" />
       <option name="project" value="LOCAL" />
-      <updated>1507817211943</updated>
+      <updated>1507882649230</updated>
     </task>
-    <task id="LOCAL-00040" summary="testing nodelookup">
-      <created>1507882148802</created>
+    <task id="LOCAL-00040" summary="Counter has been added">
+      <created>1507889700594</created>
       <option name="number" value="00040" />
       <option name="presentableId" value="LOCAL-00040" />
       <option name="project" value="LOCAL" />
-      <updated>1507882148802</updated>
+      <updated>1507889700594</updated>
     </task>
-    <task id="LOCAL-00041" summary="push baby push">
-      <created>1508141702411</created>
+    <task id="LOCAL-00041" summary="Added JSON run-through code on response">
+      <created>1508748669510</created>
       <option name="number" value="00041" />
       <option name="presentableId" value="LOCAL-00041" />
       <option name="project" value="LOCAL" />
-      <updated>1508141702411</updated>
+      <updated>1508748669510</updated>
     </task>
-    <task id="LOCAL-00042" summary="progress">
-      <created>1508145085562</created>
+    <task id="LOCAL-00042" summary="Counter has been added">
+      <created>1508750295025</created>
       <option name="number" value="00042" />
       <option name="presentableId" value="LOCAL-00042" />
       <option name="project" value="LOCAL" />
-      <updated>1508145085562</updated>
+      <updated>1508750295025</updated>
     </task>
-    <task id="LOCAL-00043" summary="more progress">
-      <created>1508145760858</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1508145760858</updated>
-    </task>
-    <task id="LOCAL-00044" summary="delay">
-      <created>1508150295274</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1508150295274</updated>
-    </task>
-    <task id="LOCAL-00045" summary="same version">
-      <created>1508152128523</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1508152128523</updated>
-    </task>
-    <task id="LOCAL-00046" summary="async/await">
-      <created>1508158730219</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
-      <option name="project" value="LOCAL" />
-      <updated>1508158730219</updated>
-    </task>
-    <task id="LOCAL-00047" summary="callbacks">
-      <created>1508747973793</created>
-      <option name="number" value="00047" />
-      <option name="presentableId" value="LOCAL-00047" />
-      <option name="project" value="LOCAL" />
-      <updated>1508747973793</updated>
-    </task>
-    <task id="LOCAL-00048" summary="we did stuff">
-      <created>1508749799154</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
-      <option name="project" value="LOCAL" />
-      <updated>1508749799154</updated>
-    </task>
-    <task id="LOCAL-00049" summary="non-iterative NL">
-      <created>1508756863894</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
-      <option name="project" value="LOCAL" />
-      <updated>1508756863894</updated>
-    </task>
-    <task id="LOCAL-00050" summary="non-iterative NL">
-      <created>1508756913463</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1508756913463</updated>
-    </task>
-    <task id="LOCAL-00051" summary="recursive find node">
-      <created>1508761068541</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1508761068541</updated>
-    </task>
-    <task id="LOCAL-00052" summary="NodeLookup (FINALLY!!!!) works">
-      <created>1508764093248</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
-      <option name="project" value="LOCAL" />
-      <updated>1508764093248</updated>
-    </task>
-    <option name="localTasksCounter" value="53" />
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="211752000" />
+    <option name="totallyTimeSpent" value="189130000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
+    <frame x="0" y="23" width="1440" height="873" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12486828" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.09795631" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28709677" sideWeight="0.5021075" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.49367756" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28709677" sideWeight="0.4789252" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28709677" sideWeight="0.51896733" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3277635" sideWeight="0.49367756" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2866324" sideWeight="0.48103267" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3311828" sideWeight="0.49789253" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3277635" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39892474" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.11825193" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -801,6 +869,16 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="ping communication in progress" />
+    <MESSAGE value="New structure :)" />
+    <MESSAGE value="needed to add files" />
+    <MESSAGE value="Fixed stupid error" />
+    <MESSAGE value="stuff" />
+    <MESSAGE value="Made Manual Ping" />
+    <MESSAGE value="Requirement now work" />
+    <MESSAGE value="Routingtable update" />
+    <MESSAGE value="Did HTML stuff" />
+    <MESSAGE value="Reworked bucket" />
     <MESSAGE value="Added routingTable route" />
     <MESSAGE value="Concussion" />
     <MESSAGE value="findValue() kinda works" />
@@ -812,30 +890,26 @@
     <MESSAGE value="Changed some comments" />
     <MESSAGE value="Ping doesn't duplicate" />
     <MESSAGE value="." />
-    <MESSAGE value="FNIF" />
-    <MESSAGE value="added missing argument" />
-    <MESSAGE value="testing nodelookup" />
-    <MESSAGE value="push baby push" />
-    <MESSAGE value="progress" />
-    <MESSAGE value="more progress" />
-    <MESSAGE value="delay" />
-    <MESSAGE value="same version" />
-    <MESSAGE value="async/await" />
-    <MESSAGE value="callbacks" />
-    <MESSAGE value="we did stuff" />
-    <MESSAGE value="non-iterative NL" />
-    <MESSAGE value="recursive find node" />
-    <MESSAGE value="NodeLookup (FINALLY!!!!) works" />
-    <option name="LAST_COMMIT_MESSAGE" value="NodeLookup (FINALLY!!!!) works" />
+    <MESSAGE value="Changed empty list" />
+    <MESSAGE value="Changes to nodeLookup. Optimized editing in arrays." />
+    <MESSAGE value="Added JSON run-through code on response" />
+    <MESSAGE value="Counter has been added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Counter has been added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="12" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/temp.js</url>
+          <line>12</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="14" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/lib/Node.js" />
     <entry file="file://$PROJECT_DIR$/lib/Utilities.js" />
     <entry file="file://$PROJECT_DIR$/lib/kBucket.js" />
     <entry file="file://$PROJECT_DIR$/lib/Utilities.js" />
@@ -879,45 +953,16 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/Index.js" />
-    <entry file="file://$PROJECT_DIR$/temp/lib/public/Button_Page.html">
+    <entry file="file://$PROJECT_DIR$/temp/lib/public/Button_Page.html" />
+    <entry file="file://$PROJECT_DIR$/temp/lib/public/buttonpage.js" />
+    <entry file="file://$PROJECT_DIR$/temp/lib/Bucket.js" />
+    <entry file="file://$PROJECT_DIR$/temp/app.js" />
+    <entry file="file://$PROJECT_DIR$/temp/lib/Index.js" />
+    <entry file="file://$USER_HOME$/node_modules/bindings/bindings.js" />
+    <entry file="file://$PROJECT_DIR$/config/constants.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="11" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/temp/lib/public/buttonpage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="16" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/temp/lib/Bucket.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/temp/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="8" column="29" lean-forward="false" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/temp/lib/Index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="15" column="21" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/node_modules/bindings/bindings.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1394">
-          <caret line="82" column="0" lean-forward="false" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+        <state relative-caret-position="391">
+          <caret line="23" column="19" lean-forward="false" selection-start-line="23" selection-start-column="18" selection-end-line="23" selection-end-column="37" />
         </state>
       </provider>
     </entry>
@@ -972,32 +1017,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/back.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="16" lean-forward="false" selection-start-line="15" selection-start-column="16" selection-end-line="16" selection-end-column="13" />
+        <state relative-caret-position="285">
+          <caret line="19" column="16" lean-forward="false" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/constants.js">
+    <entry file="file://$PROJECT_DIR$/temp.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="12" lean-forward="false" selection-start-line="9" selection-start-column="12" selection-end-line="9" selection-end-column="12" />
+        <state relative-caret-position="105">
+          <caret line="7" column="48" lean-forward="false" selection-start-line="7" selection-start-column="48" selection-end-line="7" selection-end-column="48" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="176" column="20" lean-forward="false" selection-start-line="176" selection-start-column="20" selection-end-line="176" selection-end-column="20" />
+        <state relative-caret-position="190">
+          <caret line="179" column="12" lean-forward="false" selection-start-line="179" selection-start-column="12" selection-end-line="179" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/back.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="615">
+          <caret line="41" column="49" lean-forward="false" selection-start-line="41" selection-start-column="43" selection-end-line="41" selection-end-column="49" />
           <folding />
         </state>
       </provider>
