@@ -175,7 +175,7 @@ function argumentPing(argument_id, argument_port) {
 function addNodeTo(currentBucket, localNodeID, port) {
     var tempNode = new nodeClass.node(localNodeID, constants.ipAddress, port);
     var indexOfTempNode
-    if (currentBucket.length == 0) {
+    if (typeof currentBucket[0] == 'undefined') {
         indexOfTempNode = -1;
     } else {
         indexOfTempNode = currentBucket.map(function (el) {
