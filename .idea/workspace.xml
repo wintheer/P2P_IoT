@@ -21,8 +21,8 @@
       <file leaf-file-name="Index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="287">
-              <caret line="527" column="86" lean-forward="false" selection-start-line="527" selection-start-column="86" selection-end-line="527" selection-end-column="86" />
+            <state relative-caret-position="238">
+              <caret line="176" column="20" lean-forward="false" selection-start-line="176" selection-start-column="20" selection-end-line="176" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -51,8 +51,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>find node sta</find>
-      <find>end of finde</find>
       <find>fail</find>
       <find>bucketIndex</find>
       <find>response in nl</find>
@@ -78,9 +76,11 @@
       <find>mynodeID</find>
       <find>myNode</find>
       <find>546</find>
-      <find>argumentping</find>
       <find>findnodeinfile</find>
       <find>new node</find>
+      <find>argumentping</find>
+      <find>target</find>
+      <find>targetedping</find>
     </findStrings>
     <dirStrings>
       <dir>C:\Users\Ahmad\WebstormProjects\P2P_IoT\node_modules</dir>
@@ -169,6 +169,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -201,7 +202,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -419,14 +419,8 @@
       <workItem from="1508491760282" duration="8259000" />
       <workItem from="1508745439531" duration="93000" />
       <workItem from="1508745613663" duration="13747000" />
-      <workItem from="1508763956613" duration="118000" />
-    </task>
-    <task id="LOCAL-00003" summary="Uddelegering af ansvar - flere klasser">
-      <created>1505121303606</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1505121303606</updated>
+      <workItem from="1508763956613" duration="149000" />
+      <workItem from="1508918607109" duration="2487000" />
     </task>
     <task id="LOCAL-00004" summary="Tilføjet flere metoder til kBucket klassen">
       <created>1505166953237</created>
@@ -764,11 +758,18 @@
       <option name="project" value="LOCAL" />
       <updated>1508761068541</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="NodeLookup (FINALLY!!!!) works">
+      <created>1508764093248</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1508764093248</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="209234000" />
+    <option name="totallyTimeSpent" value="211752000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
@@ -800,7 +801,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Reworked bucket" />
     <MESSAGE value="Added routingTable route" />
     <MESSAGE value="Concussion" />
     <MESSAGE value="findValue() kinda works" />
@@ -825,7 +825,8 @@
     <MESSAGE value="we did stuff" />
     <MESSAGE value="non-iterative NL" />
     <MESSAGE value="recursive find node" />
-    <option name="LAST_COMMIT_MESSAGE" value="recursive find node" />
+    <MESSAGE value="NodeLookup (FINALLY!!!!) works" />
+    <option name="LAST_COMMIT_MESSAGE" value="NodeLookup (FINALLY!!!!) works" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -995,8 +996,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
-          <caret line="527" column="86" lean-forward="false" selection-start-line="527" selection-start-column="86" selection-end-line="527" selection-end-column="86" />
+        <state relative-caret-position="238">
+          <caret line="176" column="20" lean-forward="false" selection-start-line="176" selection-start-column="20" selection-end-line="176" selection-end-column="20" />
           <folding />
         </state>
       </provider>

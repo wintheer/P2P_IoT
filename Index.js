@@ -149,7 +149,7 @@ function argumentPing(argument_id, argument_port) {
     var url = "http://localhost:" + argument_port + '/api/node/ping';
     axios.post(url, {
         my_NodeID: argument_id,
-        my_Port: argument_port
+        my_Port: node.port
     })
         .then(function (response) {
             //console.log("Argument Ping", response);
@@ -521,6 +521,8 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode) {
                     var tempNodeID = item.nodeID;
                     var tempNodePort = item.port;
                     addNodeTo(tempList, tempNodeID, tempNodePort);
+                    //argumentPing(tempNodeID, tempNodePort);
+
                     console.log("_________________________________________________________");
                     console.log("new node", tempNodeID, tempNodePort);
 
