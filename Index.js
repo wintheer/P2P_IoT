@@ -65,7 +65,7 @@ app.post('/api/node/ping', function (req, res) {
     var rightIndex = utility.findMostSignificantBit(distance);
     //console.log("Right Index: ", rightIndex);
     //Nul indeksering :)))
-    var local_bucket = routingTable[rightIndex - 1];
+    var local_bucket = routingTable[rightIndex];
     addNodeTo(local_bucket, remote_nodeid, remote_port);
     console.log("P: RT \n", routingTable);
     console.log("P: Ended.");
