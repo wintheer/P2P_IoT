@@ -53,6 +53,7 @@ app.get('/api/node/values', function (req, res) {
 
 //Post Request expecting nodeID and port in body
 app.post('/api/node/ping', function (req, res) {
+    console.log("________________________________");
     console.log("Ping: P");
     var remote_nodeid = req.body['my_NodeID'];
     console.log("P: rem_id", remote_nodeid);
@@ -135,14 +136,19 @@ function targetedPing() {
         my_Port: node.port
     })
         .then(function (response) {
-            //console.log("Targeted Ping", response);
-            console.log("Targeted ping")
+            console.log("targeted ping response", response.data);
+            console.log("Targeted ping");
+            var distance = findDistanceBetweenNodes(node.nodeID, response.data.nodeID);
+            var rightIndex = utility.findMostSignificantBit(distance);
+            //console.log("Right Index: ", rightIndex);
+            //Nul indeksering :)))
+            var local_bucket = routingTable[rightIndex - 1];
+            addNodeTo(local_bucket, response.data.nodeID, response.data.port);
         })
         .catch(function (error) {
             //console.log("Something failed \n", error);
             console.log("error targPing");
         });
-
 }
 
 function argumentPing(argument_id, argument_port) {
@@ -173,6 +179,7 @@ function argumentPing(argument_id, argument_port) {
  * @param currentBucket
  */
 function addNodeTo(currentBucket, localNodeID, port) {
+    console.log("cb", currentBucket, "lni", localNodeID, "port", port);
     var tempNode = new nodeClass.node(localNodeID, constants.ipAddress, port);
     var indexOfTempNode;
     var bucketLength = 0;
@@ -475,13 +482,17 @@ function nlFindNode(otherNodeID, currentNode, callback) {
         my_NodeID: otherNodeID
     })
         .then(function (response) {
-            argumentPing(otherNodeID, currentNode.port);
+            if (response.data != null) {
+                console.log("etwas", response.data);
+                console.log("argument aksædjasæjkdsa");
+                argumentPing(otherNodeID, currentNode.port);
+            }
             tempList = response.data;
             console.log("templist in nlFN", tempList);
             callback(response.data);
         })
         .catch(function (error) {
-            console.log("Something failed \n", error);
+            console.log("Something failed in nlFindNode\n", error);
         });
 }
 
@@ -515,45 +526,46 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode) {
         return el.port;
     }).indexOf(method_CurrentNode.port);
     if (indexOfNode == -1) {
-
         nlFindNode(method_OtherNodeID, method_CurrentNode, function (res) {
-            if (res.length == 0) {
-                console.log("nothing happens :)", method_CurrentNode);
-                results.push(method_CurrentNode);
-                results = sortListByNumberClosestTo(results, node.nodeID);
 
-            }
-            else{
-                res.forEach(function (item) {
-                    var tempNodeID = item.nodeID;
-                    var tempNodePort = item.port;
-                    addNodeTo(tempList, tempNodeID, tempNodePort);
-                    //argumentPing(tempNodeID, tempNodePort);
+            res.forEach(function (item) {
+                if (item == null) {
+                    console.log("item null return");
+                    console.log("nothing happens :)", method_CurrentNode);
+                    results.push(method_CurrentNode);
+                    results = sortListByNumberClosestTo(results, node.nodeID);
+                    return;
+                }
+                var tempNodeID = item.nodeID;
+                var tempNodePort = item.port;
+                addNodeTo(tempList, tempNodeID, tempNodePort);
+                console.log("new node", tempNodeID, tempNodePort);
+                console.log("_________________________________________________________");
 
-                    console.log("_________________________________________________________");
-                    console.log("new node", tempNodeID, tempNodePort);
-
-                    if (results.length == constants.k) {
-                        console.log("Look in nodelookup if you found a problem here");
-                        if (method_OtherNodeID ^ method_CurrentNode.nodeID < method_OtherNodeID ^ results[constants.k-1].nodeID) {
-                            //Replace the last node in the list with the new one
-                            results.pop();
-                            console.log("results full pre", results);
-                            results.push(method_CurrentNode);
-                            results = sortListByNumberClosestTo(results, node.nodeID);
-                            console.log("results full post", results);
-                        }
-                    }
-                    else {
-                        console.log("results pre", results);
+                if (results.length == constants.k) {
+                    console.log("Look in nodelookup if you found a problem here");
+                    if (method_OtherNodeID ^ method_CurrentNode.nodeID < method_OtherNodeID ^ results[constants.k - 1].nodeID) {
+                        //Replace the last node in the list with the new one
+                        results.pop();
+                        console.log("results full pre", results);
+                        
                         results.push(method_CurrentNode);
                         results = sortListByNumberClosestTo(results, node.nodeID);
-                        console.log("results post", results);
+                        console.log("results full post", results);
                     }
+                }
+                else {
+                    console.log("results pre", results);
+                    results.push(method_CurrentNode);
+                    results = sortListByNumberClosestTo(results, node.nodeID);
+                    console.log("results post", results);
+                }
 
-                    recursiveFindNode(method_OtherNodeID, tempList[tempList.length - 1]);
-                })
-            }
+                addNodeTo(alreadyChecked, method_CurrentNode.nodeID, method_CurrentNode.port);
+
+                recursiveFindNode(method_OtherNodeID, tempList[tempList.length - 1]);
+            })
+
 
         });
 
