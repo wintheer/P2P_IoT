@@ -548,7 +548,7 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode) {
                         //Replace the last node in the list with the new one
                         results.pop();
                         console.log("results full pre", results);
-                        
+
                         results.push(method_CurrentNode);
                         results = sortListByNumberClosestTo(results, node.nodeID);
                         console.log("results full post", results);
