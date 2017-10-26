@@ -539,8 +539,15 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode) {
                 }
                 var tempNodeID = item.nodeID;
                 var tempNodePort = item.port;
-                addNodeTo(tempList, tempNodeID, tempNodePort);
-                console.log("new node", tempNodeID, tempNodePort);
+
+                var tempIndexOfNode = tempList.map(function (el) {
+                    return el.port;
+                }).indexOf(tempNodePort);
+                if (tempIndexOfNode == -1) {
+
+                    addNodeTo(tempList, tempNodeID, tempNodePort);
+                    console.log("new node", tempNodeID, tempNodePort);
+                }
                 console.log("_________________________________________________________");
 
                 if (results.length == constants.k) {

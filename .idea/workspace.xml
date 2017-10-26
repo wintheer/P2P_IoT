@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7347eb3b-3e44-4d7a-954a-c954e1512d5c" name="Default" comment="(hopefully) corrected bug in addNodeTo function.">
+    <list default="true" id="7347eb3b-3e44-4d7a-954a-c954e1512d5c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Index.js" afterPath="$PROJECT_DIR$/Index.js" />
     </list>
@@ -20,8 +20,8 @@
       <file leaf-file-name="Index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="99">
-              <caret line="528" column="86" lean-forward="false" selection-start-line="528" selection-start-column="86" selection-end-line="528" selection-end-column="86" />
+            <state relative-caret-position="445">
+              <caret line="549" column="17" lean-forward="true" selection-start-line="549" selection-start-column="17" selection-end-line="549" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -521,7 +521,7 @@
       <workItem from="1508747816581" duration="6020000" />
       <workItem from="1508920537452" duration="40000" />
       <workItem from="1508920608828" duration="2793000" />
-      <workItem from="1509011802377" duration="243000" />
+      <workItem from="1509011802377" duration="845000" />
     </task>
     <task id="LOCAL-00001" summary="Arbejdet lidt med konstruktoren">
       <created>1505118640472</created>
@@ -845,11 +845,18 @@
       <option name="project" value="LOCAL" />
       <updated>1508922504758</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="I did stuff too!">
+      <created>1509012058303</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1509012058303</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="191414000" />
+    <option name="totallyTimeSpent" value="192016000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="873" extended-state="6" />
@@ -881,7 +888,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="needed to add files" />
     <MESSAGE value="Fixed stupid error" />
     <MESSAGE value="stuff" />
     <MESSAGE value="Made Manual Ping" />
@@ -906,7 +912,8 @@
     <MESSAGE value="Counter has been added" />
     <MESSAGE value="(hopefully) corrected bug in addNodeTo function." />
     <MESSAGE value="Corrected indexing of elements in buckets" />
-    <option name="LAST_COMMIT_MESSAGE" value="Corrected indexing of elements in buckets" />
+    <MESSAGE value="I did stuff too!" />
+    <option name="LAST_COMMIT_MESSAGE" value="I did stuff too!" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1056,8 +1063,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="528" column="86" lean-forward="false" selection-start-line="528" selection-start-column="86" selection-end-line="528" selection-end-column="86" />
+        <state relative-caret-position="445">
+          <caret line="549" column="17" lean-forward="true" selection-start-line="549" selection-start-column="17" selection-end-line="549" selection-end-column="17" />
           <folding />
         </state>
       </provider>
