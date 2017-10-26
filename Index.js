@@ -526,6 +526,7 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode) {
         return el.port;
     }).indexOf(method_CurrentNode.port);
     if (indexOfNode == -1) {
+        addNodeTo(alreadyChecked, method_CurrentNode.nodeID, method_CurrentNode.port);
         nlFindNode(method_OtherNodeID, method_CurrentNode, function (res) {
 
             res.forEach(function (item) {
@@ -560,9 +561,6 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode) {
                     results = sortListByNumberClosestTo(results, node.nodeID);
                     console.log("results post", results);
                 }
-
-                addNodeTo(alreadyChecked, method_CurrentNode.nodeID, method_CurrentNode.port);
-
                 recursiveFindNode(method_OtherNodeID, tempList[tempList.length - 1]);
             })
 
