@@ -220,6 +220,31 @@ function addNodeTo(currentBucket, localNodeID, port) {
 }
 
 /**
+ * Can add unlimited elements to a list without them being
+ * @param list
+ * @param nodeID
+ * @param nodePort
+ * @returns {*}
+ */
+function unlimitedAddTo(list, nodeID, nodePort) {
+    var indexOfTempNode;
+    var tempNode = new nodeClass.node(nodeID, constants.ipAddress, nodePort);
+    if (typeof list == 'undefined') {
+        indexOfTempNode = -1;
+    } else {
+        indexOfTempNode = list.map(function (el) {
+            return el.port
+        }).indexOf(nodePort);
+    }
+
+    if (indexOfTempNode == -1) {
+        return list.push(tempNode);
+    }
+
+    return false;
+}
+
+/**
  * Deletes a given node from the bucket
  * @param currentBucket
  * @param node
@@ -482,7 +507,7 @@ function nlFindNode(otherNodeID, currentNode, callback) {
             for (var j = 0; j < response.data.length; j++) {
                 var tempNodeID = response.data[j].nodeID;
                 var tempNodePort = response.data[j].port;
-                addNodeTo(tempList, tempNodeID, tempNodePort);
+                unlimitedAddTo(tempList, tempNodeID, tempNodePort);
             }
             console.log("templist in nlFN", tempList);
             callback(response.data);
@@ -528,7 +553,7 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode) {
         return el.port;
     }).indexOf(method_CurrentNode.port);
     if (indexOfNode == -1) {
-        addNodeTo(alreadyChecked, method_CurrentNode.nodeID, method_CurrentNode.port);
+        unlimitedAddTo(alreadyChecked, method_CurrentNode.nodeID, method_CurrentNode.port);
         nlFindNode(method_OtherNodeID, method_CurrentNode, function (res) {
             res.forEach(function (item) {
                 if (item == null) {
@@ -540,7 +565,7 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode) {
                 var tempNodeID = item.nodeID;
                 var tempNodePort = item.port;
 
-                addNodeTo(tempList, tempNodeID, tempNodePort);
+                unlimitedAddTo(tempList, tempNodeID, tempNodePort);
                 console.log("new node", tempNodeID, tempNodePort);
                 console.log("rfNNNNNNN_______________ ", tempList);
                 console.log("_________________________________________________________");
