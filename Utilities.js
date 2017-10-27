@@ -32,5 +32,5 @@ exports.findMostSignificantBit = function (distanceInDecimal) {
         indexNumber++;
         distanceInDecimal >>>= 1;
     }
-    return indexNumber-1;
+    return indexNumber;
 };

@@ -336,20 +336,25 @@ function findNode(myNodeID, otherNodeID) {
 
     var neighbourNodes = [];
     var bucketIndex = utility.findMostSignificantBit(findDistanceBetweenNodes(myNodeID, otherNodeID));
+    console.log("mni", myNodeID);
+    console.log("oni", otherNodeID);
     var step = 1;
-    var currentBucket;
-
+    var currentBucket = [];
+    console.log("before concat", neighbourNodes);
+    console.log("rtbi", routingTable[bucketIndex]);
+    console.log("rtbi", routingTable[bucketIndex-1]);
+    console.log("bi", bucketIndex);
     neighbourNodes = neighbourNodes.concat(routingTable[bucketIndex]);
-    //console.log("NN", neighbourNodes);
+    console.log("start NN", neighbourNodes);
     // Bliver ved med at gå til venstre og højre for den nuværende bucket og tilføjer nodes til foundnodes,
     // som er de tætteste naboer, går så længe der stadig er buckets tilbage
     while (bucketIndex + step < constants.k && bucketIndex - step >= 0) {
-        //console.log("Loop 1");
         // Går til højre
         currentBucket = routingTable[bucketIndex + step];
         for (y = 0; y < currentBucket.length; y++) {
             if (neighbourNodes.length < constants.k) {
                 addNodeTo(currentBucket, currentBucket[y].nodeID, currentBucket[y].port);
+                console.log("1");
                 neighbourNodes.push(currentBucket[y]);
             }
         }
@@ -359,6 +364,7 @@ function findNode(myNodeID, otherNodeID) {
         for (y = 0; y < currentBucket.length; y++) {
             if (neighbourNodes.length < constants.k) {
                 addNodeTo(currentBucket, currentBucket[y].nodeID, currentBucket[y].port);
+                console.log("2");
                 neighbourNodes.push(currentBucket[y]);
             }
         }
@@ -366,11 +372,11 @@ function findNode(myNodeID, otherNodeID) {
     }
     // Bliver ved med at gå til venstre, når der ikke er flere til højre for den nuværende bucket
     while (bucketIndex - step >= 0) {
-        //console.log("Loop 2");
         currentBucket = routingTable[bucketIndex - step];
         for (y = 0; y < currentBucket.length; y++) {
             if (neighbourNodes.length < constants.k) {
                 addNodeTo(currentBucket, currentBucket[y].nodeID, currentBucket[y].port);
+                console.log("3");
                 neighbourNodes.push(currentBucket[y]);
             }
         }
@@ -378,12 +384,20 @@ function findNode(myNodeID, otherNodeID) {
     }
     // Bliver ved med at gå fra bucket til bucket så længe der er flere tilbage
     while (bucketIndex + step < constants.k) {
-        //console.log("Loop 3");
         currentBucket = routingTable[bucketIndex + step];
+        console.log("bucket in 4", currentBucket);
         for (var y = 0; y < currentBucket.length; y++) {
+            console.log("bucket in 5", currentBucket);
             if (neighbourNodes.length < constants.k) {
+                console.log("bucket in 6", currentBucket);
                 addNodeTo(currentBucket, currentBucket[y].nodeID, currentBucket[y].port);
+                console.log("4");
+                console.log("4....", currentBucket[y-1],"mellemrum", currentBucket[y]);
+                console.log("cb before NN add", currentBucket[y]);
+                console.log("NN before", neighbourNodes);
                 neighbourNodes.push(currentBucket[y]);
+                console.log("NN", neighbourNodes);
+
             }
         }
         step++;
@@ -488,7 +502,6 @@ function nodeLookup(myNodeID, otherNodeID) {
     console.log("First call of RFN", currentNode);
     tempListCounter = 0;
     recursiveFindNode(otherNodeID, currentNode);
-
     // This list has to be run through, to see if it contains nodes, which has already been checked.
     // Moves the current Node from the notCheckedYet-list to the alreadyChecked-list
     alreadyChecked.push(currentNode);
@@ -503,9 +516,11 @@ function nlFindNode(otherNodeID, currentNode, callback) {
         my_NodeID: otherNodeID
     })
         .then(function (response) {
+            console.log("nlFindNode called from", currentNode);
+            /*
             if (response.data != null) {
                 argumentPing(otherNodeID, currentNode.port);
-            }
+            }*/
             console.log("nlFindNode response data", response.data);
             for (var j = 0; j < response.data.length; j++) {
                 var tempNodeID = response.data[j].nodeID;
@@ -577,26 +592,32 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode) {
                     if (method_OtherNodeID ^ method_CurrentNode.nodeID < method_OtherNodeID ^ results[constants.k - 1].nodeID) {
                         //Replace the last node in the list with the new one
                         results.pop();
-                        console.log("results full pre", results);
+                        //console.log("results full pre", results);
                         addNodeTo(results, tempNodeID, tempNodePort);
                         results = sortListByNumberClosestTo(results, node.nodeID);
-                        console.log("results full post", results);
+                        //console.log("results full post", results);
                     }
                 }
                 else {
-                    console.log("results pre", results);
-                    console.log("we put this node in results", tempNodePort);
+                    //console.log("results pre", results);
+                    //console.log("we put this node in results", tempNodePort);
                     addNodeTo(results, tempNodeID, tempNodePort);
                     results = sortListByNumberClosestTo(results, node.nodeID);
-                    console.log("results post", results);
+                    //console.log("results post", results);
                 }
             });
             tempListCounter++;
             if (tempListCounter - 1 < tempList.length) {
-                console.log("CALLING RECURSIVE FIND NODE ON", tempList[tempListCounter-1]);
-                console.log("tempList before new recursive call", tempList);
-                console.log("templistcounter", tempListCounter);
+                //console.log("CALLING RECURSIVE FIND NODE ON", tempList[tempListCounter-1]);
+                //console.log("tempList before new recursive call", tempList);
+                //console.log("templistcounter", tempListCounter);
                 recursiveFindNode(method_OtherNodeID, tempList[tempListCounter-1]);
+            }
+            else{
+                for(var z = 0; z < tempList.length, z++;){
+                    console.log("pinging z", z);
+                    argumentPing(tempList[z].nodeID, tempList[z].port);
+                }
             }
         });
 
