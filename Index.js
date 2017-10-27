@@ -63,7 +63,8 @@ app.post('/api/node/ping', function (req, res) {
     var rightIndex = utility.findMostSignificantBit(distance);
     //console.log("Right Index: ", rightIndex);
     //Nul indeksering :)))
-    var local_bucket = routingTable[rightIndex-1];
+    var local_bucket = [];
+    local_bucket = routingTable[rightIndex];
     addNodeTo(local_bucket, remote_nodeid, remote_port);
     console.log("P: RT \n", routingTable);
     console.log("P: Ended.");
@@ -159,12 +160,17 @@ function argumentPing(argument_id, argument_port) {
             //console.log("Argument Ping", response);
             console.log("Argument ping");
             console.log("I ", node.port, " pinged ", argument_port);
+            var distance = findDistanceBetweenNodes(node.nodeID, response.data.nodeID);
+            var rightIndex = utility.findMostSignificantBit(distance);
+            //console.log("Right Index: ", rightIndex);
+            //Nul indeksering :)))
+            var local_bucket = routingTable[rightIndex - 1];
+            addNodeTo(local_bucket, response.data.nodeID, response.data.port)
         })
         .catch(function (error) {
             //console.log("Something failed \n", error);
             console.log("error argPing", argument_port);
         });
-
 }
 
 //-------------------------------------------- BUCKET FUNCTIONS ---------------------------------------\\
@@ -281,10 +287,8 @@ function pingAllIdsInBucket(currentBucket) {
 
         //This function should ping all the IDs in the list until it finds a dead node
         while (counter < nodeList.length && foundDeadNode == false) {
-
             currentNode = currentBucket[counter];
             url = constants.ipAddress + currentNode.port; //The format is https://ipaddress/port
-
 
             // Connects to the defined url and checks if it exists or is dead
             axios.get(url)
@@ -336,16 +340,9 @@ function findNode(myNodeID, otherNodeID) {
 
     var neighbourNodes = [];
     var bucketIndex = utility.findMostSignificantBit(findDistanceBetweenNodes(myNodeID, otherNodeID));
-    console.log("mni", myNodeID);
-    console.log("oni", otherNodeID);
     var step = 1;
     var currentBucket = [];
-    console.log("before concat", neighbourNodes);
-    console.log("rtbi", routingTable[bucketIndex]);
-    console.log("rtbi", routingTable[bucketIndex-1]);
-    console.log("bi", bucketIndex);
     neighbourNodes = neighbourNodes.concat(routingTable[bucketIndex]);
-    console.log("start NN", neighbourNodes);
     // Bliver ved med at gå til venstre og højre for den nuværende bucket og tilføjer nodes til foundnodes,
     // som er de tætteste naboer, går så længe der stadig er buckets tilbage
     while (bucketIndex + step < constants.k && bucketIndex - step >= 0) {
@@ -354,7 +351,6 @@ function findNode(myNodeID, otherNodeID) {
         for (y = 0; y < currentBucket.length; y++) {
             if (neighbourNodes.length < constants.k) {
                 addNodeTo(currentBucket, currentBucket[y].nodeID, currentBucket[y].port);
-                console.log("1");
                 neighbourNodes.push(currentBucket[y]);
             }
         }
@@ -364,7 +360,6 @@ function findNode(myNodeID, otherNodeID) {
         for (y = 0; y < currentBucket.length; y++) {
             if (neighbourNodes.length < constants.k) {
                 addNodeTo(currentBucket, currentBucket[y].nodeID, currentBucket[y].port);
-                console.log("2");
                 neighbourNodes.push(currentBucket[y]);
             }
         }
@@ -376,7 +371,6 @@ function findNode(myNodeID, otherNodeID) {
         for (y = 0; y < currentBucket.length; y++) {
             if (neighbourNodes.length < constants.k) {
                 addNodeTo(currentBucket, currentBucket[y].nodeID, currentBucket[y].port);
-                console.log("3");
                 neighbourNodes.push(currentBucket[y]);
             }
         }
@@ -385,19 +379,10 @@ function findNode(myNodeID, otherNodeID) {
     // Bliver ved med at gå fra bucket til bucket så længe der er flere tilbage
     while (bucketIndex + step < constants.k) {
         currentBucket = routingTable[bucketIndex + step];
-        console.log("bucket in 4", currentBucket);
         for (var y = 0; y < currentBucket.length; y++) {
-            console.log("bucket in 5", currentBucket);
             if (neighbourNodes.length < constants.k) {
-                console.log("bucket in 6", currentBucket);
                 addNodeTo(currentBucket, currentBucket[y].nodeID, currentBucket[y].port);
-                console.log("4");
-                console.log("4....", currentBucket[y-1],"mellemrum", currentBucket[y]);
-                console.log("cb before NN add", currentBucket[y]);
-                console.log("NN before", neighbourNodes);
                 neighbourNodes.push(currentBucket[y]);
-                console.log("NN", neighbourNodes);
-
             }
         }
         step++;
@@ -517,10 +502,11 @@ function nlFindNode(otherNodeID, currentNode, callback) {
     })
         .then(function (response) {
             console.log("nlFindNode called from", currentNode);
-            /*
+
             if (response.data != null) {
+                console.log("argument ping", currentNode.port);
                 argumentPing(otherNodeID, currentNode.port);
-            }*/
+            }
             console.log("nlFindNode response data", response.data);
             for (var j = 0; j < response.data.length; j++) {
                 var tempNodeID = response.data[j].nodeID;
@@ -572,14 +558,16 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode) {
         return el.port;
     }).indexOf(method_CurrentNode.port);
     if (indexOfNode == -1) {
+        console.log("templistdebug: counter", tempListCounter, "list", tempList.length);
+        console.log("alreadyChecked",alreadyChecked);
         unlimitedAddTo(alreadyChecked, method_CurrentNode.nodeID, method_CurrentNode.port);
+        console.log("calling nlFIndNode from", method_CurrentNode);
         nlFindNode(method_OtherNodeID, method_CurrentNode, function (res) {
             res.forEach(function (item) {
                 if (item == null) {
                     console.log("item null return", method_CurrentNode);
                     results.push(method_CurrentNode);
                     results = sortListByNumberClosestTo(results, node.nodeID);
-                    return;
                 }
                 var tempNodeID = item.nodeID;
                 var tempNodePort = item.port;
@@ -608,22 +596,24 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode) {
             });
             tempListCounter++;
             if (tempListCounter - 1 < tempList.length) {
-                //console.log("CALLING RECURSIVE FIND NODE ON", tempList[tempListCounter-1]);
-                //console.log("tempList before new recursive call", tempList);
-                //console.log("templistcounter", tempListCounter);
-                recursiveFindNode(method_OtherNodeID, tempList[tempListCounter-1]);
+                recursiveFindNode(method_OtherNodeID, tempList[tempListCounter - 1]);
             }
             else{
-                for(var z = 0; z < tempList.length, z++;){
-                    console.log("pinging z", z);
-                    argumentPing(tempList[z].nodeID, tempList[z].port);
-                }
+                console.log("ran out of money, pls send help inside");
             }
+
+
         });
 
     }
     //TODO look at templistcounter
     else {
-        console.log("couldn't find any unchecked nodes", tempList);
+        tempListCounter++;
+        if (tempListCounter - 1 < tempList.length) {
+            recursiveFindNode(method_OtherNodeID, tempList[tempListCounter - 1]);
+        }
+        else{
+            console.log("ran out of money, pls send help outside");
+        }
     }
 }
