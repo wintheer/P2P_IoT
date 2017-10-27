@@ -485,7 +485,11 @@ function nlFindNode(otherNodeID, currentNode, callback) {
             if (response.data != null) {
                 argumentPing(otherNodeID, currentNode.port);
             }
-            tempList = response.data;
+            for (var ahmad = 0; ahmad < response.length; ahmad ++) {
+                var tempObj = response[ahmad];
+                addNodeTo(tempList, tempObj.nodeID, tempObj.port);
+            }
+            //tempList = response.data;
             console.log("templist in nlFN", tempList);
             callback(response.data);
         })
