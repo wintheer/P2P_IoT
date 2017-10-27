@@ -227,20 +227,21 @@ function addNodeTo(currentBucket, localNodeID, port) {
  * @returns {*}
  */
 function unlimitedAddTo(list, nodeID, nodePort) {
-    var indexOfTempNode;
-    var tempNode = new nodeClass.node(nodeID, constants.ipAddress, nodePort);
-    if (typeof list == 'undefined') {
-        indexOfTempNode = -1;
-    } else {
-        indexOfTempNode = list.map(function (el) {
-            return el.port
-        }).indexOf(nodePort);
-    }
+    if (nodeID != node.nodeID) {
+        var indexOfTempNode;
+        var tempNode = new nodeClass.node(nodeID, constants.ipAddress, nodePort);
+        if (typeof list == 'undefined') {
+            indexOfTempNode = -1;
+        } else {
+            indexOfTempNode = list.map(function (el) {
+                return el.port
+            }).indexOf(nodePort);
+        }
 
-    if (indexOfTempNode == -1) {
-        return list.push(tempNode);
+        if (indexOfTempNode == -1) {
+            return list.push(tempNode);
+        }
     }
-
     return false;
 }
 
@@ -547,8 +548,9 @@ function sortListByNumberClosestTo(list, nodeID) {
 var tempListCounter = 0;
 
 function recursiveFindNode(method_OtherNodeID, method_CurrentNode) {
-    console.log("______________________________________________");
+    console.log("_________________________________________________________");
     console.log("RFN started");
+    console.log("RFN: Current Node", method_CurrentNode);
     var indexOfNode = alreadyChecked.map(function (el) {
         return el.port;
     }).indexOf(method_CurrentNode.port);
@@ -568,8 +570,6 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode) {
                 unlimitedAddTo(tempList, tempNodeID, tempNodePort);
                 console.log("new node", tempNodeID, tempNodePort);
                 console.log("rfNNNNNNN_______________ ", tempList);
-                console.log("_________________________________________________________");
-
                 if (results.length == constants.k) {
                     console.log("Look in nodelookup if you found a problem here");
                     if (method_OtherNodeID ^ method_CurrentNode.nodeID < method_OtherNodeID ^ results[constants.k - 1].nodeID) {
@@ -588,11 +588,13 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode) {
                     results = sortListByNumberClosestTo(results, node.nodeID);
                     //console.log("results post", results);
                 }
-                console.log("CALLING RECURSIVE FIND NODE ON", tempList[tempListCounter].port);
-                tempListCounter++;
+                if(tempList.length > 1){
+                    tempListCounter++;
+                }
                 // Only continues while there is more elements to look at in tempList
                 if (tempListCounter - 1 < tempList.length) {
-                    console.log("RFN in method calling from", method_CurrentNode,"with argument", tempList[tempListCounter]);
+                    console.log("CALLING RECURSIVE FIND NODE ON", tempList[tempListCounter]);
+                    console.log("tempList before new recursive call", tempList);
                     recursiveFindNode(method_OtherNodeID, tempList[tempListCounter]);
                 }
             })
