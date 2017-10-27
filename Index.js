@@ -449,6 +449,7 @@ function storeValue(type, value) {
  * @param myNodeID
  */
 function nodeLookup(myNodeID, otherNodeID) {
+    tempList = [];
     console.log("NodeLookup started, internal");
     // Anvender findNode til at løbe igennem den modtagne liste iterativt
     var foundNode = false;
@@ -471,7 +472,6 @@ function nodeLookup(myNodeID, otherNodeID) {
     alreadyChecked.push(currentNode);
     console.log("NLU end", results);
     return results;
-
 }
 
 function nlFindNode(otherNodeID, currentNode, callback) {
@@ -483,8 +483,6 @@ function nlFindNode(otherNodeID, currentNode, callback) {
     })
         .then(function (response) {
             if (response.data != null) {
-                console.log("etwas", response.data);
-                console.log("argument aksædjasæjkdsa");
                 argumentPing(otherNodeID, currentNode.port);
             }
             tempList = response.data;
@@ -493,6 +491,7 @@ function nlFindNode(otherNodeID, currentNode, callback) {
         })
         .catch(function (error) {
             console.log("Something failed in nlFindNode\n", error);
+            console.log("nlFindNode error node", currentNode);
         });
 }
 
@@ -520,7 +519,8 @@ function sortListByNumberClosestTo(list, nodeID) {
         return 0;
     })
 }
-
+//TODO FILTER ALL JSON IN MAGICAL LOOP :)
+var tempListCounter = 0;
 function recursiveFindNode(method_OtherNodeID, method_CurrentNode) {
     var indexOfNode = alreadyChecked.map(function (el) {
         return el.port;
@@ -540,35 +540,35 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode) {
                 var tempNodeID = item.nodeID;
                 var tempNodePort = item.port;
 
-                var tempIndexOfNode = tempList.map(function (el) {
-                    return el.port;
-                }).indexOf(tempNodePort);
-                if (tempIndexOfNode == -1) {
-
                     addNodeTo(tempList, tempNodeID, tempNodePort);
                     console.log("new node", tempNodeID, tempNodePort);
-                }
-                console.log("_________________________________________________________");
+                    console.log("rfNNNNNNN_______________ ", tempList);
+                    console.log("_________________________________________________________");
 
                 if (results.length == constants.k) {
                     console.log("Look in nodelookup if you found a problem here");
                     if (method_OtherNodeID ^ method_CurrentNode.nodeID < method_OtherNodeID ^ results[constants.k - 1].nodeID) {
                         //Replace the last node in the list with the new one
                         results.pop();
-                        console.log("results full pre", results);
+                       // console.log("results full pre", results);
 
                         results.push(method_CurrentNode);
                         results = sortListByNumberClosestTo(results, node.nodeID);
-                        console.log("results full post", results);
+                        //console.log("results full post", results);
                     }
                 }
                 else {
-                    console.log("results pre", results);
+                    //console.log("results pre", results);
                     results.push(method_CurrentNode);
                     results = sortListByNumberClosestTo(results, node.nodeID);
-                    console.log("results post", results);
+                    //console.log("results post", results);
                 }
-                recursiveFindNode(method_OtherNodeID, tempList[tempList.length - 1]);
+                console.log("CALLING RECURSIVE FIND NODE ON", tempList[tempListCounter].port);
+                tempListCounter ++;
+                // Only continues while there is more elements to look at in tempList
+                if (tempListCounter-1 < tempList.length) {
+                    recursiveFindNode(method_OtherNodeID, tempList[tempListCounter]);
+                }
             })
 
 
@@ -576,7 +576,6 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode) {
 
     }
     else {
-        console.log("bad case");
         console.log("couldn't find any unchecked nodes", tempList);
     }
 }
