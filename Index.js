@@ -63,7 +63,7 @@ app.post('/api/node/ping', function (req, res) {
     var rightIndex = utility.findMostSignificantBit(distance);
     //console.log("Right Index: ", rightIndex);
     //Nul indeksering :)))
-    var local_bucket = routingTable[rightIndex];
+    var local_bucket = routingTable[rightIndex-1];
     addNodeTo(local_bucket, remote_nodeid, remote_port);
     console.log("P: RT \n", routingTable);
     console.log("P: Ended.");
@@ -486,6 +486,7 @@ function nodeLookup(myNodeID, otherNodeID) {
 
     // Callback function
     console.log("First call of RFN", currentNode);
+    tempListCounter = 0;
     recursiveFindNode(otherNodeID, currentNode);
 
     // This list has to be run through, to see if it contains nodes, which has already been checked.
@@ -505,6 +506,7 @@ function nlFindNode(otherNodeID, currentNode, callback) {
             if (response.data != null) {
                 argumentPing(otherNodeID, currentNode.port);
             }
+            console.log("nlFindNode response data", response.data);
             for (var j = 0; j < response.data.length; j++) {
                 var tempNodeID = response.data[j].nodeID;
                 var tempNodePort = response.data[j].port;
@@ -575,34 +577,31 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode) {
                     if (method_OtherNodeID ^ method_CurrentNode.nodeID < method_OtherNodeID ^ results[constants.k - 1].nodeID) {
                         //Replace the last node in the list with the new one
                         results.pop();
-                        // console.log("results full pre", results);
-
-                        results.push(method_CurrentNode);
+                        console.log("results full pre", results);
+                        addNodeTo(results, tempNodeID, tempNodePort);
                         results = sortListByNumberClosestTo(results, node.nodeID);
-                        //console.log("results full post", results);
+                        console.log("results full post", results);
                     }
                 }
                 else {
-                    //console.log("results pre", results);
-                    results.push(method_CurrentNode);
+                    console.log("results pre", results);
+                    console.log("we put this node in results", tempNodePort);
+                    addNodeTo(results, tempNodeID, tempNodePort);
                     results = sortListByNumberClosestTo(results, node.nodeID);
-                    //console.log("results post", results);
+                    console.log("results post", results);
                 }
-                if(tempList.length > 1){
-                    tempListCounter++;
-                }
-                // Only continues while there is more elements to look at in tempList
-                if (tempListCounter - 1 < tempList.length) {
-                    console.log("CALLING RECURSIVE FIND NODE ON", tempList[tempListCounter]);
-                    console.log("tempList before new recursive call", tempList);
-                    recursiveFindNode(method_OtherNodeID, tempList[tempListCounter]);
-                }
-            })
-
-
+            });
+            tempListCounter++;
+            if (tempListCounter - 1 < tempList.length) {
+                console.log("CALLING RECURSIVE FIND NODE ON", tempList[tempListCounter-1]);
+                console.log("tempList before new recursive call", tempList);
+                console.log("templistcounter", tempListCounter);
+                recursiveFindNode(method_OtherNodeID, tempList[tempListCounter-1]);
+            }
         });
 
     }
+    //TODO look at templistcounter
     else {
         console.log("couldn't find any unchecked nodes", tempList);
     }
