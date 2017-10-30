@@ -1,7 +1,7 @@
 @echo off
 SETLOCAL ENABLEDELAYEDEXPANSION
 
-for /l %%x in (8888, 1, 8901) do ( 
+for /l %%x in (8888, 1, 8895) do ( 
 set /a ping =%%x-1
 TIMEOUT 1
 IF %%x == 8888 start node index.js %%x 0 

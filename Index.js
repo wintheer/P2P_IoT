@@ -54,33 +54,32 @@ app.post('/api/node/ping', function (req, res) {
     console.log("________________________________");
     console.log("Ping: P");
     var remote_nodeid = req.body['my_NodeID'];
-    console.log("P: rem_id", remote_nodeid);
     var remote_port = req.body['my_Port'];
-    console.log("P: rem_port", remote_port);
     var my_nodeid = node.nodeID;
-    console.log("P: loc_id", my_nodeid);
+    console.log("P: loc_id", my_nodeid, "loc_port", node.port, "rem_id", remote_nodeid, "rem_port", remote_port);
     var distance = findDistanceBetweenNodes(my_nodeid, remote_nodeid);
     var rightIndex = utility.findMostSignificantBit(distance);
-    //console.log("Right Index: ", rightIndex);
     //Nul indeksering :)))
     var local_bucket = [];
     local_bucket = routingTable[rightIndex];
     addNodeTo(local_bucket, remote_nodeid, remote_port);
     console.log("P: RT \n", routingTable);
     console.log("P: Ended.");
+    console.log("________________________________");
     res.send({'event': 'PONG', 'nodeID': node.nodeID, 'port': port});
 });
 
 app.post('/api/node/findNode', function (req, res) {
+    console.log("________________________________");
     console.log("Find Node: FN");
     var remote_nodeid = req.body['my_NodeID'];
-    console.log("FN: rem_id", remote_nodeid);
     var my_nodeid = node.nodeID;
-    console.log("FN: loc_id", my_nodeid);
+    console.log("FN:", "loc_id", my_nodeid,"rem_id", remote_nodeid);
     var tempJSON = findNode(my_nodeid, remote_nodeid);
     console.log("FN RESULT", tempJSON);
-    console.log("FN: RT: ", routingTable);
+    //console.log("FN: RT: ", routingTable);
     console.log("FN: Ended.");
+    console.log("________________________________");
     res.json(tempJSON);
 });
 
@@ -105,6 +104,7 @@ var server = app.listen(port, function () {
     bootstrapNode();
     console.log('Server listening on http://localhost:' + port);
     storeValue("temp", "10c");
+    console.log("nodeID", node.nodeID, "Port", node.port);
 });
 
 function createNode() {
@@ -135,8 +135,7 @@ function targetedPing() {
         my_Port: node.port
     })
         .then(function (response) {
-            console.log("targeted ping response", response.data);
-            console.log("Targeted ping");
+            console.log("targeted ping", response.data);
             var distance = findDistanceBetweenNodes(node.nodeID, response.data.nodeID);
             var rightIndex = utility.findMostSignificantBit(distance);
             //console.log("Right Index: ", rightIndex);
@@ -145,7 +144,6 @@ function targetedPing() {
             addNodeTo(local_bucket, response.data.nodeID, response.data.port);
         })
         .catch(function (error) {
-            //console.log("Something failed \n", error);
             console.log("error targPing");
         });
 }
@@ -158,7 +156,7 @@ function argumentPing(argument_id, argument_port) {
     })
         .then(function (response) {
             //console.log("Argument Ping", response);
-            console.log("Argument ping");
+            //console.log("Argument ping");
             console.log("I ", node.port, " pinged ", argument_port);
             var distance = findDistanceBetweenNodes(node.nodeID, response.data.nodeID);
             var rightIndex = utility.findMostSignificantBit(distance);
@@ -183,7 +181,7 @@ function argumentPing(argument_id, argument_port) {
  * @param currentBucket
  */
 function addNodeTo(currentBucket, localNodeID, port) {
-    console.log("cb", currentBucket, "lni", localNodeID, "port", port);
+    //console.log("cb", currentBucket, "lni", localNodeID, "port", port);
     var tempNode = new nodeClass.node(localNodeID, constants.ipAddress, port);
     var indexOfTempNode;
     var bucketLength = 0;
@@ -336,7 +334,7 @@ function findDistanceBetweenNodes(nodeID, otherNodeID) {
  * @returns {*}
  */
 function findNode(myNodeID, otherNodeID) {
-    console.log("Find Node started, on self:", node.port);
+    //console.log("Find Node started, on self:", node.port);
 
     var neighbourNodes = [];
     var bucketIndex = utility.findMostSignificantBit(findDistanceBetweenNodes(myNodeID, otherNodeID));
@@ -471,7 +469,7 @@ function storeValue(type, value) {
  */
 function nodeLookup(myNodeID, otherNodeID) {
     tempList = [];
-    console.log("NodeLookup started, internal");
+    //console.log("NodeLookup started, internal");
     // Anvender findNode til at løbe igennem den modtagne liste iterativt
     var foundNode = false;
     var currentNode;
@@ -484,36 +482,36 @@ function nodeLookup(myNodeID, otherNodeID) {
     currentNode = notCheckedYet[0];
 
     // Callback function
-    console.log("First call of RFN", currentNode);
+    //console.log("First call of RFN", currentNode);
     tempListCounter = 0;
     recursiveFindNode(otherNodeID, currentNode);
     // This list has to be run through, to see if it contains nodes, which has already been checked.
     // Moves the current Node from the notCheckedYet-list to the alreadyChecked-list
     alreadyChecked.push(currentNode);
-    console.log("NLU end", results);
+    //console.log("NLU end", results);
     return results;
 }
 
 function nlFindNode(otherNodeID, currentNode, callback) {
     var url = "http://localhost:" + currentNode.port + '/api/node/findNode';
-    console.log('ENTERED FNIF', url);
+    //console.log('ENTERED FNIF', url);
     return axios.post(url, {
         my_NodeID: otherNodeID
     })
         .then(function (response) {
-            console.log("nlFindNode called from", currentNode);
+            //console.log("nlFindNode called from", currentNode);
 
             if (response.data != null) {
-                console.log("argument ping", currentNode.port);
+                //console.log("argument ping", currentNode.port);
                 argumentPing(otherNodeID, currentNode.port);
             }
-            console.log("nlFindNode response data", response.data);
+            //console.log("nlFindNode response data", response.data);
             for (var j = 0; j < response.data.length; j++) {
                 var tempNodeID = response.data[j].nodeID;
                 var tempNodePort = response.data[j].port;
                 unlimitedAddTo(tempList, tempNodeID, tempNodePort);
             }
-            console.log("templist in nlFN", tempList);
+            //console.log("templist in nlFN", tempList);
             callback(response.data);
         })
         .catch(function (error) {
@@ -552,20 +550,19 @@ var tempListCounter = 0;
 
 function recursiveFindNode(method_OtherNodeID, method_CurrentNode) {
     console.log("_________________________________________________________");
-    console.log("RFN started");
-    console.log("RFN: Current Node", method_CurrentNode);
+    console.log("RFN started on", method_CurrentNode);
     var indexOfNode = alreadyChecked.map(function (el) {
         return el.port;
     }).indexOf(method_CurrentNode.port);
     if (indexOfNode == -1) {
-        console.log("templistdebug: counter", tempListCounter, "list", tempList.length);
-        console.log("alreadyChecked",alreadyChecked);
+        //console.log("templistdebug: counter", tempListCounter, "list", tempList.length);
+        //console.log("alreadyChecked",alreadyChecked);
         unlimitedAddTo(alreadyChecked, method_CurrentNode.nodeID, method_CurrentNode.port);
-        console.log("calling nlFIndNode from", method_CurrentNode);
+        //console.log("calling nlFIndNode from", method_CurrentNode);
         nlFindNode(method_OtherNodeID, method_CurrentNode, function (res) {
             res.forEach(function (item) {
                 if (item == null) {
-                    console.log("item null return", method_CurrentNode);
+                    //console.log("item null return", method_CurrentNode);
                     results.push(method_CurrentNode);
                     results = sortListByNumberClosestTo(results, node.nodeID);
                 }
@@ -573,8 +570,8 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode) {
                 var tempNodePort = item.port;
 
                 unlimitedAddTo(tempList, tempNodeID, tempNodePort);
-                console.log("new node", tempNodeID, tempNodePort);
-                console.log("rfNNNNNNN_______________ ", tempList);
+                //console.log("new node", tempNodeID, tempNodePort);
+                //console.log("rfNNNNNNN_______________ ", tempList);
                 if (results.length == constants.k) {
                     console.log("Look in nodelookup if you found a problem here");
                     if (method_OtherNodeID ^ method_CurrentNode.nodeID < method_OtherNodeID ^ results[constants.k - 1].nodeID) {
@@ -587,11 +584,8 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode) {
                     }
                 }
                 else {
-                    //console.log("results pre", results);
-                    //console.log("we put this node in results", tempNodePort);
                     addNodeTo(results, tempNodeID, tempNodePort);
                     results = sortListByNumberClosestTo(results, node.nodeID);
-                    //console.log("results post", results);
                 }
             });
             tempListCounter++;
@@ -599,7 +593,7 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode) {
                 recursiveFindNode(method_OtherNodeID, tempList[tempListCounter - 1]);
             }
             else{
-                console.log("ran out of money, pls send help inside");
+                console.log("Ran out of unchecked nodes inside loop.");
             }
 
 
@@ -613,7 +607,7 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode) {
             recursiveFindNode(method_OtherNodeID, tempList[tempListCounter - 1]);
         }
         else{
-            console.log("ran out of money, pls send help outside");
+            console.log("Ran out of unchecked nodes inside loop.");
         }
     }
 }
