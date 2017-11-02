@@ -2,8 +2,8 @@
 <head>
     <title>Kademlia PoC</title>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="back.js"></script>
     <link rel="stylesheet" type="text/css" href="index%20style.css">
+    <script src="back.js"></script>
     <link rel="shortcut icon" href="#" />
 </head>
 <html>
@@ -13,6 +13,7 @@
         <button type="button" onclick="ping()">Ping</button>
         <button type="button" onclick="findNodeWebHelper()">Find Node</button>
         <button type="button" onclick="nodeLookup()">Node Lookup</button>
+        <button type="button" onclick="primitiveStoreValue()">Store Value</button>
         <br><br>
         Port:
         <input type="text" id="Port" placeholder="Port for Method" value="8888">
@@ -20,6 +21,7 @@
         Node ID:
         <input type="text" id="NodeID" placeholder="NodeID for Method">
         <br><br>
+
         <div id="receivedInfo"><h3>Received Responses:</h3></div>
         <div id="buckets"><h3>Buckets:</h3></div>
         <div id="nodenode"></div>

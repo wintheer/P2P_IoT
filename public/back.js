@@ -1,5 +1,6 @@
 var myPort;
 var myNodeID;
+
 window.onload = function () {
     getInfo();
     getBuckets();
@@ -100,3 +101,4 @@ function nodeLookup() {
         });
     
 }
+

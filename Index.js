@@ -5,6 +5,7 @@ var axios = require('axios');
 var path = require("path");
 var nodeClass = require('./lib/Node');
 var constants = require('./config/constants');
+var crypto = require('crypto');
 var app = express();
 app.use(bodyParser.json());
 var port = process.argv.slice(2)[0];
@@ -13,7 +14,7 @@ var node;
 var nodeList = [];
 var nodeIDList = [];
 var routingTable = [];
-var values = [];
+var values = {};
 var tempList = [];
 var alreadyChecked = [];
 var results = [];
@@ -49,6 +50,21 @@ app.get('/api/node/values', function (req, res) {
     res.json(values);
 });
 
+app.post('/api/node/values/replicate', function (req, res) {
+    console.log("________________________________");
+    console.log("Replicate R");
+    //hvad i alverden er formålet med den her variabel?????
+    var otherID = req.body['otherID'];
+    //this one is already hashed, what to do?
+    var key = req.body['key'];
+    var type = req.body['type'];
+    var value = req.body['value'];
+    console.log("R:", "OtherID", otherID, "Key", key, "Type", type, "Value", value);
+    storeValueInFile(key, type, value, false, false);
+    console.log("values", values);
+    res.send("R: Store value on " + node.port.toString() + " successful");
+});
+
 //Post Request expecting nodeID and port in body
 app.post('/api/node/ping', function (req, res) {
     console.log("________________________________");
@@ -74,7 +90,7 @@ app.post('/api/node/findNode', function (req, res) {
     console.log("Find Node: FN");
     var remote_nodeid = req.body['my_NodeID'];
     var my_nodeid = node.nodeID;
-    console.log("FN:", "loc_id", my_nodeid,"rem_id", remote_nodeid);
+    console.log("FN:", "loc_id", my_nodeid, "rem_id", remote_nodeid);
     var tempJSON = findNode(my_nodeid, remote_nodeid);
     console.log("FN RESULT", tempJSON);
     //console.log("FN: RT: ", routingTable);
@@ -103,7 +119,6 @@ var server = app.listen(port, function () {
     createBuckets();
     bootstrapNode();
     console.log('Server listening on http://localhost:' + port);
-    storeValue("temp", "10c");
     console.log("nodeID", node.nodeID, "Port", node.port);
 });
 
@@ -123,9 +138,15 @@ function createNode() {
 function bootstrapNode() {
     if (arg_two == 0) {
         console.log("First Node Started");
+        /*storeValueInFile(1, "112", "Horsie", 14, false, true);
+        console.log("before replicate")
+        setTimeout(function () {
+            storeValueInFile(1, "112", "Horsie", 14, true, true);
+        }, 20000);*/
     }
-    else
+    else {
         targetedPing();
+    }
 }
 
 function targetedPing() {
@@ -592,7 +613,7 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode) {
             if (tempListCounter - 1 < tempList.length) {
                 recursiveFindNode(method_OtherNodeID, tempList[tempListCounter - 1]);
             }
-            else{
+            else {
                 console.log("Ran out of unchecked nodes inside loop.");
             }
 
@@ -606,8 +627,70 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode) {
         if (tempListCounter - 1 < tempList.length) {
             recursiveFindNode(method_OtherNodeID, tempList[tempListCounter - 1]);
         }
-        else{
+        else {
             console.log("Ran out of unchecked nodes inside loop.");
         }
+    }
+}
+
+//---------------------------------------- STORE FUNCTIONS ----------------------------------------\\
+
+function primitiveStoreValue(key, type, value) {
+    //Hash key
+    var hashedKey = crypto.createHash('sha1').update(key).digest("hex");
+    var currentdate = new Date();
+    var datetime = currentdate.toLocaleString();
+    //Hvis mappet values ikke indeholder hashedkey -> tilføj værdierne på den hashede key's plads
+    if (!(hashedKey in values)) {
+        values[hashedKey] = {type: type, value: value, timeStamp: datetime};
+    }
+    //Ellers hiv den eksisterende liste ud -> overskriv værdierne -> indsæt listen ind i mappet igen
+    else {
+        //Lidt usikker på følgende, KIG HER!!!
+        var currentList = values[hashedKey];
+        currentList = ({type: type, value: value, timeStamp: datetime});
+        values[hashedKey] = currentList;
+    }
+}
+
+//Jeg ved godt vi diskuterede det, men hvad er pointen helt præcist med at giver otherID med?
+function storeValueInFile(otherID, key, type, value, should_replicate, should_hash) {
+    console.log("svif");
+    if (should_hash == true) {
+        var hashedKey = crypto.createHash('sha1').update(key).digest("hex");
+    }
+    if (should_replicate == false) {
+        var currentDate = new Date();
+        var datetime = currentDate.toLocaleString();
+        values[hashedKey] = ({type: type, value: value, timeStamp: datetime});
+    }
+    if (should_replicate == true) {
+        var neighbourNodes = nodeLookup(node.nodeID, hashedKey);
+        //Der skal nok være et lille delay her, for at vente på resultatet :)
+        setTimeout(function () {
+            console.log("waiting for neightbournodes to fill", neighbourNodes);
+            for (var i = 0; i < neighbourNodes.length; i++) {
+                console.log("we in", neighbourNodes[i].port);
+                var url = "http://localhost:" + neighbourNodes[i].port + '/api/node/values/replicate';
+                console.log('ENTERED SVIF', url);
+                axios.post(url, {
+                    //Hvad skal ID bruges til?
+                    otherID: otherID,
+                    key: hashedKey,
+                    type: type,
+                    value: value
+                })
+                    .then(function (response) {
+                        console.log("svif: ", response.data);
+                        //var valuesMap = response.data;
+                        //valuesMap[hashedKey].push({type: type, value: value, timeStamp: datetime});
+
+                    })
+                    .catch(function (error) {
+                        console.log("Something failed \n", error);
+                    });
+            }
+        }, 1000);
+
     }
 }
