@@ -6,6 +6,7 @@ var path = require("path");
 var nodeClass = require('./lib/Node');
 var constants = require('./config/constants');
 var crypto = require('crypto');
+var jq = require('jquery');
 var app = express();
 app.use(bodyParser.json());
 var port = process.argv.slice(2)[0];
@@ -14,7 +15,7 @@ var node;
 var nodeList = [];
 var nodeIDList = [];
 var routingTable = [];
-var values = {};
+var valueMap = {};
 var tempList = [];
 var alreadyChecked = [];
 var results = [];
@@ -47,12 +48,28 @@ app.get('/api/node/routingTable', function (req, res) {
 
 // Able to return information about this peer
 app.get('/api/node/values', function (req, res) {
-    res.json(values);
+    console.log("they took our values");
+    res.json(valueMap);
+});
+
+app.post('/api/node/values/findValue', function (req, res) {
+    var keyToFind = req.body['key'];
+    console.log("value before", valueMap);
+    nodeLookup(node.nodeID, node.nodeID);
+    var q;
+    setTimeout(function () {
+        findValue(keyToFind, tempList, function (les) {
+            console.log
+           q = les;
+            res.send(q);
+        });
+    }, 1000);
+
 });
 
 app.post('/api/node/values/replicate', function (req, res) {
     console.log("________________________________");
-    console.log("Replicate R");
+    console.log("Replicate R");7
     //hvad i alverden er formålet med den her variabel?????
     var otherID = req.body['otherID'];
     //this one is already hashed, what to do?
@@ -61,7 +78,7 @@ app.post('/api/node/values/replicate', function (req, res) {
     var value = req.body['value'];
     console.log("R:", "OtherID", otherID, "Key", key, "Type", type, "Value", value);
     storeValueInFile(key, type, value, false, false);
-    console.log("values", values);
+    console.log("valueMap", valueMap);
     res.send("R: Store value on " + node.port.toString() + " successful");
 });
 
@@ -76,7 +93,7 @@ app.post('/api/node/ping', function (req, res) {
     var distance = findDistanceBetweenNodes(my_nodeid, remote_nodeid);
     var rightIndex = utility.findMostSignificantBit(distance);
     //Nul indeksering :)))
-    var local_bucket = [];
+    var local_bucket;
     local_bucket = routingTable[rightIndex];
     addNodeTo(local_bucket, remote_nodeid, remote_port);
     console.log("P: RT \n", routingTable);
@@ -138,15 +155,21 @@ function createNode() {
 function bootstrapNode() {
     if (arg_two == 0) {
         console.log("First Node Started");
-        /*storeValueInFile(1, "112", "Horsie", 14, false, true);
-        console.log("before replicate")
-        setTimeout(function () {
-            storeValueInFile(1, "112", "Horsie", 14, true, true);
-        }, 20000);*/
+        storeValueInFile(1, "112", "Horsie", 14, false, true);
+        storeValueInFile(1, "113", "Horsie", 14, false, true);
+        console.log(Object.keys(valueMap).length);
+        console.log(valueMap);
+    }
+    else if (arg_two == 8890) {
+        targetedPing();
+        storeValueInFile(1, "200", "Horsie", 200, false, true);
+        storeValueInFile(1, "700", "Horsie", 700, false, true);
+
     }
     else {
-        targetedPing();
+        targetedPing()
     }
+
 }
 
 function targetedPing() {
@@ -165,7 +188,7 @@ function targetedPing() {
             addNodeTo(local_bucket, response.data.nodeID, response.data.port);
         })
         .catch(function (error) {
-            console.log("error targPing");
+            console.log("error targPing", error);
         });
 }
 
@@ -416,72 +439,12 @@ function findNode(myNodeID, otherNodeID) {
     //Lav en liste af nodes og returnér.
 }
 
-
-function findValue(value) {
-    //Hash the value
-    var hashedValue = crypto.createHash('sha1');
-    //string-hash:
-    hashedValue.update(value);
-    console.log(hashedValue.digest('hex'));
-
-    //Findnode på sig selv og valuen(hash)
-    var neighborList = findNode(node.nodeID, hashedValue);
-
-    //Brugbare variabler og lister
-    var nodesToCheck = [];
-    var checkedNodes = [];
-    var counter = 0;
-    var found = false;
-
-    //Listen af de nærmeste nodes ud fra hash af value, lægges i listen af nodes der skal tjekkes
-    nodesToCheck.extend(neighborList);
-    // Tjekker sig selv for information/valuen, i så fald returner
-    if (node.value == hashedValue) {
-        found = true;
-        return node.value;
-    }
-    else {
-
-    }
-    // Tjekker de andre nodes for information/valuen, i så fald returner
-    while (counter < nodesToCheck.length && found == false) {
-        //Hash the value
-        //var hashedValue = crypto.createHash('sha1');
-        //string-hash:
-        //hashedValue.update(nodesToCheck[counter].nodeID);
-        //console.log(hashedValue.digest('hex'));
-
-        //if value[key]
-        //return value
-        //else
-        //return findNode
-        //Tjekker om vi allerede har tjekket denne node, hvis ja -> spring over denne node
-        if (!checkedNodes.indexOf(nodesToCheck[counter])) {
-            for (var x = 0; x < nodesToCheck[counter].values.length; x++) {
-                if (nodesToCheck[counter].values[key] == hashedValue) {
-                    return nodesToCheck[counter].values[key];
-                    //Mark sagde der skulle stå break
-                    break;
-                }
-                else {
-                    nodesToCheck.extend(findNode(nodesToCheck[counter]), hashedValue);
-                    checkedNodes.append(nodesToCheck[counter]);
-                    counter++;
-                }
-            }
-        }
-        else {
-
-        }
-    }
-}
-
 //---------------------------------------- NODE FUNCTIONS ----------------------------------------\\
 
 function storeValue(type, value) {
     var currentdate = new Date();
     var datetime = currentdate.toLocaleString();
-    values.push({type: type, value: value, timeStamp: datetime});
+    valueMap.push({type: type, value: value, timeStamp: datetime});
 }
 
 /**
@@ -489,6 +452,7 @@ function storeValue(type, value) {
  * @param myNodeID
  */
 function nodeLookup(myNodeID, otherNodeID) {
+    console.log("NL Started");
     tempList = [];
     //console.log("NodeLookup started, internal");
     // Anvender findNode til at løbe igennem den modtagne liste iterativt
@@ -510,6 +474,7 @@ function nodeLookup(myNodeID, otherNodeID) {
     // Moves the current Node from the notCheckedYet-list to the alreadyChecked-list
     alreadyChecked.push(currentNode);
     //console.log("NLU end", results);
+
     return results;
 }
 
@@ -545,7 +510,7 @@ function nlFindNode(otherNodeID, currentNode, callback) {
 /**
  * Sorts a given list depending on the distance between a given nodeID
  * and each listitem's nodeID XOR'ed.
- * LEAST DISTANCE AT INDEX 0
+ * SMALLEST DISTANCE AT INDEX 0
  * @param list
  * @param nodeID
  * @returns {Array.<T>}
@@ -600,13 +565,13 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode) {
                         results.pop();
                         //console.log("results full pre", results);
                         addNodeTo(results, tempNodeID, tempNodePort);
-                        results = sortListByNumberClosestTo(results, node.nodeID);
+                        results = sortListByNumberClosestTo(results, method_OtherNodeID);
                         //console.log("results full post", results);
                     }
                 }
                 else {
                     addNodeTo(results, tempNodeID, tempNodePort);
-                    results = sortListByNumberClosestTo(results, node.nodeID);
+                    results = sortListByNumberClosestTo(results, method_OtherNodeID);
                 }
             });
             tempListCounter++;
@@ -616,8 +581,6 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode) {
             else {
                 console.log("Ran out of unchecked nodes inside loop.");
             }
-
-
         });
 
     }
@@ -634,25 +597,6 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode) {
 }
 
 //---------------------------------------- STORE FUNCTIONS ----------------------------------------\\
-
-function primitiveStoreValue(key, type, value) {
-    //Hash key
-    var hashedKey = crypto.createHash('sha1').update(key).digest("hex");
-    var currentdate = new Date();
-    var datetime = currentdate.toLocaleString();
-    //Hvis mappet values ikke indeholder hashedkey -> tilføj værdierne på den hashede key's plads
-    if (!(hashedKey in values)) {
-        values[hashedKey] = {type: type, value: value, timeStamp: datetime};
-    }
-    //Ellers hiv den eksisterende liste ud -> overskriv værdierne -> indsæt listen ind i mappet igen
-    else {
-        //Lidt usikker på følgende, KIG HER!!!
-        var currentList = values[hashedKey];
-        currentList = ({type: type, value: value, timeStamp: datetime});
-        values[hashedKey] = currentList;
-    }
-}
-
 //Jeg ved godt vi diskuterede det, men hvad er pointen helt præcist med at giver otherID med?
 function storeValueInFile(otherID, key, type, value, should_replicate, should_hash) {
     console.log("svif");
@@ -662,7 +606,7 @@ function storeValueInFile(otherID, key, type, value, should_replicate, should_ha
     if (should_replicate == false) {
         var currentDate = new Date();
         var datetime = currentDate.toLocaleString();
-        values[hashedKey] = ({type: type, value: value, timeStamp: datetime});
+        valueMap[hashedKey] = ({type: type, value: value, timeStamp: datetime});
     }
     if (should_replicate == true) {
         var neighbourNodes = nodeLookup(node.nodeID, hashedKey);
@@ -671,7 +615,7 @@ function storeValueInFile(otherID, key, type, value, should_replicate, should_ha
             console.log("waiting for neightbournodes to fill", neighbourNodes);
             for (var i = 0; i < neighbourNodes.length; i++) {
                 console.log("we in", neighbourNodes[i].port);
-                var url = "http://localhost:" + neighbourNodes[i].port + '/api/node/values/replicate';
+                var url = "http://localhost:" + neighbourNodes[i].port + '/api/node/valueMap/replicate';
                 console.log('ENTERED SVIF', url);
                 axios.post(url, {
                     //Hvad skal ID bruges til?
@@ -694,3 +638,62 @@ function storeValueInFile(otherID, key, type, value, should_replicate, should_ha
 
     }
 }
+
+function findValue(key, vlNodeList, callback) {
+    //Hash key
+    var hashedKey = crypto.createHash('sha1').update(key).digest("hex");
+    // Tjekker sig selv for information/valuen, i så fald returner
+    for (var q = 0; q < Object.keys(valueMap).length; q++) {
+        //console.log("0", valueMap);
+        //console.log("0.1", hashedKey);
+        //console.log("1",Object.values(valueMap)[q] );
+        //console.log("2", valueMap[hashedKey]);
+        if (Object.values(valueMap)[q] == valueMap[hashedKey]) {
+            console.log("vi fandt den.");
+            callback(valueMap[hashedKey]);
+        }
+    }
+
+    console.log("was not found, we continue the quest");
+    if (vlNodeList.length > 0) {
+        for (var z = 0; z < vlNodeList.length; z++) {
+            console.log("inside for loop", vlNodeList[z].port);
+            getValues(vlNodeList[z].port, function (res) {
+                var tempValMap = {};
+                tempValMap = res;
+                if (Object.keys(tempValMap).length > 0) {
+                    console.log("entered loop");
+                    for (var j = 0; j < Object.keys(tempValMap).length; j++) {
+                        console.log("tempvalmap", tempValMap);
+                        console.log("this", Object.keys(tempValMap)[j]);
+                        console.log("that", hashedKey);
+                        console.log("__________");
+                        if (Object.keys(tempValMap)[j] == hashedKey) {
+                            console.log("found in loop");
+                            console.log("result", Object.values(tempValMap)[j]);
+                            callback(Object.values(tempValMap)[j]);
+                        }
+                    }
+                }
+            });
+        }
+    }
+    else {
+        console.log("no nodes found");
+    }
+}
+
+function getValues(port, callback) {
+    var url = "http://localhost:" + port + '/api/node/values';
+    return axios.get(url)
+        .then(function (response) {
+            //console.log("values: ", response.data);
+            callback(response.data);
+        })
+        .catch(function (error) {
+            console.log("getValues() failed \n", error);
+        });
+
+}
+
+

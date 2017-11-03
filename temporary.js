@@ -88,8 +88,8 @@ function findValue(key) {
         return values[hashedKey];
     }
 
-    //FindNode på sig selv og key'en for valuen(hash)
-    var neighborList = findNode(node.nodeID, hashedKey);
+    //Findnode på sig selv og key'en for valuen(hash)
+    var neighborList = nodeLookup(node.nodeID, hashedKey);
     //Brugbare variabler og lister
     var nodesToCheck = [];
     var checkedNodes = [];

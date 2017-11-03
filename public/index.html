@@ -13,7 +13,7 @@
         <button type="button" onclick="ping()">Ping</button>
         <button type="button" onclick="findNodeWebHelper()">Find Node</button>
         <button type="button" onclick="nodeLookup()">Node Lookup</button>
-        <button type="button" onclick="primitiveStoreValue()">Store Value</button>
+        <button type="button" onclick="findValueWeb()">Find Value</button>
         <br><br>
         Port:
         <input type="text" id="Port" placeholder="Port for Method" value="8888">
@@ -21,9 +21,13 @@
         Node ID:
         <input type="text" id="NodeID" placeholder="NodeID for Method">
         <br><br>
+        Hashed Key:
+        <input type="text" id="Key" placeholder="Key for findValue" value="700">
 
-        <div id="receivedInfo"><h3>Received Responses:</h3></div>
-        <div id="buckets"><h3>Buckets:</h3></div>
-        <div id="nodenode"></div>
+        <div id="receivedInfo"><h3>Ping Responses:</h3></div><br>
+
+        <div id="buckets"><h3>Buckets:</h3></div><br>
+
+        <div id="values"><h3>Values list:</h3></div><br>
    </body>
 </html>
