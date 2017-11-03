@@ -55,16 +55,16 @@ app.get('/api/node/values', function (req, res) {
 app.post('/api/node/values/findValue', function (req, res) {
     var keyToFind = req.body['key'];
     console.log("value before", valueMap);
-    nodeLookup(node.nodeID, node.nodeID);
-    var q;
-    setTimeout(function () {
+    nodeLookup(node.nodeID, node.nodeID, function () {
+        console.log("temp in router", tempList);
+        console.log("we fill tempList");
+        var q;
         findValue(keyToFind, tempList, function (les) {
             console.log
-           q = les;
+            q = les;
             res.send(q);
         });
-    }, 1000);
-
+    });
 });
 
 app.post('/api/node/values/replicate', function (req, res) {
@@ -122,12 +122,13 @@ app.post('/api/node/nodeLookup', function (req, res) {
     console.log("Node Lookup: NL");
     //console.log("NL: loc_id", my_nodeid);
     //console.log("NL: rem_id", other_nodeid);
-    var temp = nodeLookup(my_nodeid, other_nodeid);
-    setTimeout(function () {
+    var temp;
+    nodeLookup(my_nodeid, other_nodeid, function (ret) {
+        temp = ret;
         console.log("NL: Lookup result for node\n", node.port, temp);
         console.log("NL: Ended.");
         res.send(temp);
-    }, 1000);
+    });
 });
 
 var server = app.listen(port, function () {
@@ -451,7 +452,7 @@ function storeValue(type, value) {
  * Løber iterativt igennem alle nodes for at finde en node.
  * @param myNodeID
  */
-function nodeLookup(myNodeID, otherNodeID) {
+function nodeLookup(myNodeID, otherNodeID, callback) {
     console.log("NL Started");
     tempList = [];
     //console.log("NodeLookup started, internal");
@@ -469,13 +470,14 @@ function nodeLookup(myNodeID, otherNodeID) {
     // Callback function
     //console.log("First call of RFN", currentNode);
     tempListCounter = 0;
-    recursiveFindNode(otherNodeID, currentNode);
+
+    recursiveFindNode(otherNodeID, currentNode, function (res) {
+        callback(res);
+    });
     // This list has to be run through, to see if it contains nodes, which has already been checked.
     // Moves the current Node from the notCheckedYet-list to the alreadyChecked-list
     alreadyChecked.push(currentNode);
-    //console.log("NLU end", results);
 
-    return results;
 }
 
 function nlFindNode(otherNodeID, currentNode, callback) {
@@ -534,7 +536,7 @@ function sortListByNumberClosestTo(list, nodeID) {
 //TODO FILTER ALL JSON IN MAGICAL LOOP :)
 var tempListCounter = 0;
 
-function recursiveFindNode(method_OtherNodeID, method_CurrentNode) {
+function recursiveFindNode(method_OtherNodeID, method_CurrentNode, callback) {
     console.log("_________________________________________________________");
     console.log("RFN started on", method_CurrentNode);
     var indexOfNode = alreadyChecked.map(function (el) {
@@ -546,6 +548,7 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode) {
         unlimitedAddTo(alreadyChecked, method_CurrentNode.nodeID, method_CurrentNode.port);
         //console.log("calling nlFIndNode from", method_CurrentNode);
         nlFindNode(method_OtherNodeID, method_CurrentNode, function (res) {
+            console.log("rfn", res);
             res.forEach(function (item) {
                 if (item == null) {
                     //console.log("item null return", method_CurrentNode);
@@ -576,10 +579,11 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode) {
             });
             tempListCounter++;
             if (tempListCounter - 1 < tempList.length) {
-                recursiveFindNode(method_OtherNodeID, tempList[tempListCounter - 1]);
+                recursiveFindNode(method_OtherNodeID, tempList[tempListCounter - 1], callback);
             }
             else {
                 console.log("Ran out of unchecked nodes inside loop.");
+                callback(results);
             }
         });
 
@@ -588,10 +592,10 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode) {
     else {
         tempListCounter++;
         if (tempListCounter - 1 < tempList.length) {
-            recursiveFindNode(method_OtherNodeID, tempList[tempListCounter - 1]);
+            recursiveFindNode(method_OtherNodeID, tempList[tempListCounter - 1], callback);
         }
         else {
-            console.log("Ran out of unchecked nodes inside loop.");
+            console.log("Ran out of unchecked nodes outside loop.");
         }
     }
 }
@@ -609,9 +613,10 @@ function storeValueInFile(otherID, key, type, value, should_replicate, should_ha
         valueMap[hashedKey] = ({type: type, value: value, timeStamp: datetime});
     }
     if (should_replicate == true) {
-        var neighbourNodes = nodeLookup(node.nodeID, hashedKey);
-        //Der skal nok være et lille delay her, for at vente på resultatet :)
-        setTimeout(function () {
+        var neighbourNodes;
+        nodeLookup(node.nodeID, hashedKey, function (res) {
+            neighbourNodes = res;
+            //Der skal nok være et lille delay her, for at vente på resultatet :)
             console.log("waiting for neightbournodes to fill", neighbourNodes);
             for (var i = 0; i < neighbourNodes.length; i++) {
                 console.log("we in", neighbourNodes[i].port);
@@ -634,8 +639,7 @@ function storeValueInFile(otherID, key, type, value, should_replicate, should_ha
                         console.log("Something failed \n", error);
                     });
             }
-        }, 1000);
-
+        });
     }
 }
 
