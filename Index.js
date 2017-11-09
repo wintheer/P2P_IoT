@@ -52,6 +52,31 @@ app.get('/api/node/values', function (req, res) {
     res.json(valueMap);
 });
 
+app.post('/api/node/values/localStoreValue', function (req, res) {
+    var id = req.body['id'];
+    var key = req.body['key'];
+    var type = req.body['type'];
+    var value = req.body['value'];
+    storeValueInFile(id, key, type, value, false, true);
+    findClosestNode(function (res1) {
+        //console.log("cn", res1);
+        passValues(res1, id, key, type, value);
+
+    });
+    res.send("Everything went well in LSV");
+});
+
+app.post('/api/node/values/passValue', function (req, res) {
+    var id = req.body['id'];
+    var key = req.body['key'];
+    var type = req.body['type'];
+    var value = req.body['value'];
+    console.log("values on the other end, PV");
+    console.log(id, key, type, value);
+    storeValueInFile(id,key,type, value,true, true);
+    res.send("Values should've been distributed now");
+});
+
 app.post('/api/node/values/findValue', function (req, res) {
     var keyToFind = req.body['key'];
     console.log("value before", valueMap);
@@ -60,16 +85,15 @@ app.post('/api/node/values/findValue', function (req, res) {
         console.log("we fill tempList");
         var q;
         findValue(keyToFind, tempList, function (les) {
-            console.log
             q = les;
             res.send(q);
         });
     });
 });
 
-app.post('/api/node/values/replicate', function (req, res) {
+app.post('/api/node/valueMap/replicate', function (req, res) {
     console.log("________________________________");
-    console.log("Replicate R");7
+    console.log("Replicate R");
     //hvad i alverden er formålet med den her variabel?????
     var otherID = req.body['otherID'];
     //this one is already hashed, what to do?
@@ -120,8 +144,6 @@ app.post('/api/node/nodeLookup', function (req, res) {
     var other_nodeid = req.body['target_NodeID'];
     var my_nodeid = node.nodeID;
     console.log("Node Lookup: NL");
-    //console.log("NL: loc_id", my_nodeid);
-    //console.log("NL: rem_id", other_nodeid);
     var temp;
     nodeLookup(my_nodeid, other_nodeid, function (ret) {
         temp = ret;
@@ -200,13 +222,9 @@ function argumentPing(argument_id, argument_port) {
         my_Port: node.port
     })
         .then(function (response) {
-            //console.log("Argument Ping", response);
-            //console.log("Argument ping");
             console.log("I ", node.port, " pinged ", argument_port);
             var distance = findDistanceBetweenNodes(node.nodeID, response.data.nodeID);
             var rightIndex = utility.findMostSignificantBit(distance);
-            //console.log("Right Index: ", rightIndex);
-            //Nul indeksering :)))
             var local_bucket = routingTable[rightIndex - 1];
             addNodeTo(local_bucket, response.data.nodeID, response.data.port)
         })
@@ -226,7 +244,6 @@ function argumentPing(argument_id, argument_port) {
  * @param currentBucket
  */
 function addNodeTo(currentBucket, localNodeID, port) {
-    //console.log("cb", currentBucket, "lni", localNodeID, "port", port);
     var tempNode = new nodeClass.node(localNodeID, constants.ipAddress, port);
     var indexOfTempNode;
     var bucketLength = 0;
@@ -379,8 +396,6 @@ function findDistanceBetweenNodes(nodeID, otherNodeID) {
  * @returns {*}
  */
 function findNode(myNodeID, otherNodeID) {
-    //console.log("Find Node started, on self:", node.port);
-
     var neighbourNodes = [];
     var bucketIndex = utility.findMostSignificantBit(findDistanceBetweenNodes(myNodeID, otherNodeID));
     var step = 1;
@@ -442,12 +457,6 @@ function findNode(myNodeID, otherNodeID) {
 
 //---------------------------------------- NODE FUNCTIONS ----------------------------------------\\
 
-function storeValue(type, value) {
-    var currentdate = new Date();
-    var datetime = currentdate.toLocaleString();
-    valueMap.push({type: type, value: value, timeStamp: datetime});
-}
-
 /**
  * Løber iterativt igennem alle nodes for at finde en node.
  * @param myNodeID
@@ -455,6 +464,7 @@ function storeValue(type, value) {
 function nodeLookup(myNodeID, otherNodeID, callback) {
     console.log("NL Started");
     tempList = [];
+    alreadyChecked = [];
     //console.log("NodeLookup started, internal");
     // Anvender findNode til at løbe igennem den modtagne liste iterativt
     var foundNode = false;
@@ -604,15 +614,17 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode, callback) {
 //Jeg ved godt vi diskuterede det, men hvad er pointen helt præcist med at giver otherID med?
 function storeValueInFile(otherID, key, type, value, should_replicate, should_hash) {
     console.log("svif");
+    var currentDate = new Date();
+    var datetime = currentDate.toLocaleString();
     if (should_hash == true) {
+        console.log("hashing");
         var hashedKey = crypto.createHash('sha1').update(key).digest("hex");
     }
     if (should_replicate == false) {
-        var currentDate = new Date();
-        var datetime = currentDate.toLocaleString();
         valueMap[hashedKey] = ({type: type, value: value, timeStamp: datetime});
     }
     if (should_replicate == true) {
+        console.log("replicating");
         var neighbourNodes;
         nodeLookup(node.nodeID, hashedKey, function (res) {
             neighbourNodes = res;
@@ -622,6 +634,7 @@ function storeValueInFile(otherID, key, type, value, should_replicate, should_ha
                 console.log("we in", neighbourNodes[i].port);
                 var url = "http://localhost:" + neighbourNodes[i].port + '/api/node/valueMap/replicate';
                 console.log('ENTERED SVIF', url);
+                console.log("before post hk", hashedKey);
                 axios.post(url, {
                     //Hvad skal ID bruges til?
                     otherID: otherID,
@@ -632,7 +645,9 @@ function storeValueInFile(otherID, key, type, value, should_replicate, should_ha
                     .then(function (response) {
                         console.log("svif: ", response.data);
                         //var valuesMap = response.data;
-                        //valuesMap[hashedKey].push({type: type, value: value, timeStamp: datetime});
+                        //Store on self
+                        console.log("hk", hashedKey);
+                        valueMap[hashedKey].push({type: type, value: value, timeStamp: datetime});
 
                     })
                     .catch(function (error) {
@@ -648,10 +663,6 @@ function findValue(key, vlNodeList, callback) {
     var hashedKey = crypto.createHash('sha1').update(key).digest("hex");
     // Tjekker sig selv for information/valuen, i så fald returner
     for (var q = 0; q < Object.keys(valueMap).length; q++) {
-        //console.log("0", valueMap);
-        //console.log("0.1", hashedKey);
-        //console.log("1",Object.values(valueMap)[q] );
-        //console.log("2", valueMap[hashedKey]);
         if (Object.values(valueMap)[q] == valueMap[hashedKey]) {
             console.log("vi fandt den.");
             callback(valueMap[hashedKey]);
@@ -666,12 +677,8 @@ function findValue(key, vlNodeList, callback) {
                 var tempValMap = {};
                 tempValMap = res;
                 if (Object.keys(tempValMap).length > 0) {
-                    console.log("entered loop");
+                    //console.log("entered loop");
                     for (var j = 0; j < Object.keys(tempValMap).length; j++) {
-                        console.log("tempvalmap", tempValMap);
-                        console.log("this", Object.keys(tempValMap)[j]);
-                        console.log("that", hashedKey);
-                        console.log("__________");
                         if (Object.keys(tempValMap)[j] == hashedKey) {
                             console.log("found in loop");
                             console.log("result", Object.values(tempValMap)[j]);
@@ -697,7 +704,31 @@ function getValues(port, callback) {
         .catch(function (error) {
             console.log("getValues() failed \n", error);
         });
-
 }
 
+
+function findClosestNode(callback) {
+    nodeLookup(node.nodeID, node.nodeID, function (res) {
+        if(res.length >= 1){
+            callback(res[0]);
+        }
+    })
+}
+
+function passValues(desNode, id, key, type, value) {
+    var url = "http://localhost:" + desNode.port + '/api/node/values/passValue';
+    axios.post(url, {
+        id: id,
+        key: key,
+        type: type,
+        value: value
+    })
+        .then(function (response) {
+            console.log("passvalue success", response.data)
+        })
+        .catch(function (error) {
+            console.log("passvalue error", error);
+        })
+
+}
 

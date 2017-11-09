@@ -4,6 +4,8 @@
     <list default="true" id="7347eb3b-3e44-4d7a-954a-c954e1512d5c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Index.js" afterPath="$PROJECT_DIR$/Index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/back.js" afterPath="$PROJECT_DIR$/public/back.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/index.html" afterPath="$PROJECT_DIR$/public/index.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -20,8 +22,8 @@
       <file leaf-file-name="Index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="65" column="11" lean-forward="false" selection-start-line="65" selection-start-column="11" selection-end-line="65" selection-end-column="11" />
+            <state relative-caret-position="404">
+              <caret line="103" column="16" lean-forward="true" selection-start-line="103" selection-start-column="16" selection-end-line="103" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -30,7 +32,7 @@
       <file leaf-file-name="temporary.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/temporary.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
+            <state relative-caret-position="1547">
               <caret line="91" column="34" lean-forward="false" selection-start-line="91" selection-start-column="34" selection-end-line="91" selection-end-column="34" />
               <folding />
             </state>
@@ -40,8 +42,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="24" column="76" lean-forward="false" selection-start-line="24" selection-start-column="76" selection-end-line="24" selection-end-column="76" />
+            <state relative-caret-position="89">
+              <caret line="16" column="64" lean-forward="false" selection-start-line="16" selection-start-column="64" selection-end-line="16" selection-end-column="64" />
               <folding />
             </state>
           </provider>
@@ -50,8 +52,8 @@
       <file leaf-file-name="back.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/back.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="51" column="1" lean-forward="true" selection-start-line="41" selection-start-column="0" selection-end-line="51" selection-end-column="1" />
+            <state relative-caret-position="310">
+              <caret line="146" column="20" lean-forward="true" selection-start-line="146" selection-start-column="20" selection-end-line="146" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -70,25 +72,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>res.foreac</find>
-      <find>item</find>
-      <find>getvalue</find>
-      <find>callba</find>
-      <find>nlfindnode</find>
-      <find>foreach</find>
-      <find>objec</find>
-      <find>no</find>
-      <find>recursi</find>
-      <find>sort</find>
-      <find>least</find>
-      <find>qqq</find>
-      <find>storevalue</find>
-      <find>callback</find>
-      <find>findvalue</find>
-      <find>findval</find>
-      <find>call</find>
-      <find>getvalues</find>
-      <find>settimeou</find>
       <find>neigh</find>
       <find>nodelook</find>
       <find>timeout</find>
@@ -98,8 +81,27 @@
       <find>rfn</find>
       <find>nodeloo</find>
       <find>nlfind</find>
-      <find>rfn</find>
       <find>temp in</find>
+      <find>alrea</find>
+      <find>findvalu</find>
+      <find>storevale</find>
+      <find>storeval</find>
+      <find>templist</find>
+      <find>findvalue</find>
+      <find>sto</find>
+      <find>storeva</find>
+      <find>storevalie</find>
+      <find>storevalue</find>
+      <find>storeValue</find>
+      <find>nodelo</find>
+      <find>nodelooku</find>
+      <find>pass</find>
+      <find>passvalue</find>
+      <find>passval</find>
+      <find>replica</find>
+      <find>valuemap</find>
+      <find>replicat</find>
+      <find>replicate</find>
     </findStrings>
     <dirStrings>
       <dir>C:\Users\Ahmad\WebstormProjects\P2P_IoT\node_modules</dir>
@@ -139,8 +141,8 @@
         <option value="$PROJECT_DIR$/temp.js" />
         <option value="$PROJECT_DIR$/Utilities.js" />
         <option value="$PROJECT_DIR$/temporary.js" />
-        <option value="$PROJECT_DIR$/public/back.js" />
         <option value="$PROJECT_DIR$/public/index.html" />
+        <option value="$PROJECT_DIR$/public/back.js" />
         <option value="$PROJECT_DIR$/Index.js" />
       </list>
     </option>
@@ -213,7 +215,6 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -245,6 +246,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -469,14 +471,9 @@
       <workItem from="1509452261884" duration="2209000" />
       <workItem from="1509614382558" duration="5241000" />
       <workItem from="1509625063556" duration="10696000" />
-      <workItem from="1509698309249" duration="16286000" />
-    </task>
-    <task id="LOCAL-00005" summary="En ny metode til at lave et random nummer, hvis der er behov for det">
-      <created>1505214507600</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1505214507601</updated>
+      <workItem from="1509698309249" duration="16324000" />
+      <workItem from="1509959302785" duration="10531000" />
+      <workItem from="1510217283082" duration="7138000" />
     </task>
     <task id="LOCAL-00006" summary="Afstands-metoden er sat ind i kbucket klassen">
       <created>1505227205504</created>
@@ -814,11 +811,18 @@
       <option name="project" value="LOCAL" />
       <updated>1509714313733</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="refactored to no timeouts">
+      <created>1509715996225</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1509715996225</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="267969000" />
+    <option name="totallyTimeSpent" value="285676000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -836,6 +840,7 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.09747102" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.48840886" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2860215" sideWeight="0.51738673" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3268817" sideWeight="0.49367756" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2860215" sideWeight="0.48261327" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -848,7 +853,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -859,7 +863,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Reworked bucket" />
     <MESSAGE value="Added routingTable route" />
     <MESSAGE value="Concussion" />
     <MESSAGE value="findValue() kinda works" />
@@ -884,7 +887,8 @@
     <MESSAGE value="Beautified console logs" />
     <MESSAGE value="Store value works" />
     <MESSAGE value="FindValue works" />
-    <option name="LAST_COMMIT_MESSAGE" value="FindValue works" />
+    <MESSAGE value="refactored to no timeouts" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactored to no timeouts" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1022,32 +1026,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/temporary.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
+        <state relative-caret-position="1547">
           <caret line="91" column="34" lean-forward="false" selection-start-line="91" selection-start-column="34" selection-end-line="91" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/back.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="51" column="1" lean-forward="true" selection-start-line="41" selection-start-column="0" selection-end-line="51" selection-end-column="1" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="76" lean-forward="false" selection-start-line="24" selection-start-column="76" selection-end-line="24" selection-end-column="76" />
+        <state relative-caret-position="89">
+          <caret line="16" column="64" lean-forward="false" selection-start-line="16" selection-start-column="64" selection-end-line="16" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/back.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="146" column="20" lean-forward="true" selection-start-line="146" selection-start-column="20" selection-end-line="146" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="65" column="11" lean-forward="false" selection-start-line="65" selection-start-column="11" selection-end-line="65" selection-end-column="11" />
+        <state relative-caret-position="404">
+          <caret line="103" column="16" lean-forward="true" selection-start-line="103" selection-start-column="16" selection-end-line="103" selection-end-column="16" />
           <folding />
         </state>
       </provider>
