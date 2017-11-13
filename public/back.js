@@ -16,6 +16,8 @@ function getInfo() {
             document.getElementById('myInfo').innerHTML += "My Port: " + myPort;
             document.getElementById('myInfo').innerHTML += "<br>";
             document.getElementById('myInfo').innerHTML += " My NodeID: " + myNodeID;
+            document.getElementById('Port').value = myPort;
+            document.getElementById('NodeID').value = myNodeID;
             document.title = myPort;
         })
         .catch(function (error) {
@@ -30,7 +32,41 @@ function getBuckets() {
     axios.get("../api/node/routingTable")
         .then(function (response) {
             console.log("routingTable: ", response.data);
-            document.getElementById('buckets').innerHTML += JSON.stringify(response.data);
+            var buckets = response.data;
+            console.log(buckets.length);
+            for(var j = 0; j < buckets.length; j++){
+                // Create table.
+                var tableDiv = document.createElement('tableDiv');
+                var table = document.createElement('table');
+                table.setAttribute("id", j.toString());
+                // Insert New Row for table at index '0'.
+                //Header Stuff________________________
+                var header = table.createTHead();
+                var row = header.insertRow(-1);
+                var cell = row.insertCell(0);
+                cell.innerHTML = "<b>ID</b>";
+                var cellt = row.insertCell(1);
+                cellt.innerHTML = "<b>PORT</b>";
+                header.insertRow(0).insertCell(-1).innerHTML += "Bucket " + j;
+                //____________________________________
+                for(var z = 0; z <= buckets[j].length; z++){
+                    var editNode = buckets[j][z];
+                    if(editNode != undefined){
+                        var row1 = table.insertRow(-1);
+                        // Insert New Column for Row1 at index '0'.
+                        var row1col1 = row1.insertCell(0);
+                        row1col1.innerHTML = editNode.nodeID;
+                        // Insert New Column for Row1 at index '1'.
+                        var row1col2 = row1.insertCell(1);
+                        var linkText = editNode.port;
+                        var link = "http://localhost:" + editNode.port;
+                        row1col2.innerHTML = "<a href="+link+">"+ linkText +"</a>";
+                    }
+                }
+                tableDiv.appendChild(table);
+                var div = document.getElementById('buckets');
+                div.appendChild(tableDiv);
+            }
 
         })
         .catch(function (error) {
@@ -142,7 +178,7 @@ function storeValue() {
     var fieldType = document.getElementById("Type").value;
     var fieldValue = document.getElementById("Value").value;
     //console.log("port", fieldPort, "id", fieldID, "key", fieldKey, "type", fieldType, "value", fieldValue);
-    var url = "http://localhost:" + fieldPort + '/api/node/values/localStoreValue';
+    var url = "http://localhost:" + fieldPort + '/api/node/valueMap/localStoreValue';
     axios.post(url, {
         id: fieldID,
         key: fieldKey,
@@ -155,4 +191,8 @@ function storeValue() {
         .catch(function (error) {
             console.log("storevalue error", error);
         })
+}
+
+function createTable() {
+
 }

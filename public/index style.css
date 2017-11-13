@@ -17,3 +17,15 @@ h3{
     margin: 0px;
 }
 
+
+table, th, td {
+    border: 1px solid black;
+}
+
+table {
+    display: inline-block;
+    border-collapse: collapse;
+    border: 1px solid gray;
+
+    margin: 5px;
+}

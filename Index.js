@@ -52,29 +52,32 @@ app.get('/api/node/values', function (req, res) {
     res.json(valueMap);
 });
 
-app.post('/api/node/values/localStoreValue', function (req, res) {
+app.post('/api/node/valueMap/localStoreValue', function (req, res) {
     var id = req.body['id'];
     var key = req.body['key'];
     var type = req.body['type'];
     var value = req.body['value'];
+    console.log("LSV: Storing locally on", node.port, "attributes", id, key, type, value);
     storeValueInFile(id, key, type, value, false, true);
-    findClosestNode(function (res1) {
-        //console.log("cn", res1);
+    findClosestNode(id, function (res1) {
+        console.log("Pass Values On", res1);
         passValues(res1, id, key, type, value);
 
     });
     res.send("Everything went well in LSV");
 });
 
-app.post('/api/node/values/passValue', function (req, res) {
+app.post('/api/node/valueMap/passValue', function (req, res) {
     var id = req.body['id'];
     var key = req.body['key'];
     var type = req.body['type'];
     var value = req.body['value'];
-    console.log("values on the other end, PV");
-    console.log(id, key, type, value);
-    storeValueInFile(id,key,type, value,true, true);
-    res.send("Values should've been distributed now");
+    console.log("PV: Values",id, key, type, value);
+    storeValueInFile(id,key,type, value,true, true, function (ret) {
+        console.log("ret", ret);
+        res.send("ret");
+    });
+
 });
 
 app.post('/api/node/values/findValue', function (req, res) {
@@ -96,33 +99,33 @@ app.post('/api/node/valueMap/replicate', function (req, res) {
     console.log("Replicate R");
     //hvad i alverden er formålet med den her variabel?????
     var otherID = req.body['otherID'];
-    //this one is already hashed, what to do?
     var key = req.body['key'];
     var type = req.body['type'];
     var value = req.body['value'];
     console.log("R:", "OtherID", otherID, "Key", key, "Type", type, "Value", value);
-    storeValueInFile(key, type, value, false, false);
-    console.log("valueMap", valueMap);
+    //console.log("R: valueMap before", valueMap);
+    storeValueInFile(otherID, key, type, value, false, false);
+    //console.log("R: valueMap after", valueMap);
     res.send("R: Store value on " + node.port.toString() + " successful");
 });
 
 //Post Request expecting nodeID and port in body
 app.post('/api/node/ping', function (req, res) {
-    console.log("________________________________");
-    console.log("Ping: P");
+    //console.log("________________________________");
+    //console.log("Ping: P");
     var remote_nodeid = req.body['my_NodeID'];
     var remote_port = req.body['my_Port'];
     var my_nodeid = node.nodeID;
-    console.log("P: loc_id", my_nodeid, "loc_port", node.port, "rem_id", remote_nodeid, "rem_port", remote_port);
+    //console.log("P: loc_id", my_nodeid, "loc_port", node.port, "rem_id", remote_nodeid, "rem_port", remote_port);
     var distance = findDistanceBetweenNodes(my_nodeid, remote_nodeid);
     var rightIndex = utility.findMostSignificantBit(distance);
     //Nul indeksering :)))
     var local_bucket;
     local_bucket = routingTable[rightIndex];
     addNodeTo(local_bucket, remote_nodeid, remote_port);
-    console.log("P: RT \n", routingTable);
-    console.log("P: Ended.");
-    console.log("________________________________");
+    //console.log("P: RT \n", routingTable);
+    //console.log("P: Ended.");
+    //console.log("________________________________");
     res.send({'event': 'PONG', 'nodeID': node.nodeID, 'port': port});
 });
 
@@ -134,7 +137,7 @@ app.post('/api/node/findNode', function (req, res) {
     console.log("FN:", "loc_id", my_nodeid, "rem_id", remote_nodeid);
     var tempJSON = findNode(my_nodeid, remote_nodeid);
     console.log("FN RESULT", tempJSON);
-    //console.log("FN: RT: ", routingTable);
+    console.log("FN: RT: ", routingTable);
     console.log("FN: Ended.");
     console.log("________________________________");
     res.json(tempJSON);
@@ -159,7 +162,7 @@ var server = app.listen(port, function () {
     createBuckets();
     bootstrapNode();
     console.log('Server listening on http://localhost:' + port);
-    console.log("nodeID", node.nodeID, "Port", node.port);
+    //console.log("nodeID", node.nodeID, "Port", node.port);
 });
 
 function createNode() {
@@ -178,15 +181,15 @@ function createNode() {
 function bootstrapNode() {
     if (arg_two == 0) {
         console.log("First Node Started");
-        storeValueInFile(1, "112", "Horsie", 14, false, true);
-        storeValueInFile(1, "113", "Horsie", 14, false, true);
-        console.log(Object.keys(valueMap).length);
-        console.log(valueMap);
+        //storeValueInFile(1, "112", "Horsie", 14, false, true);
+        //storeValueInFile(1, "113", "Horsie", 14, false, true);
+        //console.log(Object.keys(valueMap).length);
+        //console.log(valueMap);
     }
     else if (arg_two == 8890) {
         targetedPing();
-        storeValueInFile(1, "200", "Horsie", 200, false, true);
-        storeValueInFile(1, "700", "Horsie", 700, false, true);
+        //storeValueInFile(1, "200", "Horsie", 200, false, true);
+        //storeValueInFile(1, "700", "Horsie", 700, false, true);
 
     }
     else {
@@ -207,7 +210,7 @@ function targetedPing() {
             var rightIndex = utility.findMostSignificantBit(distance);
             //console.log("Right Index: ", rightIndex);
             //Nul indeksering :)))
-            var local_bucket = routingTable[rightIndex - 1];
+            var local_bucket = routingTable[rightIndex];
             addNodeTo(local_bucket, response.data.nodeID, response.data.port);
         })
         .catch(function (error) {
@@ -222,11 +225,12 @@ function argumentPing(argument_id, argument_port) {
         my_Port: node.port
     })
         .then(function (response) {
-            console.log("I ", node.port, " pinged ", argument_port);
+            //console.log("I ", node.port, " pinged ", argument_port);
             var distance = findDistanceBetweenNodes(node.nodeID, response.data.nodeID);
             var rightIndex = utility.findMostSignificantBit(distance);
-            var local_bucket = routingTable[rightIndex - 1];
-            addNodeTo(local_bucket, response.data.nodeID, response.data.port)
+            var local_bucket = routingTable[rightIndex];
+            //console.log("I received response", response.data);
+            addNodeTo(local_bucket, response.data.nodeID, response.data.port);
         })
         .catch(function (error) {
             //console.log("Something failed \n", error);
@@ -397,7 +401,8 @@ function findDistanceBetweenNodes(nodeID, otherNodeID) {
  */
 function findNode(myNodeID, otherNodeID) {
     var neighbourNodes = [];
-    var bucketIndex = utility.findMostSignificantBit(findDistanceBetweenNodes(myNodeID, otherNodeID));
+    var bucketIndex = utility.findMostSignificantBit(findDistanceBetweenNodes(myNodeID, otherNodeID)) +1;
+    //console.log("bucketindex", bucketIndex);
     var step = 1;
     var currentBucket = [];
     neighbourNodes = neighbourNodes.concat(routingTable[bucketIndex]);
@@ -480,13 +485,12 @@ function nodeLookup(myNodeID, otherNodeID, callback) {
     // Callback function
     //console.log("First call of RFN", currentNode);
     tempListCounter = 0;
-
     recursiveFindNode(otherNodeID, currentNode, function (res) {
         callback(res);
     });
     // This list has to be run through, to see if it contains nodes, which has already been checked.
     // Moves the current Node from the notCheckedYet-list to the alreadyChecked-list
-    alreadyChecked.push(currentNode);
+    //alreadyChecked.push(currentNode);
 
 }
 
@@ -500,7 +504,7 @@ function nlFindNode(otherNodeID, currentNode, callback) {
             //console.log("nlFindNode called from", currentNode);
 
             if (response.data != null) {
-                //console.log("argument ping", currentNode.port);
+                //console.log("argument ping", currentNode.port, otherNodeID);
                 argumentPing(otherNodeID, currentNode.port);
             }
             //console.log("nlFindNode response data", response.data);
@@ -547,22 +551,24 @@ function sortListByNumberClosestTo(list, nodeID) {
 var tempListCounter = 0;
 
 function recursiveFindNode(method_OtherNodeID, method_CurrentNode, callback) {
-    console.log("_________________________________________________________");
-    console.log("RFN started on", method_CurrentNode);
+    //console.log("_________________________________________________________");
+    console.log("RFN started on", method_CurrentNode.port);
     var indexOfNode = alreadyChecked.map(function (el) {
         return el.port;
     }).indexOf(method_CurrentNode.port);
-    if (indexOfNode == -1) {
+    console.log("currentNode",method_CurrentNode.port, "alreadyChecked", alreadyChecked);
+    console.log("ION",indexOfNode);
+    if (indexOfNode === -1) {
         //console.log("templistdebug: counter", tempListCounter, "list", tempList.length);
         //console.log("alreadyChecked",alreadyChecked);
         unlimitedAddTo(alreadyChecked, method_CurrentNode.nodeID, method_CurrentNode.port);
         //console.log("calling nlFIndNode from", method_CurrentNode);
         nlFindNode(method_OtherNodeID, method_CurrentNode, function (res) {
-            console.log("rfn", res);
+            //console.log("rfn", res);
             res.forEach(function (item) {
                 if (item == null) {
-                    //console.log("item null return", method_CurrentNode);
-                    results.push(method_CurrentNode);
+                    console.log("item null return", method_CurrentNode);
+                    addNodeTo(results, method_CurrentNode.nodeID, method_CurrentNode.port);
                     results = sortListByNumberClosestTo(results, node.nodeID);
                 }
                 var tempNodeID = item.nodeID;
@@ -572,14 +578,14 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode, callback) {
                 //console.log("new node", tempNodeID, tempNodePort);
                 //console.log("rfNNNNNNN_______________ ", tempList);
                 if (results.length == constants.k) {
-                    console.log("Look in nodelookup if you found a problem here");
+                    //console.log("Look in nodelookup if you found a problem here");
                     if (method_OtherNodeID ^ method_CurrentNode.nodeID < method_OtherNodeID ^ results[constants.k - 1].nodeID) {
                         //Replace the last node in the list with the new one
                         results.pop();
                         //console.log("results full pre", results);
                         addNodeTo(results, tempNodeID, tempNodePort);
                         results = sortListByNumberClosestTo(results, method_OtherNodeID);
-                        //console.log("results full post", results);
+                        console.log("results full post", results);
                     }
                 }
                 else {
@@ -598,6 +604,16 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode, callback) {
         });
 
     }
+    else if(indexOfNode === 1){
+        tempListCounter++;
+        if (tempListCounter - 1 < tempList.length) {
+            recursiveFindNode(method_OtherNodeID, tempList[tempListCounter - 1], callback);
+        }
+        else {
+            console.log("Ran out of unchecked nodes inside loop.");
+            callback(results);
+        }
+    }
     //TODO look at templistcounter
     else {
         tempListCounter++;
@@ -605,38 +621,49 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode, callback) {
             recursiveFindNode(method_OtherNodeID, tempList[tempListCounter - 1], callback);
         }
         else {
-            console.log("Ran out of unchecked nodes outside loop.");
+            //console.log("Ran out of unchecked nodes outside loop.");
         }
     }
 }
 
 //---------------------------------------- STORE FUNCTIONS ----------------------------------------\\
 //Jeg ved godt vi diskuterede det, men hvad er pointen helt præcist med at giver otherID med?
-function storeValueInFile(otherID, key, type, value, should_replicate, should_hash) {
+function storeValueInFile(otherID, key, type, value, should_replicate, should_hash, callback) {
     console.log("svif");
     var currentDate = new Date();
     var datetime = currentDate.toLocaleString();
     if (should_hash == true) {
-        console.log("hashing");
+        console.log("SVIF: Hashing");
         var hashedKey = crypto.createHash('sha1').update(key).digest("hex");
     }
     if (should_replicate == false) {
-        valueMap[hashedKey] = ({type: type, value: value, timeStamp: datetime});
+        console.log("SVIF: Not replicating");
+        console.log(otherID, key, type, value);
+        if(should_hash == true){
+            console.log("hash true");
+            valueMap[hashedKey] = ({type: type, value: value, timeStamp: datetime});
+            console.log("valuemap in svif after store", valueMap);
+        }
+        if (should_hash == false){
+            console.log("hash false");
+            valueMap[key] = ({type: type, value: value, timeStamp: datetime});
+            console.log("valuemap in svif after store", valueMap);
+        }
     }
     if (should_replicate == true) {
-        console.log("replicating");
+        console.log("SVIF: Replicating");
         var neighbourNodes;
-        nodeLookup(node.nodeID, hashedKey, function (res) {
+        //console.log("Values to replicate", otherID, key, type, value);
+        nodeLookup(node.nodeID, node.nodeID, function (res) {
             neighbourNodes = res;
-            //Der skal nok være et lille delay her, for at vente på resultatet :)
-            console.log("waiting for neightbournodes to fill", neighbourNodes);
+            //console.log("waiting for neightbournodes to fill", neighbourNodes);
             for (var i = 0; i < neighbourNodes.length; i++) {
                 console.log("we in", neighbourNodes[i].port);
                 var url = "http://localhost:" + neighbourNodes[i].port + '/api/node/valueMap/replicate';
+                //console.log("WHAT ARE WE SENDING TO REPLICATE?");
+                //console.log(otherID, hashedKey, type, value);
                 console.log('ENTERED SVIF', url);
-                console.log("before post hk", hashedKey);
                 axios.post(url, {
-                    //Hvad skal ID bruges til?
                     otherID: otherID,
                     key: hashedKey,
                     type: type,
@@ -646,14 +673,15 @@ function storeValueInFile(otherID, key, type, value, should_replicate, should_ha
                         console.log("svif: ", response.data);
                         //var valuesMap = response.data;
                         //Store on self
-                        console.log("hk", hashedKey);
-                        valueMap[hashedKey].push({type: type, value: value, timeStamp: datetime});
+                        //console.log("hk", hashedKey);
+                        valueMap[hashedKey]=({type: type, value: value, timeStamp: datetime});
 
                     })
                     .catch(function (error) {
-                        console.log("Something failed \n", error);
+                        console.log("SVIF REPLICATE FAILED \n", error);
                     });
             }
+            return callback("Went ay okay");
         });
     }
 }
@@ -666,6 +694,7 @@ function findValue(key, vlNodeList, callback) {
         if (Object.values(valueMap)[q] == valueMap[hashedKey]) {
             console.log("vi fandt den.");
             callback(valueMap[hashedKey]);
+
         }
     }
 
@@ -707,8 +736,9 @@ function getValues(port, callback) {
 }
 
 
-function findClosestNode(callback) {
-    nodeLookup(node.nodeID, node.nodeID, function (res) {
+function findClosestNode(id, callback) {
+    //console.log("mit", node.nodeID,"dit", id);
+    nodeLookup(id, id, function (res) {
         if(res.length >= 1){
             callback(res[0]);
         }
@@ -716,7 +746,7 @@ function findClosestNode(callback) {
 }
 
 function passValues(desNode, id, key, type, value) {
-    var url = "http://localhost:" + desNode.port + '/api/node/values/passValue';
+    var url = "http://localhost:" + desNode.port + '/api/node/valueMap/passValue';
     axios.post(url, {
         id: id,
         key: key,
