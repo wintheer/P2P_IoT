@@ -35,7 +35,6 @@ function getBuckets() {
         .then(function (response) {
             console.log("routingTable: ", response.data);
             var buckets = response.data;
-            console.log(buckets.length);
             for(var j = 0; j < buckets.length; j++){
                 // Create table.
                 var tableDiv = document.createElement('tableDiv');
@@ -81,11 +80,49 @@ function getValues() {
     axios.get("../api/node/values")
         .then(function (response) {
             console.log("values: ", response.data);
-            document.getElementById('values').innerHTML += JSON.stringify(response.data);
+            //document.getElementById('values').innerHTML += JSON.stringify(response.data);
+            console.log("_______________________");
+            var valueVar = response.data;
+            var table = document.createElement('table');
+            // Insert New Row for table at index '0'.
+            var row0 = table.insertRow(0);
+            var row0col1 = row0.insertCell(0);
+            row0col1.innerHTML = "Values";
+            var row1 = table.insertRow(1);
+            // Insert New Column for Row1 at index '0'.
+            var row1col1 = row1.insertCell(0);
+            row1col1.innerHTML = 'Key';
+            // Insert New Column for Row1 at index '1'.
+            var row1col2 = row1.insertCell(1);
+            row1col2.innerHTML = 'Type';
+            // Insert New Column for Row1 at index '2'.
+            var row1col3 = row1.insertCell(2);
+            row1col3.innerHTML = 'Value';
+            // Append Table into div.
+            var row1col4 = row1.insertCell(3);
+            row1col4.innerHTML = 'Time';
+            for(var q = 0; q < Object.keys(valueVar).length; q++){
+                var keyHolder = Object.keys(valueVar)[q];
+                var typeHolder = Object.values(valueVar)[q].type;
+                var valueHolder = Object.values(valueVar)[q].value;
+                var timeHolder = Object.values(valueVar)[q].timeStamp;
+                console.log("+q",2+q);
+                var rowq = table.insertRow(2+q);
+                var rowqcol1 = rowq.insertCell(0);
+                var rowqcol2 = rowq.insertCell(1);
+                var rowqcol3 = rowq.insertCell(2);
+                var rowqcol4 = rowq.insertCell(3);
+                rowqcol1.innerHTML = keyHolder;
+                rowqcol2.innerHTML = typeHolder;
+                rowqcol3.innerHTML = valueHolder;
+                rowqcol4.innerHTML = timeHolder;
+            }
+            var div = document.getElementById('values');
+            div.appendChild(table);
 
         })
         .catch(function (error) {
-            console("getValues() failed \n", error);
+            console.log("getValues() failed \n", error);
         });
 }
 

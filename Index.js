@@ -1,3 +1,4 @@
+//var sensorLib = require('node-dht-sensor');
 var utility = require('./Utilities');
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -19,6 +20,7 @@ var valueMap = {};
 var tempList = [];
 var alreadyChecked = [];
 var results = [];
+var keyCounter = 0;
 //------------------------------------------ Server Functions -------------------------------------------------\\
 // We need this to be able to call cross-origin,
 // which means that to different peers calling eachother
@@ -55,7 +57,7 @@ app.get('/api/node/values', function (req, res) {
 app.get('/api/node/ip', function (req, res) {
     console.log("they took our IP");
     res.send(constants.ipAddress);
-})
+});
 
 app.post('/api/node/valueMap/localStoreValue', function (req, res) {
     var id = req.body['id'];
@@ -77,8 +79,8 @@ app.post('/api/node/valueMap/passValue', function (req, res) {
     var key = req.body['key'];
     var type = req.body['type'];
     var value = req.body['value'];
-    console.log("PV: Values",id, key, type, value);
-    storeValueInFile(id,key,type, value,true, true, function (ret) {
+    console.log("PV: Values", id, key, type, value);
+    storeValueInFile(id, key, type, value, true, true, function (ret) {
         console.log("ret", ret);
         res.send("ret");
     });
@@ -167,7 +169,7 @@ var server = app.listen(port, function () {
     createBuckets();
     bootstrapNode();
     console.log('Server listening on ' + constants.ipAddress + port);
-
+    //sensorLib.initialize(22, 4);
 });
 
 function createNode() {
@@ -186,17 +188,16 @@ function createNode() {
 function bootstrapNode() {
     if (arg_two == 0) {
         console.log("First Node Started");
-        //storeValueInFile(1, "112", "Horsie", 14, false, true);
-        //storeValueInFile(1, "113", "Horsie", 14, false, true);
-        //console.log(Object.keys(valueMap).length);
-        //console.log(valueMap);
+        storeValueInFile(1, "112", "Horsie", 14, false, true);
+        storeValueInFile(1, "113", "Horsie", 14, false, true);
+        /*setInterval(function () {
+            readSensorValues();
+        }, 3000);*/
     }
-    else if (arg_two == 8890) {
+    /*else if (arg_two == 8890) {
         targetedPing();
-        //storeValueInFile(1, "200", "Horsie", 200, false, true);
-        //storeValueInFile(1, "700", "Horsie", 700, false, true);
 
-    }
+    }*/
     else {
         targetedPing()
     }
@@ -407,7 +408,7 @@ function findDistanceBetweenNodes(nodeID, otherNodeID) {
  */
 function findNode(myNodeID, otherNodeID) {
     var neighbourNodes = [];
-    var bucketIndex = utility.findMostSignificantBit(findDistanceBetweenNodes(myNodeID, otherNodeID)) +1;
+    var bucketIndex = utility.findMostSignificantBit(findDistanceBetweenNodes(myNodeID, otherNodeID)) + 1;
     //console.log("bucketindex", bucketIndex);
     var step = 1;
     var currentBucket = [];
@@ -491,6 +492,10 @@ function nodeLookup(myNodeID, otherNodeID, callback) {
     // Callback function
     //console.log("First call of RFN", currentNode);
     tempListCounter = 0;
+    if (currentNode == undefined) {
+        console.log("NL returning, was empty");
+        return;
+    }
     recursiveFindNode(otherNodeID, currentNode, function (res) {
         callback(res);
     });
@@ -562,8 +567,8 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode, callback) {
     var indexOfNode = alreadyChecked.map(function (el) {
         return el.port;
     }).indexOf(method_CurrentNode.port);
-    console.log("currentNode",method_CurrentNode.port, "alreadyChecked", alreadyChecked);
-    console.log("ION",indexOfNode);
+    console.log("currentNode", method_CurrentNode.port, "alreadyChecked", alreadyChecked);
+    console.log("ION", indexOfNode);
     if (indexOfNode === -1) {
         //console.log("templistdebug: counter", tempListCounter, "list", tempList.length);
         //console.log("alreadyChecked",alreadyChecked);
@@ -610,7 +615,7 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode, callback) {
         });
 
     }
-    else if(indexOfNode === 1){
+    else if (indexOfNode === 1) {
         tempListCounter++;
         if (tempListCounter - 1 < tempList.length) {
             recursiveFindNode(method_OtherNodeID, tempList[tempListCounter - 1], callback);
@@ -634,7 +639,7 @@ function recursiveFindNode(method_OtherNodeID, method_CurrentNode, callback) {
 
 //---------------------------------------- STORE FUNCTIONS ----------------------------------------\\
 //Jeg ved godt vi diskuterede det, men hvad er pointen helt præcist med at giver otherID med?
-function storeValueInFile(otherID, key, type, value, should_replicate, should_hash, callback) {
+function storeValueInFile(otherID, key, type, value, should_replicate, should_hash) {
     console.log("svif");
     var currentDate = new Date();
     var datetime = currentDate.toLocaleString();
@@ -645,12 +650,12 @@ function storeValueInFile(otherID, key, type, value, should_replicate, should_ha
     if (should_replicate == false) {
         console.log("SVIF: Not replicating");
         console.log(otherID, key, type, value);
-        if(should_hash == true){
+        if (should_hash == true) {
             console.log("hash true");
             valueMap[hashedKey] = ({type: type, value: value, timeStamp: datetime});
             console.log("valuemap in svif after store", valueMap);
         }
-        if (should_hash == false){
+        if (should_hash == false) {
             console.log("hash false");
             valueMap[key] = ({type: type, value: value, timeStamp: datetime});
             console.log("valuemap in svif after store", valueMap);
@@ -680,7 +685,7 @@ function storeValueInFile(otherID, key, type, value, should_replicate, should_ha
                         //var valuesMap = response.data;
                         //Store on self
                         //console.log("hk", hashedKey);
-                        valueMap[hashedKey]=({type: type, value: value, timeStamp: datetime});
+                        valueMap[hashedKey] = ({type: type, value: value, timeStamp: datetime});
 
                     })
                     .catch(function (error) {
@@ -745,7 +750,7 @@ function getValues(port, callback) {
 function findClosestNode(id, callback) {
     //console.log("mit", node.nodeID,"dit", id);
     nodeLookup(id, id, function (res) {
-        if(res.length >= 1){
+        if (res.length >= 1) {
             callback(res[0]);
         }
     })
@@ -768,3 +773,44 @@ function passValues(desNode, id, key, type, value) {
 
 }
 
+//----------------------------------------- Sensor Metoder -----------------------------------
+
+function readHumidity() {
+    var readout = sensorLib.read();
+    var humidityValue = readout.humidity.toFixed(2);
+    //console.log('Temperature: ' + readout.temperature.toFixed(2) + 'C, ' + 'humidity: ' + readout.humidity.toFixed(2) + '%');
+    return humidityValue;
+}
+
+function readTemeperature() {
+    var readout = sensorLib.read();
+    var temperatureValue = readout.temperature.toFixed(2);
+    //console.log('Temperature: ' + readout.temperature.toFixed(2) + 'C, ' + 'humidity: ' + readout.humidity.toFixed(2) + '%');
+    return temperatureValue;
+}
+
+function readSensorValues() {
+    //var readout = sensorLib.read();
+    keyCounter++;
+    storeOnServer(node, node.nodeID, keyCounter.toString(), "Humidity", readHumidity());
+    keyCounter++;
+    storeOnServer(node, node.nodeID, keyCounter.toString(), "Temperature", readTemeperature());
+    console.log('Temperature: ' + readTemeperature() + 'C, ' + 'humidity: ' + readHumidity() + '%');
+}
+
+function storeOnServer(desNode, id, key, type, value) {
+    var url = constants.ipAddress + desNode.port + '/api/node/valueMap/localStoreValue';
+    axios.post(url, {
+        id: id,
+        key: key,
+        type: type,
+        value: value
+    })
+        .then(function (response) {
+            console.log("storeOnServer success", response.data)
+        })
+        .catch(function (error) {
+            console.log("storeOnServer error", error);
+        })
+
+}
