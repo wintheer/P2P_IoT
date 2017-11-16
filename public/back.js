@@ -69,7 +69,6 @@ function getBuckets() {
                         var row1col2 = row1.insertCell(1);
                         var linkText = editNode.port;
                         var link = ipAddress + editNode.port;
-                        console.log("link",link);
                         row1col2.innerHTML = "<a href="+link+">"+ linkText +"</a>";
                     }
                 }
