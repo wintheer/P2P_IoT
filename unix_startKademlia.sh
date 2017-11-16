@@ -5,8 +5,8 @@ q=$((i-1))
 
 if [ $i == $j ]
 then
-   node Index.js $i 0 &
+   node Index.js $i 0 & sleep 1 &
 else
-   node Index.js $i $q &
+   node Index.js $i $q & sleep 1 &
 fi
 done
