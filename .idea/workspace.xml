@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7347eb3b-3e44-4d7a-954a-c954e1512d5c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Index.js" afterPath="$PROJECT_DIR$/Index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/back.js" afterPath="$PROJECT_DIR$/public/back.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -509,14 +507,7 @@
       <workItem from="1510825578963" duration="1154000" />
       <workItem from="1510826811774" duration="100000" />
       <workItem from="1510827127594" duration="177000" />
-      <workItem from="1510829862788" duration="401000" />
-    </task>
-    <task id="LOCAL-00012" summary="Trying to show a html file">
-      <created>1505477425842</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1505477425842</updated>
+      <workItem from="1510829862788" duration="447000" />
     </task>
     <task id="LOCAL-00013" summary="Trying to show a html file">
       <created>1505477451252</created>
@@ -854,11 +845,18 @@
       <option name="project" value="LOCAL" />
       <updated>1510827283444</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="Fixed error, so that the server IP and not the client IP is used">
+      <created>1510830305539</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1510830305540</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="322993000" />
+    <option name="totallyTimeSpent" value="323039000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -899,7 +897,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="findNodeInFile" />
     <MESSAGE value="progress in nodelookup" />
     <MESSAGE value="Changed some comments" />
     <MESSAGE value="Ping doesn't duplicate" />
@@ -924,7 +921,8 @@
     <MESSAGE value="removed annoying log" />
     <MESSAGE value="Removed bundles added assistive project files" />
     <MESSAGE value="Removed temp files" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed temp files" />
+    <MESSAGE value="Fixed error, so that the server IP and not the client IP is used" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed error, so that the server IP and not the client IP is used" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
