@@ -2,17 +2,10 @@ var myPort;
 var myNodeID;
 var ipAddress;
 window.onload = function () {
-    getLocalIP(function (res) {
-        var temp_ipAddress = res+":";
-        //  ipAddress = ipAddress.toString();
-        ipAddress = "http://" + temp_ipAddress;
-        console.log(ipAddress);
-    });
+    getIP();
     getInfo();
     getValues();
-    setTimeout(function(){
-        getBuckets();
-    },100);
+    getBuckets();
 
 };
 
@@ -204,15 +197,13 @@ function storeValue() {
         })
 }
 
-function getLocalIP(callback) {
-    window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;   //compatibility for firefox and chrome
-    var pc = new RTCPeerConnection({iceServers:[]}), noop = function(){};
-    pc.createDataChannel("");    //create a bogus data channel
-    pc.createOffer(pc.setLocalDescription.bind(pc), noop);    // create offer and set local description
-    pc.onicecandidate = function(ice){  //listen for candidate events
-        if(!ice || !ice.candidate || !ice.candidate.candidate)  return;
-        var myIP = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
-        callback(myIP);
-        pc.onicecandidate = noop;
-    };
+function getIP() {
+    axios.get("../api/node/ip")
+        .then(function (response) {
+            console.log("getIP succeeded", response.data);
+            ipAddress = response.data;
+        })
+        .catch(function (error) {
+            console("getIP() failed \n", error);
+        });
 }

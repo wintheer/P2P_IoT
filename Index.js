@@ -52,6 +52,11 @@ app.get('/api/node/values', function (req, res) {
     res.json(valueMap);
 });
 
+app.get('/api/node/ip', function (req, res) {
+    console.log("they took our IP");
+    res.send(constants.ipAddress);
+})
+
 app.post('/api/node/valueMap/localStoreValue', function (req, res) {
     var id = req.body['id'];
     var key = req.body['key'];
