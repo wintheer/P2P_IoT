@@ -161,8 +161,8 @@ var server = app.listen(port, function () {
     node = createNode();
     createBuckets();
     bootstrapNode();
-    console.log('Server listening on http://localhost:' + port);
-    //console.log("nodeID", node.nodeID, "Port", node.port);
+    console.log('Server listening on ' + constants.ipAddress + port);
+
 });
 
 function createNode() {
@@ -199,7 +199,8 @@ function bootstrapNode() {
 }
 
 function targetedPing() {
-    var url = "http://localhost:" + arg_two + '/api/node/ping';
+    var url = constants.ipAddress + arg_two + '/api/node/ping';
+    console.log(url);
     axios.post(url, {
         my_NodeID: node.nodeID,
         my_Port: node.port
@@ -219,7 +220,7 @@ function targetedPing() {
 }
 
 function argumentPing(argument_id, argument_port) {
-    var url = "http://localhost:" + argument_port + '/api/node/ping';
+    var url = constants.ipAddress + argument_port + '/api/node/ping';
     axios.post(url, {
         my_NodeID: argument_id,
         my_Port: node.port
@@ -495,7 +496,7 @@ function nodeLookup(myNodeID, otherNodeID, callback) {
 }
 
 function nlFindNode(otherNodeID, currentNode, callback) {
-    var url = "http://localhost:" + currentNode.port + '/api/node/findNode';
+    var url = constants.ipAddress + currentNode.port + '/api/node/findNode';
     //console.log('ENTERED FNIF', url);
     return axios.post(url, {
         my_NodeID: otherNodeID
@@ -659,7 +660,7 @@ function storeValueInFile(otherID, key, type, value, should_replicate, should_ha
             //console.log("waiting for neightbournodes to fill", neighbourNodes);
             for (var i = 0; i < neighbourNodes.length; i++) {
                 console.log("we in", neighbourNodes[i].port);
-                var url = "http://localhost:" + neighbourNodes[i].port + '/api/node/valueMap/replicate';
+                var url = constants.ipAddress + neighbourNodes[i].port + '/api/node/valueMap/replicate';
                 //console.log("WHAT ARE WE SENDING TO REPLICATE?");
                 //console.log(otherID, hashedKey, type, value);
                 console.log('ENTERED SVIF', url);
@@ -724,7 +725,7 @@ function findValue(key, vlNodeList, callback) {
 }
 
 function getValues(port, callback) {
-    var url = "http://localhost:" + port + '/api/node/values';
+    var url = constants.ipAddress + port + '/api/node/values';
     return axios.get(url)
         .then(function (response) {
             //console.log("values: ", response.data);
@@ -746,7 +747,7 @@ function findClosestNode(id, callback) {
 }
 
 function passValues(desNode, id, key, type, value) {
-    var url = "http://localhost:" + desNode.port + '/api/node/valueMap/passValue';
+    var url = constants.ipAddress + desNode.port + '/api/node/valueMap/passValue';
     axios.post(url, {
         id: id,
         key: key,

@@ -1,10 +1,19 @@
 var myPort;
 var myNodeID;
-
+var ipAddress;
 window.onload = function () {
+    getLocalIP(function (res) {
+        var temp_ipAddress = res+":";
+        //  ipAddress = ipAddress.toString();
+        ipAddress = "http://" + temp_ipAddress;
+        console.log(ipAddress);
+    });
     getInfo();
-    getBuckets();
     getValues();
+    setTimeout(function(){
+        getBuckets();
+    },100);
+
 };
 
 function getInfo() {
@@ -59,7 +68,8 @@ function getBuckets() {
                         // Insert New Column for Row1 at index '1'.
                         var row1col2 = row1.insertCell(1);
                         var linkText = editNode.port;
-                        var link = "http://localhost:" + editNode.port;
+                        var link = ipAddress + editNode.port;
+                        console.log("link",link);
                         row1col2.innerHTML = "<a href="+link+">"+ linkText +"</a>";
                     }
                 }
@@ -70,7 +80,7 @@ function getBuckets() {
 
         })
         .catch(function (error) {
-            console("getInfo() failed \n", error);
+            console.log("getInfo() failed \n", error);
         });
 
 }
@@ -90,8 +100,9 @@ function getValues() {
 function ping() {
     var fieldPort = document.getElementById("Port").value;
     var fieldID = document.getElementById("NodeID").value;
-    var url = "http://localhost:" + fieldPort + '/api/node/ping';
-    console.log();
+    var url = ipAddress + fieldPort + '/api/node/ping';
+    console.log("ping url", url);
+    url = url.toString();
     axios.post(url, {
         my_NodeID: myNodeID,
         my_Port: myPort,
@@ -104,7 +115,8 @@ function ping() {
         .catch(function (error) {
             console.log("Something failed \n", error);
         });
-    var url2 = "http://localhost:" + myPort + '/api/node/ping';
+    var url2 = ipAddress + myPort + '/api/node/ping';
+    url2 = url2.toString();
     //Notice field_variables and my_variables are swapped from url
     axios.post(url2, {
         my_NodeID: fieldID,
@@ -123,7 +135,7 @@ function ping() {
 
 function findNodeWebHelper() {
     var fieldPort = document.getElementById("Port").value;
-    var url = "http://localhost:" + fieldPort + '/api/node/findNode';
+    var url = ipAddress + fieldPort + '/api/node/findNode';
     axios.post(url, {
         my_NodeID: myNodeID
     })
@@ -138,7 +150,7 @@ function findNodeWebHelper() {
 function nodeLookup() {
     var fieldPort = document.getElementById("Port").value;
     var fieldID = document.getElementById("NodeID").value;
-    var url = "http://localhost:" + fieldPort + '/api/node/nodeLookup';
+    var url = ipAddress + fieldPort + '/api/node/nodeLookup';
     axios.post(url, {
         target_NodeID: fieldID,
     })
@@ -156,7 +168,7 @@ function findValueWeb() {
     var fieldID = document.getElementById("NodeID").value;
     var fieldKey = document.getElementById("Key").value;
     //console.log(fieldPort, fieldID, fieldKey);
-    var url = "http://localhost:" + fieldPort + '/api/node/values/findValue';
+    var url = ipAddress + fieldPort + '/api/node/values/findValue';
     axios.post(url, {
         key: fieldKey
     })
@@ -178,7 +190,7 @@ function storeValue() {
     var fieldType = document.getElementById("Type").value;
     var fieldValue = document.getElementById("Value").value;
     //console.log("port", fieldPort, "id", fieldID, "key", fieldKey, "type", fieldType, "value", fieldValue);
-    var url = "http://localhost:" + fieldPort + '/api/node/valueMap/localStoreValue';
+    var url = ipAddress + fieldPort + '/api/node/valueMap/localStoreValue';
     axios.post(url, {
         id: fieldID,
         key: fieldKey,
@@ -193,6 +205,15 @@ function storeValue() {
         })
 }
 
-function createTable() {
-
+function getLocalIP(callback) {
+    window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;   //compatibility for firefox and chrome
+    var pc = new RTCPeerConnection({iceServers:[]}), noop = function(){};
+    pc.createDataChannel("");    //create a bogus data channel
+    pc.createOffer(pc.setLocalDescription.bind(pc), noop);    // create offer and set local description
+    pc.onicecandidate = function(ice){  //listen for candidate events
+        if(!ice || !ice.candidate || !ice.candidate.candidate)  return;
+        var myIP = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
+        callback(myIP);
+        pc.onicecandidate = noop;
+    };
 }

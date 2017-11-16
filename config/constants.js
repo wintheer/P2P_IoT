@@ -1,4 +1,6 @@
 // Specifications taken from http://xlattice.sourceforge.net/components/protocol/kademlia/specs.html
+var ip = require('ip');
+
 
 // small number representing the degree of parallelism in network calls
 const alpha = 3;
@@ -21,7 +23,7 @@ const tReplicate = 3600;
 // the time after which the original publisher must republish a key/value pair
 const tRepublish = 86400;
 
-const ipAddress = "http://localhost/";
+const ipAddress = "http://" + ip.address()+":";
 
 module.exports = {
     'alpha': alpha,

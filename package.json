@@ -21,8 +21,11 @@
     "axios": "^0.16.2",
     "body-parser": "^1.18.1",
     "delay": "^2.0.0",
+    "ender": "^2.1.1",
     "express": "^4.15.4",
+    "ip": "^1.1.5",
     "jquery": "^3.2.1",
+    "my-local-ip": "^1.0.0",
     "sleep": "^5.1.1",
     "synchronize": "^2.0.0",
     "wait.for": "^0.6.6"
