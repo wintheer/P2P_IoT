@@ -87,20 +87,20 @@ function getValues() {
             // Insert New Row for table at index '0'.
             var row0 = table.insertRow(0);
             var row0col1 = row0.insertCell(0);
-            row0col1.innerHTML = "Values";
+            row0col1.innerHTML = "<h3><a href='/api/node/values'>Values</a></h3>";
             var row1 = table.insertRow(1);
             // Insert New Column for Row1 at index '0'.
             var row1col1 = row1.insertCell(0);
-            row1col1.innerHTML = 'Key';
+            row1col1.innerHTML = "<b>Key</b>";
             // Insert New Column for Row1 at index '1'.
             var row1col2 = row1.insertCell(1);
-            row1col2.innerHTML = 'Type';
+            row1col2.innerHTML = "<b>Type</b>";
             // Insert New Column for Row1 at index '2'.
             var row1col3 = row1.insertCell(2);
-            row1col3.innerHTML = 'Value';
+            row1col3.innerHTML = "<b>Value</b>";
             // Append Table into div.
             var row1col4 = row1.insertCell(3);
-            row1col4.innerHTML = 'Time';
+            row1col4.innerHTML = "<b>Time</b>";
             for(var q = 0; q < Object.keys(valueVar).length; q++){
                 var keyHolder = Object.keys(valueVar)[q];
                 var typeHolder = Object.values(valueVar)[q].type;

@@ -169,7 +169,7 @@ var server = app.listen(port, function () {
     createBuckets();
     bootstrapNode();
     console.log('Server listening on ' + constants.ipAddress + port);
-    sensorLib.initialize(22, 4);
+    sensorLib.initialize(22, 12);
 });
 
 function createNode() {
@@ -188,11 +188,9 @@ function createNode() {
 function bootstrapNode() {
     if (arg_two == 0) {
         console.log("First Node Started");
-        storeValueInFile(1, "112", "Horsie", 14, false, true);
-        storeValueInFile(1, "113", "Horsie", 14, false, true);
         setInterval(function () {
             readSensorValues();
-        }, 3000);
+        }, 20000);
     }
     /*else if (arg_two == 8890) {
         targetedPing();
