@@ -1,4 +1,4 @@
-//var sensorLib = require('node-dht-sensor');
+var sensorLib = require('node-dht-sensor');
 var utility = require('./Utilities');
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -169,7 +169,7 @@ var server = app.listen(port, function () {
     createBuckets();
     bootstrapNode();
     console.log('Server listening on ' + constants.ipAddress + port);
-    //sensorLib.initialize(22, 4);
+    sensorLib.initialize(22, 4);
 });
 
 function createNode() {
@@ -190,9 +190,9 @@ function bootstrapNode() {
         console.log("First Node Started");
         storeValueInFile(1, "112", "Horsie", 14, false, true);
         storeValueInFile(1, "113", "Horsie", 14, false, true);
-        /*setInterval(function () {
+        setInterval(function () {
             readSensorValues();
-        }, 3000);*/
+        }, 3000);
     }
     /*else if (arg_two == 8890) {
         targetedPing();
@@ -790,7 +790,7 @@ function readTemeperature() {
 }
 
 function readSensorValues() {
-    //var readout = sensorLib.read();
+    var readout = sensorLib.read();
     keyCounter++;
     storeOnServer(node, node.nodeID, keyCounter.toString(), "Humidity", readHumidity());
     keyCounter++;
