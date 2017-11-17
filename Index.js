@@ -188,8 +188,6 @@ function createNode() {
 function bootstrapNode() {
     if (arg_two == 0) {
         console.log("First Node Started");
-        storeValueInFile(1, "112", "Horsie", 14, false, true);
-        storeValueInFile(1, "113", "Horsie", 14, false, true);
         setInterval(function () {
             readSensorValues();
         }, 3000);
